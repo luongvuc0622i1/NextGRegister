@@ -1,8 +1,8 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
-import {AuthService} from "../service/auth.service";
+import {AuthService} from "../../service/auth.service";
 import {Router} from "@angular/router";
-import {TokenService} from "../service/token.service";
-import {LoginForm} from "../model/LoginForm";
+import {TokenService} from "../../service/token.service";
+import {LoginForm} from "../../model/LoginForm";
 
 @Component({
     selector: 'app-sign-in-with-email',
@@ -13,7 +13,6 @@ export class SignInWithEmailComponent implements OnInit, AfterViewInit {
     loginForm: LoginForm | undefined;
     form: any = {};
     statusLogin: string = '';
-    statusRegister: string = '';
 
     ngOnInit(): void {
     }

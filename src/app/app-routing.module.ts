@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SignInWithEmailComponent } from './sign-in-with-email/sign-in-with-email.component';
 import { HomeComponent } from './home/home.component';
 import {AuthGuard} from "./service/auth.guard";
+import { SignInComponent } from './sign-in/sign-in.component';
 
 const routes: Routes = [
   {
@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    component: SignInWithEmailComponent
+    component: SignInComponent
   } 
 ];
 
