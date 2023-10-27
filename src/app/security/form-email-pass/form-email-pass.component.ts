@@ -7,6 +7,12 @@ import { TokenService } from "../../service/token.service";
 @Component({
   selector: 'app-form-email-pass',
   template: `
+  <div class="form-container sign-in-container">
+    <div class="form" style="margin-top: 40px;">
+      <img src="../../assets/nextG.png" />
+      <h2>{{title}}</h2>
+      <span>Please enter your credentials to access your account.</span>
+    </div>
     <form [formGroup]="signInWithEmailForm" (ngSubmit)="login()">
       <p style="color: red">{{statusLogin}}</p>
       <input type="text" formControlName="email" placeholder="Email" />
@@ -14,11 +20,15 @@ import { TokenService } from "../../service/token.service";
         id="id_password">
       <i class="fa fa-eye" id="togglePassword" style="margin-left: 250px; cursor: pointer; margin-top: -36px"></i><br>
       <div>
-          <a style="float: left;" (click)="switch()">{{title}} {{labelSwitch}}</a>
+          <a style="float: left;" (click)="switchTo()">{{title}} {{labelSwitch}}</a>
           <a style="float: right;" (click)="forgotPassword()">Forgot password?</a>
       </div>
       <button>Sign In</button>
     </form>
+      <div class="form">
+        <a style="text-align: center;" (click)="switchP()">{{footer}}</a>
+      </div>
+    </div>
   `,
   styleUrls: ['../../security/security.component.css']
 })
@@ -27,7 +37,10 @@ export class FormEmailPassComponent implements OnInit, AfterViewInit {
   @Input() title: string;
   // @ts-ignore
   @Input() labelSwitch: string;
-  @Output() switchTo = new EventEmitter<void>();
+  // @ts-ignore
+  @Input() footer: string;
+  @Output() switchPage = new EventEmitter<void>();
+  @Output() switchTemplate = new EventEmitter<string>();
   @Output() forgotPass = new EventEmitter<void>();
 
   signInWithEmailForm: FormGroup = new FormGroup({
@@ -40,11 +53,15 @@ export class FormEmailPassComponent implements OnInit, AfterViewInit {
   }
 
   constructor(private authService: AuthService,
-              private tokenService: TokenService,
-              private router: Router) { }
+    private tokenService: TokenService,
+    private router: Router) { }
 
-  switch() {
-    this.switchTo.emit();
+  switchP() {
+    this.switchPage.emit();
+  }
+
+  switchTo() {
+    this.switchTemplate.emit('phone');
   }
 
   forgotPassword() {

@@ -11,7 +11,7 @@ export class SecurityComponent {
   labelSwitch: string = 'With SMS';
   footer: string = 'Not register yet? Create An Account';
 
-  signInSignUp() {
+  switchPage() {
     if (this.title == 'Sign In') {
       this.title = 'Sign Up';
       this.templateType = 'email';
@@ -23,16 +23,11 @@ export class SecurityComponent {
     }
   }
 
-  switchTemplate() {
+  switchTemplate(template: string) {
+    this.templateType = template;
     if (this.templateType == 'email-pass' || this.templateType == 'email') {
-      this.templateType = 'phone';
       this.labelSwitch = 'With Email';
     } else if (this.templateType == 'phone') {
-      if (this.title == 'Sign In') {
-        this.templateType = 'email-pass';
-      } else {
-        this.templateType = 'email';
-      }
       this.labelSwitch = 'With SMS';
     }
   }

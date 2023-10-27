@@ -12,6 +12,7 @@ import { SecurityComponent } from './security/security.component';
 import { FormEmailComponent } from './security/form-email/form-email.component';
 import { VerificationEmailComponent } from './security/verification-email/verification-email.component';
 import { FormEmailPassComponent } from './security/form-email-pass/form-email-pass.component';
+import { VerificationPhoneComponent } from './security/verification-phone/verification-phone.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { FormEmailPassComponent } from './security/form-email-pass/form-email-pa
     FormEmailPassComponent,
     FormPhoneComponent,
     FormEmailComponent,
-    VerificationEmailComponent
+    VerificationEmailComponent,
+    VerificationPhoneComponent
   ],
   imports: [
     BrowserModule,
