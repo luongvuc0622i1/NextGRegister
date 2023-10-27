@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import {TokenService} from "./token.service";
+import { TokenService } from "./token.service";
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
       //   text: 'Can not Access!',
       //   footer: '<a href="">Why do I have this issue?</a>'
       // })
-      this.router.navigate(['account']);
+      this.router.navigate(['']);
     }
   }
 }

@@ -1,13 +1,13 @@
 export class JwtResponse {
     id: string;
     username: string;
-    token: string;
+    jwt: string;
     authorities: any[];
 
-    constructor(id: string, username: string, token: string, authorities: any[]) {
+    constructor(id: string, username: string, jwt: string, authorities: any[]) {
         this.id = id;
         this.username = username;
-        this.token = token;
+        this.jwt = jwt;
         this.authorities = authorities;
     }
 }
