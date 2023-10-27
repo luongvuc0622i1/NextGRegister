@@ -10,6 +10,7 @@ export class SecurityComponent {
   templateType: string = 'email-pass';
   labelSwitch: string = 'With SMS';
   footer: string = 'Not register yet? Create An Account';
+  emailInput: string = '';
 
   switchPage() {
     if (this.title == 'Sign In') {
@@ -38,7 +39,7 @@ export class SecurityComponent {
     this.footer = 'Already have an account? Sign In';
   }
 
-  handleTitleChange(newTitle: string) {
-    this.title = newTitle;
+  setEmailInput(email: string) {
+    this.emailInput = email;
   }
 }

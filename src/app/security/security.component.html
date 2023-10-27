@@ -18,10 +18,10 @@
         <app-form-phone [title]="title" [labelSwitch]="labelSwitch" [footer]="footer" (switchTemplate)="switchTemplate($event)" (switchPage)="switchPage()"></app-form-phone>
       </ng-template>
       <ng-template #formEmailTemplate>
-        <app-form-email [title]="title" [labelSwitch]="labelSwitch" [footer]="footer" (switchTemplate)="switchTemplate($event)" (switchPage)="switchPage()"></app-form-email>
+        <app-form-email [title]="title" [labelSwitch]="labelSwitch" [footer]="footer" (switchTemplate)="switchTemplate($event)" (switchPage)="switchPage()" (emailInput)="setEmailInput($event)"></app-form-email>
       </ng-template>
       <ng-template #verificationEmailTemplate>
-        <app-verification-email></app-verification-email>
+        <app-verification-email [emailInput]="emailInput" (switchTemplate)="switchTemplate($event)"></app-verification-email>
       </ng-template>
       <ng-template #verificationPhoneTemplate>
         <app-verification-phone></app-verification-phone>

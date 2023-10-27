@@ -7,21 +7,21 @@ import { TokenService } from "../../service/token.service";
 @Component({
   selector: 'app-form-email',
   template: `
-  <div class="form-container sign-in-container">
-    <div class="form" style="margin-top: 40px;">
-      <img src="../../assets/nextG.png" />
-      <h2>{{title}}</h2>
-      <span>Please enter your credentials to access your account.</span>
-    </div>
-    <form [formGroup]="emailForm" (ngSubmit)="continue()">
-      <p style="color: red">{{statusLogin}}</p>
-        <input type="text" formControlName="email" placeholder="Email" />
-        <p></p>
-        <div>
-          <a style="float: left;" (click)="switchTo()">{{title}} {{labelSwitch}}</a>
-        </div>
-        <button>Continue</button>
-    </form>
+    <div class="form-container sign-in-container">
+      <div class="form" style="margin-top: 40px;">
+        <img src="../../assets/nextG.png" />
+        <h2>{{title}}</h2>
+        <span>Please enter your credentials to access your account.</span>
+      </div>
+      <form [formGroup]="emailForm" (ngSubmit)="continue()">
+        <p style="color: red">{{statusLogin}}</p>
+          <input type="text" formControlName="email" placeholder="Email" />
+          <p></p>
+          <div>
+            <a style="float: left;" (click)="switchTo()">{{title}} {{labelSwitch}}</a>
+          </div>
+          <button>Continue</button>
+      </form>
       <div class="form">
         <a style="text-align: center;" (click)="switchP()">{{footer}}</a>
       </div>
@@ -38,6 +38,7 @@ export class FormEmailComponent implements OnInit {
   @Input() footer: string;
   @Output() switchPage = new EventEmitter<void>();
   @Output() switchTemplate = new EventEmitter<string>();
+  @Output() emailInput = new EventEmitter<string>();
 
   emailForm: FormGroup = new FormGroup({
     email: new FormControl(),
@@ -61,5 +62,6 @@ export class FormEmailComponent implements OnInit {
 
   continue() {
     this.switchTemplate.emit('verification-email');
+    this.emailInput.emit(this.emailForm.value.email);
   }
 }

@@ -7,24 +7,24 @@ import { TokenService } from "../../service/token.service";
 @Component({
   selector: 'app-form-email-pass',
   template: `
-  <div class="form-container sign-in-container">
-    <div class="form" style="margin-top: 40px;">
-      <img src="../../assets/nextG.png" />
-      <h2>{{title}}</h2>
-      <span>Please enter your credentials to access your account.</span>
-    </div>
-    <form [formGroup]="signInWithEmailForm" (ngSubmit)="login()">
-      <p style="color: red">{{statusLogin}}</p>
-      <input type="text" formControlName="email" placeholder="Email" />
-      <input type="password" formControlName="password" placeholder="Password" autocomplete="current-password" required=""
-        id="id_password">
-      <i class="fa fa-eye" id="togglePassword" style="margin-left: 250px; cursor: pointer; margin-top: -36px"></i><br>
-      <div>
-          <a style="float: left;" (click)="switchTo()">{{title}} {{labelSwitch}}</a>
-          <a style="float: right;" (click)="forgotPassword()">Forgot password?</a>
+    <div class="form-container sign-in-container">
+      <div class="form" style="margin-top: 40px;">
+        <img src="../../assets/nextG.png" />
+        <h2>{{title}}</h2>
+        <span>Please enter your credentials to access your account.</span>
       </div>
-      <button>Sign In</button>
-    </form>
+      <form [formGroup]="signInWithEmailForm" (ngSubmit)="login()">
+        <p style="color: red">{{statusLogin}}</p>
+        <input type="text" formControlName="email" placeholder="Email" />
+        <input type="password" formControlName="password" placeholder="Password" autocomplete="current-password" required=""
+          id="id_password">
+        <i class="fa fa-eye" id="togglePassword" style="margin-left: 250px; cursor: pointer; margin-top: -36px"></i><br>
+        <div>
+            <a style="float: left;" (click)="switchTo()">{{title}} {{labelSwitch}}</a>
+            <a style="float: right;" (click)="forgotPassword()">Forgot password?</a>
+        </div>
+        <button>Sign In</button>
+      </form>
       <div class="form">
         <a style="text-align: center;" (click)="switchP()">{{footer}}</a>
       </div>
