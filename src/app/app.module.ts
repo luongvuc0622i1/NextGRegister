@@ -6,16 +6,16 @@ import { FormsModule } from "@angular/forms";
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import {Auth_interceptor} from "./service/auth_interceptor";
-import { SignInWithEmailComponent } from './sign-in/sign-in-with-email/sign-in-with-email.component';
+import { SignInWithEmailComponent } from './security/sign-in-with-email/sign-in-with-email.component';
 import { HomeComponent } from './home/home.component';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { SignInWithPhoneComponent } from './sign-in/sign-in-with-phone/sign-in-with-phone.component';
+import { SignInWithPhoneComponent } from './security/sign-in-with-phone/sign-in-with-phone.component';
+import { SecurityComponent } from './security/security.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    SignInComponent,
+    SecurityComponent,
     SignInWithEmailComponent,
     SignInWithPhoneComponent
   ],

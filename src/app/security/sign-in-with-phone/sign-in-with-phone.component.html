@@ -1,0 +1,10 @@
+<form [formGroup]="signInWithPhoneForm" (ngSubmit)="login()">
+  <p style="color: red">{{statusLogin}}</p>
+    <input type="text" formControlName="phone" placeholder="Phone Number" />
+    <p></p>
+    <div>
+      <a href="#" style="float: left;" (click)="switchToEmail()">Sign In With Email</a>
+      <a href="#" style="float: right;">Forgot password?</a>
+    </div>
+    <button>Continue</button>
+</form>

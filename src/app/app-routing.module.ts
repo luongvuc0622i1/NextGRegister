@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { AuthGuard } from "./service/auth.guard";
-import { SignInComponent } from './sign-in/sign-in.component';
+import { AuthGuard } from './service/auth.guard';
+import { SecurityComponent } from './security/security.component';
 
 const routes: Routes = [
   {
@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    component: SignInComponent
+    component: SecurityComponent
   } 
 ];
 

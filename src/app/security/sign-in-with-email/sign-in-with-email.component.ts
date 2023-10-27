@@ -1,17 +1,17 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, AfterViewInit, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from "../../service/auth.service";
 import { TokenService } from "../../service/token.service";
 
 @Component({
-  selector: 'app-sign-in-with-phone',
-  templateUrl: './sign-in-with-phone.component.html',
-  styleUrls: ['../../sign-in/sign-in.component.css']
+  selector: 'app-sign-in-with-email',
+  templateUrl: './sign-in-with-email.component.html',
+  styleUrls: ['../../security/security.component.css']
 })
-export class SignInWithPhoneComponent implements OnInit {
-  signInWithPhoneForm: FormGroup = new FormGroup({
-    phone: new FormControl(),
+export class SignInWithEmailComponent implements OnInit, AfterViewInit {
+  signInWithEmailForm: FormGroup = new FormGroup({
+    email: new FormControl(),
     password: new FormControl(),
   });
   statusLogin: string = '';
@@ -23,14 +23,32 @@ export class SignInWithPhoneComponent implements OnInit {
     private tokenService: TokenService,
     private router: Router) { }
 
+  ngAfterViewInit() {
+    // Show password click eye
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#id_password');
+
+    // @ts-ignore
+    togglePassword.addEventListener('click', function (e) {
+      // toggle the type attribute
+      // @ts-ignore
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      // @ts-ignore
+      password.setAttribute('type', type);
+      // toggle the eye slash icon
+      // @ts-ignore
+      this.classList.toggle('fa-eye-slash');
+    });
+  }
+
   @Output() switchLoginType = new EventEmitter<void>();
 
-  switchToEmail() {
+  switchToPhone() {
     this.switchLoginType.emit();
   }
 
   login() {
-    const form = this.signInWithPhoneForm.value;
+    const form = this.signInWithEmailForm.value;
     this.authService.login(form).subscribe(data => {
       if (data.jwt != undefined) {
         // this.tokenService.setID(data.id);
