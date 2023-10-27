@@ -6,18 +6,22 @@ import { FormsModule } from "@angular/forms";
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import {Auth_interceptor} from "./service/auth_interceptor";
-import { SignInWithEmailComponent } from './security/sign-in-with-email/sign-in-with-email.component';
 import { HomeComponent } from './home/home.component';
-import { SignInWithPhoneComponent } from './security/sign-in-with-phone/sign-in-with-phone.component';
+import { FormPhoneComponent } from './security/form-phone/form-phone.component';
 import { SecurityComponent } from './security/security.component';
+import { FormEmailComponent } from './security/form-email/form-email.component';
+import { VerificationEmailComponent } from './security/verification-email/verification-email.component';
+import { FormEmailPassComponent } from './security/form-email-pass/form-email-pass.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     SecurityComponent,
-    SignInWithEmailComponent,
-    SignInWithPhoneComponent
+    FormEmailPassComponent,
+    FormPhoneComponent,
+    FormEmailComponent,
+    VerificationEmailComponent
   ],
   imports: [
     BrowserModule,

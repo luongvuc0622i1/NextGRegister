@@ -3,17 +3,30 @@
     <div class="form-container sign-in-container">
       <div class="form" style="margin-top: 40px;">
         <img src="../../assets/nextG.png" />
-        <h2>Sign in</h2>
+        <h2>{{title}}</h2>
         <span>Please enter your credentials to access your account.</span>
       </div>
-      <div *ngIf="currentLoginType == 'email'; else signInWWithPhone">
-        <app-sign-in-with-email (switchLoginType)="switchToPhone()"></app-sign-in-with-email>
-      </div>
-      <ng-template #signInWWithPhone>
-        <app-sign-in-with-phone (switchLoginType)="switchToEmail()"></app-sign-in-with-phone>
+      <ng-container *ngIf="templateType != 'email-pass'; else formEmailPassTemplate">
+        <ng-container *ngIf="templateType != 'phone'; else formPhoneTemplate">
+          <ng-container *ngIf="templateType != 'email'; else formEmailTemplate">
+            <ng-container *ngTemplateOutlet="verificationEmailTemplate"></ng-container>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <ng-template #formEmailPassTemplate>
+        <app-form-email-pass [title]="title" [labelSwitch]="labelSwitch" (switchTo)="switchTemplate()" (forgotPass)="forgotPassword()"></app-form-email-pass>
+      </ng-template>
+      <ng-template #formPhoneTemplate>
+        <app-form-phone [title]="title" [labelSwitch]="labelSwitch" (switchTo)="switchTemplate()"></app-form-phone>
+      </ng-template>
+      <ng-template #formEmailTemplate>
+        <app-form-email [title]="title" [labelSwitch]="labelSwitch" (switchTo)="switchTemplate()"></app-form-email>
+      </ng-template>
+      <ng-template #verificationEmailTemplate>
+        <app-verification-email></app-verification-email>
       </ng-template>
       <div class="form">
-        <a href="#" style="text-align: center;">Not register yet? Create An Account</a>
+        <a style="text-align: center;" (click)="signInSignUp()">{{footer}}</a>
       </div>
     </div>
     <div class="overlay-container">

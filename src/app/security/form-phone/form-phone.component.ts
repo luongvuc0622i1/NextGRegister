@@ -1,15 +1,31 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from "../../service/auth.service";
 import { TokenService } from "../../service/token.service";
 
 @Component({
-  selector: 'app-sign-in-with-phone',
-  templateUrl: './sign-in-with-phone.component.html',
+  selector: 'app-form-phone',
+  template: `
+    <form [formGroup]="signInWithPhoneForm" (ngSubmit)="login()">
+      <p style="color: red">{{statusLogin}}</p>
+        <input type="text" formControlName="phone" placeholder="Phone Number" />
+        <p></p>
+        <div>
+          <a style="float: left;" (click)="switch()">{{title}} {{labelSwitch}}</a>
+        </div>
+        <button>Continue</button>
+    </form>
+  `,
   styleUrls: ['../../security/security.component.css']
 })
-export class SignInWithPhoneComponent implements OnInit {
+export class FormPhoneComponent implements OnInit {
+  // @ts-ignore
+  @Input() title: string;
+  // @ts-ignore
+  @Input() labelSwitch: string;
+  @Output() switchTo = new EventEmitter<void>();
+
   signInWithPhoneForm: FormGroup = new FormGroup({
     phone: new FormControl(),
     password: new FormControl(),
@@ -23,10 +39,8 @@ export class SignInWithPhoneComponent implements OnInit {
     private tokenService: TokenService,
     private router: Router) { }
 
-  @Output() switchLoginType = new EventEmitter<void>();
-
-  switchToEmail() {
-    this.switchLoginType.emit();
+  switch() {
+    this.switchTo.emit();
   }
 
   login() {
