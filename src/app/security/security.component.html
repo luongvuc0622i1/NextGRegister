@@ -15,7 +15,7 @@
         <app-form-email-pass [title]="title" [labelSwitch]="labelSwitch" [footer]="footer" (switchTemplate)="switchTemplate($event)" (switchPage)="switchPage()" (forgotPass)="forgotPassword()"></app-form-email-pass>
       </ng-template>
       <ng-template #formPhoneTemplate>
-        <app-form-phone [title]="title" [labelSwitch]="labelSwitch" [footer]="footer" (switchTemplate)="switchTemplate($event)" (switchPage)="switchPage()"></app-form-phone>
+        <app-form-phone [title]="title" [labelSwitch]="labelSwitch" [footer]="footer" (switchTemplate)="switchTemplate($event)" (switchPage)="switchPage()" (phoneInput)="setPhoneInput($event)"></app-form-phone>
       </ng-template>
       <ng-template #formEmailTemplate>
         <app-form-email [title]="title" [labelSwitch]="labelSwitch" [footer]="footer" (switchTemplate)="switchTemplate($event)" (switchPage)="switchPage()" (emailInput)="setEmailInput($event)"></app-form-email>
@@ -24,7 +24,7 @@
         <app-verification-email [emailInput]="emailInput" (switchTemplate)="switchTemplate($event)"></app-verification-email>
       </ng-template>
       <ng-template #verificationPhoneTemplate>
-        <app-verification-phone></app-verification-phone>
+        <app-verification-phone [phoneInput]="phoneInput"></app-verification-phone>
       </ng-template>
     <div class="overlay-container">
       <div class="overlay">

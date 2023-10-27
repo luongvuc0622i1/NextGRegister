@@ -1,17 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-verification-phone',
   template: `
-    <div class="form-container sign-in-container">
-      <div class="verification">
-        <h2>Phone</h2>
-        <span>Please enter your credentials to access your account.</span>
-      </div>
+  <div class="form-container sign-in-container">
+    <div class="verification">
+      <h2>Enter Verification Code</h2>
+      <span>Your verification codes is sent via number</span>
+      <p>{{phoneInput}}</p>
+      <input />
+      <button>Continue</button>
     </div>
-  `,
+  </div>
+`,
   styleUrls: ['../../security/security.component.css']
 })
 export class VerificationPhoneComponent {
-
+  // @ts-ignore
+  @Input() phoneInput: string;
 }

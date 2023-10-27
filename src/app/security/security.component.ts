@@ -11,6 +11,7 @@ export class SecurityComponent {
   labelSwitch: string = 'With SMS';
   footer: string = 'Not register yet? Create An Account';
   emailInput: string = '';
+  phoneInput: string = '';
 
   switchPage() {
     if (this.title == 'Sign In') {
@@ -41,5 +42,9 @@ export class SecurityComponent {
 
   setEmailInput(email: string) {
     this.emailInput = email;
+  }
+
+  setPhoneInput(phone: string) {
+    this.phoneInput = phone;
   }
 }
