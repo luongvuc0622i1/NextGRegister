@@ -12,7 +12,9 @@ import { FormEmailComponent } from './security/form-email/form-email.component';
 import { FormEmailPassComponent } from './security/form-email-pass/form-email-pass.component';
 import { VerificationEmailComponent } from './security/verification-email/verification-email.component';
 import { VerificationPhoneComponent } from './security/verification-phone/verification-phone.component';
+import { RegisterComponent } from './security/register.component';
 import { FormNameComponent } from './security/form-name/form-name.component';
+import { FormPasswordComponent } from './security/form-password/form-password.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { FormNameComponent } from './security/form-name/form-name.component';
     FormEmailComponent,
     VerificationEmailComponent,
     VerificationPhoneComponent,
-    FormNameComponent
+    RegisterComponent,
+    FormNameComponent,
+    FormPasswordComponent
   ],
   imports: [
     BrowserModule,

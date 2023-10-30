@@ -177,3 +177,20 @@ input {
   right: 0;
   transform: translateX(0);
 }
+
+/* Tùy chỉnh chiều rộng của ô nhập */
+.group-col {
+  width: calc(50% - 5px); /* Chia đều chiều rộng */
+}
+
+.right {
+  margin-left: 10px;
+}
+
+/* Tùy chỉnh khi xem trên màn hình nhỏ */
+@media (max-width: 576px) {
+  .group-col {
+    width: 100%; /* Trên màn hình nhỏ, chiếm toàn bộ chiều rộng */
+    margin-right: 0; /* Không có khoảng cách giữa hai ô nhập */
+  }
+}

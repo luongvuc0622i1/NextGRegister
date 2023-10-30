@@ -1,0 +1,30 @@
+<div class="containerBody">
+  <div class="container" id="container">
+    <div class="form-container sign-in-container">
+      <div class="form" style="margin-top: 40px;">
+        <img src="../../assets/nextG.png" />
+        <h2>Create new account</h2>
+        <span>Please enter account information.</span>
+      </div>
+      <ng-container *ngIf="templateType != 'name'; else formNameTemplate">
+        <ng-container *ngIf="templateType == 'password'">
+          <ng-container *ngTemplateOutlet="verificationPhoneTemplate"></ng-container>
+        </ng-container>
+      </ng-container>
+      <ng-template #formNameTemplate>
+        <app-form-name></app-form-name>
+      </ng-template>
+      <ng-template #verificationPhoneTemplate>
+        <app-form-password></app-form-password>
+      </ng-template>
+    </div>
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-right">
+          <h1>Welcome to App!</h1>
+          <p>Enter your personal details and start journey with us</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
