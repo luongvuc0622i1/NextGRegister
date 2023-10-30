@@ -18,6 +18,6 @@ export class AuthService {
   // }
 
   login(form: any): Observable<JwtResponse> {
-    return this.http.post<JwtResponse>(`${API_URL}/signinEmail`, form);
+    return this.http.post<JwtResponse>(`${API_URL}/login`, form);
   }
 }

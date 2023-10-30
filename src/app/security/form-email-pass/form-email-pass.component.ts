@@ -89,11 +89,11 @@ export class FormEmailPassComponent implements OnInit, AfterViewInit {
   login() {
     const form = this.signInWithEmailForm.value;
     this.authService.login(form).subscribe(data => {
-      if (data.jwt != undefined) {
-        // this.tokenService.setID(data.id);
-        this.tokenService.setToken(data.jwt);
-        // this.tokenService.setUsername(data.username);
-        // this.tokenService.setRole(data.authorities[0].authority);
+      if (data.token != undefined) {
+        this.tokenService.setID(data.id);
+        this.tokenService.setToken(data.token);
+        this.tokenService.setUsername(data.username);
+        this.tokenService.setRole(data.roles[0]);
 
         this.statusLogin = 'Login Success!';
         this.router.navigate(['/home']);
