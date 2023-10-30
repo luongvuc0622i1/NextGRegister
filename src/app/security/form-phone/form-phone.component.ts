@@ -38,7 +38,7 @@ export class FormPhoneComponent implements OnInit {
   @Input() footer: string;
   @Output() switchPage = new EventEmitter<void>();
   @Output() switchTemplate = new EventEmitter<string>();
-  @Output() emailInput = new EventEmitter<string>();
+  @Output() phoneInput = new EventEmitter<string>();
 
   signInWithPhoneForm: FormGroup = new FormGroup({
     phone: new FormControl(),
@@ -67,6 +67,6 @@ export class FormPhoneComponent implements OnInit {
 
   continue() {
     this.switchTemplate.emit('verification-phone');
-    this.emailInput.emit(this.signInWithPhoneForm.value.phone);
+    this.phoneInput.emit(this.signInWithPhoneForm.value.phone);
   }
 }

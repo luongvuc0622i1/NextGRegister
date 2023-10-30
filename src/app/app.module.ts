@@ -10,8 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { FormPhoneComponent } from './security/form-phone/form-phone.component';
 import { SecurityComponent } from './security/security.component';
 import { FormEmailComponent } from './security/form-email/form-email.component';
-import { VerificationEmailComponent } from './security/verification-email/verification-email.component';
 import { FormEmailPassComponent } from './security/form-email-pass/form-email-pass.component';
+import { VerificationEmailComponent } from './security/verification-email/verification-email.component';
 import { VerificationPhoneComponent } from './security/verification-phone/verification-phone.component';
 
 @NgModule({
