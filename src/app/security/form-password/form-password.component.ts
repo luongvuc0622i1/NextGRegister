@@ -9,7 +9,7 @@ import { FormGroup } from '@angular/forms';
       <input type="text" formControlName="password" placeholder="Password" />
       <input type="text" formControlName="confirm" placeholder="Confirm Password" />
       <button (click)="back()">Back</button>
-      <button (click)="continue()">Continue</button>
+      <button class="button-form">Continue<span class="material-symbols-outlined">east</span></button>
     </form>
   `,
   styleUrls: ['../../security/security.component.css']
@@ -20,10 +20,6 @@ export class FormPasswordComponent {
   @Output() switchTemplate = new EventEmitter<string>();
   @Output() register = new EventEmitter<void>();
   statusLogin: string = '';
-
-  constructor() {}
-
-  ngOnInit(): void {}
 
   back() {
     this.switchTemplate.emit('name');

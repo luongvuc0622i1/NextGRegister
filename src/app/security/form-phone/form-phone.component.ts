@@ -1,8 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router } from "@angular/router";
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { AuthService } from "../../service/auth.service";
-import { TokenService } from "../../service/token.service";
 
 @Component({
   selector: 'app-form-phone',
@@ -10,7 +7,7 @@ import { TokenService } from "../../service/token.service";
     <div class="form-container sign-in-container">
       <div class="form" style="margin-top: 40px;">
         <img src="../../assets/nextG.png" />
-        <h2>{{title}}</h2>
+        <h4>{{title}}</h4>
         <span>Please enter your credentials to access your account.</span>
       </div>
       <form [formGroup]="signInWithPhoneForm" (ngSubmit)="continue()">
@@ -20,16 +17,16 @@ import { TokenService } from "../../service/token.service";
           <div>
             <a style="float: left;" (click)="switchTo()">{{title}} {{labelSwitch}}</a>
           </div>
-          <button>Continue</button>
+          <button class="button-form">Continue<span class="material-symbols-outlined">east</span></button>
       </form>
       <div class="form">
-        <a style="text-align: center;" (click)="switchP()">{{footer}}</a>
+        <a style="text-align: center;" (click)="this.switchPage.emit()">{{footer}}</a>
       </div>
     </div>
   `,
   styleUrls: ['../../security/security.component.css']
 })
-export class FormPhoneComponent implements OnInit {
+export class FormPhoneComponent {
   // @ts-ignore
   @Input() title: string;
   // @ts-ignore
@@ -38,24 +35,13 @@ export class FormPhoneComponent implements OnInit {
   @Input() footer: string;
   @Output() switchPage = new EventEmitter<void>();
   @Output() switchTemplate = new EventEmitter<string>();
-  @Output() phoneInput = new EventEmitter<string>();
+  @Output() sendVerificationPhone = new EventEmitter<string>();
 
   signInWithPhoneForm: FormGroup = new FormGroup({
     phone: new FormControl(),
     password: new FormControl(),
   });
   statusLogin: string = '';
-
-  ngOnInit(): void {
-  }
-
-  constructor(private authService: AuthService,
-    private tokenService: TokenService,
-    private router: Router) { }
-
-  switchP() {
-    this.switchPage.emit();
-  }
 
   switchTo() {
     if (this.title == 'Sign In') {
@@ -67,6 +53,6 @@ export class FormPhoneComponent implements OnInit {
 
   continue() {
     this.switchTemplate.emit('verification-phone');
-    this.phoneInput.emit(this.signInWithPhoneForm.value.phone);
+    this.sendVerificationPhone.emit(this.signInWithPhoneForm.value.phone);
   }
 }

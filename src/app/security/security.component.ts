@@ -1,17 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../service/auth.service';
+import { TokenService } from '../service/token.service';
 
 @Component({
   selector: 'app-security',
   templateUrl: './security.component.html',
   styleUrls: ['./security.component.css']
 })
-export class SecurityComponent {
+export class SecurityComponent implements OnInit {
   title: string = 'Sign In';
   templateType: string = 'email-pass';
   labelSwitch: string = 'With SMS';
   footer: string = 'Not register yet? Create An Account';
   emailInput: string = '';
   phoneInput: string = '';
+  statusLogin: string = '';
+
+  ngOnInit(): void {
+  }
+
+  constructor(private authService: AuthService,
+    private tokenService: TokenService,
+    private router: Router) { }
 
   switchPage() {
     if (this.title == 'Sign In') {
@@ -40,11 +51,51 @@ export class SecurityComponent {
     this.footer = 'Already have an account? Sign In';
   }
 
-  setEmailInput(email: string) {
-    this.emailInput = email;
+  // actions
+  signIn(formSignUp: any) {
+    this.authService.login(formSignUp).subscribe(data => {
+      if (data.token != undefined) {
+        this.tokenService.setID(data.id);
+        this.tokenService.setToken(data.token);
+        this.tokenService.setUsername(data.username);
+        this.tokenService.setRole(data.roles[0]);
+
+        this.statusLogin = 'Login Success!';
+        this.router.navigate(['/home']);
+        // if (data.roleSet[0].name == 'MANAGER') {
+        //   this.router.navigate(['/manager/profile']);
+        // } else if (data.roleSet[0].name == 'USER') {
+        //   this.router.navigate(['/user/home']);
+        // } else if (data.roleSet[0].name == 'ADMIN') {
+        //   this.router.navigate(['/admin/profile']);
+        // }
+      }
+      // @ts-ignore
+      if (data.message === 'lock') {
+        this.statusLogin = 'Your account has been disabled, please contact admin!';
+        return;
+      }
+
+    },
+      we => {
+        console.log('we of login ---> ', we);
+        if (we.status == 400) {
+          console.log('Login Failed!');
+          this.statusLogin = 'Login Failed! Please check your account or password!';
+        }
+        else {
+          this.statusLogin = 'Error!!!!!!';
+        }
+      })
   }
 
-  setPhoneInput(phone: string) {
+  sendVerificationEmail(email: string) {
+    this.emailInput = email;
+    this.authService.sendVerificationEmail(email).subscribe();
+  }
+
+  sendVerificationPhone(phone: string) {
     this.phoneInput = phone;
+    // this.authService.sendVerificationPhone(phone).subscribe();
   }
 }

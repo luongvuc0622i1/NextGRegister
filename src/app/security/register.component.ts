@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from "../service/auth.service";
 import { TokenService } from "../service/token.service";
@@ -10,6 +10,8 @@ import { TokenService } from "../service/token.service";
   styleUrls: ['./security.component.css']
 })
 export class RegisterComponent implements OnInit {
+  title: string = 'Create New Account';
+  templateType: string = 'name';
   form: FormGroup = new FormGroup({
     email: new FormControl(),
     firstName: new FormControl(),
@@ -18,21 +20,27 @@ export class RegisterComponent implements OnInit {
     confirm: new FormControl(),
     token: new FormControl(),
   });
-  title: string = 'Create New Account';
-  statusLogin: string = '';
-  templateType: string = 'name';
-
-  ngOnInit(): void {
-  }
 
   constructor(private authService: AuthService,
               private tokenService: TokenService,
-              private router: Router) { }
+              private router: Router,
+              private route: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      const email = params['email'];
+      const token = params['token'];
+      this.form.patchValue({
+        email: email,
+        token: token,
+      });
+    });
+  }
 
   switchTemplate(template: string) {
     this.templateType = template;
   }
-  
+
   updateForm(updatedValues: any) {
     // Cập nhật FormGroup từ dữ liệu đã được cập nhật từ component con
     this.form.patchValue(updatedValues);
@@ -55,15 +63,7 @@ export class RegisterComponent implements OnInit {
           this.tokenService.setUsername(data.username);
           this.tokenService.setRole(data.roles[0]);
 
-          this.statusLogin = 'Login Success!';
           this.router.navigate(['/home']);
-          // if (data.roleSet[0].name == 'MANAGER') {
-          //   this.router.navigate(['/manager/profile']);
-          // } else if (data.roleSet[0].name == 'USER') {
-          //   this.router.navigate(['/user/home']);
-          // } else if (data.roleSet[0].name == 'ADMIN') {
-          //   this.router.navigate(['/admin/profile']);
-          // }
         }
       })
     })

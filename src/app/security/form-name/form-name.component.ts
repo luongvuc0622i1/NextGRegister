@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -15,8 +14,8 @@ import { FormGroup } from '@angular/forms';
           <input type="text" formControlName="lastName" placeholder="Last Name" />
         </div>
       </div>
-      <input type="text" formControlName="email" placeholder="Email" [attr.readonly]="email ? true : null" />
-      <button>Continue</button>
+      <input type="text" formControlName="email" placeholder="Email" [attr.readonly]="form.value.email ? true : null" />
+      <button class="button-form">Continue<span class="material-symbols-outlined">east</span></button>
     </form>
   `,
   styleUrls: ['../../security/security.component.css']
@@ -24,23 +23,10 @@ import { FormGroup } from '@angular/forms';
 export class FormNameComponent {
   // @ts-ignore
   @Input() form: FormGroup;
+  // @ts-ignore
+  // @Input() email: string;
   @Output() switchTemplate = new EventEmitter<string>();
   statusLogin: string = '';
-  email: string = '';
-
-  constructor(private route: ActivatedRoute) { }
-
-  ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      const email = params['email'];
-      const token = params['token'];
-      this.form.patchValue({
-        email: email,
-        token: token,
-      });
-      this.email = email;
-    });
-  }
 
   continue() {
     this.switchTemplate.emit('password');
