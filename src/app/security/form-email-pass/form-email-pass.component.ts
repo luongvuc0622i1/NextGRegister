@@ -1,5 +1,8 @@
 import { Component, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { errorMessages } from '../../service/error-messages';
+import { ErrorService } from 'src/app/service/error.service';
 
 @Component({
   selector: 'app-form-email-pass',
@@ -11,14 +14,18 @@ import { FormControl, FormGroup } from '@angular/forms';
         <span>Please enter your credentials to access your account.</span>
       </div>
       <form [formGroup]="form" (ngSubmit)="login()">
-        <p style="color: red">{{statusLogin}}</p>
-        <input type="text" formControlName="email" placeholder="Email" />
+        <input type="email" formControlName="email" placeholder="Email" (blur)="validateEmail()" (click)="statusEmail = ''" />
+        <span class="error">{{statusEmail}}</span>
         <input type="password" formControlName="password" placeholder="Password" autocomplete="current-password" required=""
-          id="id_password">
+          id="id_password" (blur)="validatePassword()" (click)="statusPassword = ''">
+        <span class="error">{{statusPassword}}</span>
         <span class="material-symbols-outlined eye" id="togglePassword">visibility</span><br>
         <div>
             <a style="float: left;" (click)="switchTo()">{{title}} {{labelSwitch}}</a>
             <a style="float: right;" (click)="forgotPassword()">Forgot password?</a>
+        </div>
+        <div *ngIf="error">
+          {{ errorMessages[error.status] || 'Lỗi không xác định' }}
         </div>
         <button class="button-form">Sign In</button>
       </form>
@@ -35,18 +42,22 @@ export class FormEmailPassComponent implements AfterViewInit {
   // @ts-ignore
   @Input() labelSwitch: string;
   // @ts-ignore
-  @Input() statusLogin: string;
-  // @ts-ignore
   @Input() footer: string;
   @Output() switchPage = new EventEmitter<void>();
   @Output() switchTemplate = new EventEmitter<string>();
   @Output() forgotPass = new EventEmitter<void>();
   @Output() signIn = new EventEmitter<any>();
+  error: HttpErrorResponse | null = null;
+  errorMessages = errorMessages;
+  statusEmail: string = '';
+  statusPassword: string = '';
 
   form: FormGroup = new FormGroup({
     email: new FormControl(),
     password: new FormControl(),
   });
+
+  constructor(private errorService: ErrorService) {}
 
   ngAfterViewInit() {
     // Show password click eye
@@ -71,6 +82,27 @@ export class FormEmailPassComponent implements AfterViewInit {
   }
 
   login() {
+    this.errorService.error$.subscribe((error) => {
+      this.error = error;
+    });
     this.signIn.emit(this.form.value);
+  }
+
+  validateEmail() {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    if (this.form.value.email === null) {
+      this.statusEmail= 'Email is require';
+    } else if (!emailRegex.test(this.form.value.email)) {
+      this.statusEmail = 'Email format is not correct';
+    }
+  }
+
+  validatePassword() {
+    const passwordRegex = /^(?=.*[A-Z]).{8,}$/;
+    if (this.form.value.password === null) {
+      this.statusPassword = 'Password is require';
+    } else if (!passwordRegex.test(this.form.value.password)) {
+      this.statusPassword = 'Minimum is 8 characters with at least 1 upcase';
+    }
   }
 }

@@ -70,23 +70,7 @@ export class SecurityComponent implements OnInit {
         //   this.router.navigate(['/admin/profile']);
         // }
       }
-      // @ts-ignore
-      if (data.message === 'lock') {
-        this.statusLogin = 'Your account has been disabled, please contact admin!';
-        return;
-      }
-
-    },
-      we => {
-        console.log('we of login ---> ', we);
-        if (we.status == 400) {
-          console.log('Login Failed!');
-          this.statusLogin = 'Login Failed! Please check your account or password!';
-        }
-        else {
-          this.statusLogin = 'Error!!!!!!';
-        }
-      })
+    })
   }
 
   sendVerificationEmail(email: string) {
