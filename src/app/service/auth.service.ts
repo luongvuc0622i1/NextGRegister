@@ -13,9 +13,13 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  // signUp(form: any): Observable<any> {
-  //   return this.http.post(`${API_URL}/register`, signUpForm);
-  // }
+  register(form: any): Observable<any> {
+    return this.http.post(`${API_URL}/register`, form);
+  }
+
+  sendVerificationEmail(email: string): Observable<any> {
+    return this.http.post(`${API_URL}/verifyEmail?email=${email}`, {});
+  }
 
   login(form: any): Observable<JwtResponse> {
     return this.http.post<JwtResponse>(`${API_URL}/login`, form);

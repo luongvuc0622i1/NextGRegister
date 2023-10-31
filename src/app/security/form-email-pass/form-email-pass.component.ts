@@ -53,8 +53,8 @@ export class FormEmailPassComponent implements OnInit, AfterViewInit {
   }
 
   constructor(private authService: AuthService,
-    private tokenService: TokenService,
-    private router: Router) { }
+              private tokenService: TokenService,
+              private router: Router) { }
 
   switchP() {
     this.switchPage.emit();

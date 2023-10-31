@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, ParamMap } from "@angular/router";
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-form-name',
@@ -15,22 +15,20 @@ import { FormControl, FormGroup } from '@angular/forms';
           <input type="text" formControlName="lastName" placeholder="Last Name" />
         </div>
       </div>
-      <input type="text" formControlName="email" placeholder="Email" readonly />
+      <input type="text" formControlName="email" placeholder="Email" [attr.readonly]="email ? true : null" />
       <button>Continue</button>
     </form>
   `,
   styleUrls: ['../../security/security.component.css']
 })
 export class FormNameComponent {
-  form: FormGroup = new FormGroup({
-    email: new FormControl(),
-    firstName: new FormControl(),
-    lastName: new FormControl(),
-  });
+  // @ts-ignore
+  @Input() form: FormGroup;
+  @Output() switchTemplate = new EventEmitter<string>();
   statusLogin: string = '';
-  token: string = '';
+  email: string = '';
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -38,14 +36,13 @@ export class FormNameComponent {
       const token = params['token'];
       this.form.patchValue({
         email: email,
+        token: token,
       });
-      this.token = token;
+      this.email = email;
     });
   }
 
   continue() {
-    if (this.token != undefined) {
-      console.log(this.token);
-    }
+    this.switchTemplate.emit('password');
   }
 }

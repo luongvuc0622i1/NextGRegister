@@ -62,6 +62,7 @@ export class FormEmailComponent implements OnInit {
 
   continue() {
     this.switchTemplate.emit('verification-email');
+    this.authService.sendVerificationEmail(this.emailForm.value.email).subscribe();
     this.emailInput.emit(this.emailForm.value.email);
   }
 }
