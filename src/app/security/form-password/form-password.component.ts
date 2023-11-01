@@ -24,7 +24,7 @@ export class FormPasswordComponent implements AfterViewInit {
   // @ts-ignore
   @Input() form: FormGroup;
   @Output() switchTemplate = new EventEmitter<string>();
-  @Output() register = new EventEmitter<void>();
+  @Output() signUp = new EventEmitter<void>();
   statusLogin: string = '';
   statusPassword: string = '';
   statusConfirm: string = '';
@@ -60,8 +60,10 @@ export class FormPasswordComponent implements AfterViewInit {
   }
 
   continue() {
-    if (this.form.value.token && !this.statusPassword && !this.statusConfirm) {
-      this.register.emit();
+    if (!this.statusPassword && !this.statusConfirm) {
+      if ((this.form.value.token || this.form.value.otp) && !this.statusPassword && !this.statusConfirm) {
+        this.signUp.emit();
+      }
     }
   }
 

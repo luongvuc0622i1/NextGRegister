@@ -35,7 +35,7 @@ export class FormPhoneComponent {
   @Input() footer: string;
   @Output() switchPage = new EventEmitter<void>();
   @Output() switchTemplate = new EventEmitter<string>();
-  @Output() sendVerificationPhone = new EventEmitter<string>();
+  @Output() sendOtp = new EventEmitter<string>();
   statusLogin: string = '';
   statusPhone: string = '';
 
@@ -55,7 +55,7 @@ export class FormPhoneComponent {
   continue() {
     if (!this.statusPhone) {
       this.switchTemplate.emit('verification-phone');
-      this.sendVerificationPhone.emit(this.form.value.phone);
+      this.sendOtp.emit(this.form.value.phone);
     }
   }
 

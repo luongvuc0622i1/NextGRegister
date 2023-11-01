@@ -32,7 +32,7 @@ export class VerificationPhoneComponent {
   // @ts-ignore
   @Input() phoneInput: string;
   @Output() switchTemplate = new EventEmitter<string>();
-  @Output() signIn = new EventEmitter<any>();
+  @Output() verificationPhone = new EventEmitter<any>();
   formNo: FormGroup = new FormGroup({
     no1: new FormControl(),
     no2: new FormControl(),
@@ -53,9 +53,9 @@ export class VerificationPhoneComponent {
 
   continue() {
     this.form.setValue({
-      phoneNumber: '+84867706259',
+      phoneNumber: '867706259',
       otpNumber: this.formNo.value.no1 + this.formNo.value.no2 + this.formNo.value.no3 + this.formNo.value.no4 + this.formNo.value.no5 + this.formNo.value.no6,
     });
-    this.signIn.emit(this.form.value);
+    this.verificationPhone.emit(this.form.value);
   }
 }

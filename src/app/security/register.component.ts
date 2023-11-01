@@ -13,11 +13,13 @@ export class RegisterComponent implements OnInit {
   templateType: string = 'name';
   form: FormGroup = new FormGroup({
     email: new FormControl(),
+    token: new FormControl(),
+    phone: new FormControl(),
+    otp: new FormControl(),
     firstName: new FormControl(),
     lastName: new FormControl(),
     password: new FormControl(),
     confirm: new FormControl(),
-    token: new FormControl(),
   });
 
   constructor(private authService: AuthService,
@@ -29,9 +31,13 @@ export class RegisterComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       const email = params['email'];
       const token = params['token'];
+      const phone = params['phone'];
+      const otp = params['otp'];
       this.form.patchValue({
         email: email,
         token: token,
+        phone: phone,
+        otp: otp,
       });
     });
   }
@@ -45,27 +51,57 @@ export class RegisterComponent implements OnInit {
     this.form.patchValue(updatedValues);
   }
 
-  register() {
-    const formRegister = {
-      'username': this.form.value.username,
-      'password': this.form.value.password,
-      'email': this.form.value.email,
-      'firstName': this.form.value.firstName,
-      'lastName': this.form.value.lastName,
-      'tokenSignup': this.form.value.token,
-      'status': 1,
-    }
-    this.authService.register(formRegister).subscribe(data => {
-      this.authService.loginEmail(data).subscribe(data => {
-        if (data.token != undefined) {
-          this.tokenService.setID(data.id);
-          this.tokenService.setToken(data.token);
-          this.tokenService.setUsername(data.username);
-          this.tokenService.setRole(data.roles[0]);
-
-          this.router.navigate(['/home']);
-        }
+  signUp() {
+    if (this.form.value.token) {
+      const formRegister = {
+        'username': this.form.value.username,
+        'password': this.form.value.password,
+        'email': this.form.value.email,
+        'firstName': this.form.value.firstName,
+        'lastName': this.form.value.lastName,
+        'tokenSignup': this.form.value.token,
+        'status': 1,
+      }
+      this.authService.registerEmail(formRegister).subscribe(data => {
+        this.authService.loginEmail(data).subscribe(data => {
+          if (data.token != undefined) {
+            this.tokenService.setID(data.id);
+            this.tokenService.setToken(data.token);
+            this.tokenService.setUsername(data.username);
+            this.tokenService.setRole(data.roles[0]);
+  
+            this.router.navigate(['/home']);
+          }
+        })
       })
-    })
+    } else if (this.form.value.otp) {
+      const formRegister = {
+        'username': this.form.value.username,
+        'password': this.form.value.password,
+        'email': this.form.value.email,
+        'phone': this.form.value.phone,
+        'firstName': this.form.value.firstName,
+        'lastName': this.form.value.lastName,
+        'otp': this.form.value.otp,
+        'status': 1,
+      }
+      console.log(formRegister);
+      this.authService.registerPhone(formRegister).subscribe(data => {
+        const obj = {
+          "email": data.email,
+          "password": data.password
+      }
+        this.authService.loginEmail(obj).subscribe(data => {
+          if (data.token != undefined) {
+            this.tokenService.setID(data.id);
+            this.tokenService.setToken(data.token);
+            this.tokenService.setUsername(data.username);
+            this.tokenService.setRole(data.roles[0]);
+  
+            this.router.navigate(['/home']);
+          }
+        })
+      })
+    }
   }
 }

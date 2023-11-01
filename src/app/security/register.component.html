@@ -15,7 +15,7 @@
         <app-form-name [form]="form" (switchTemplate)="switchTemplate($event)"></app-form-name>
       </ng-template>
       <ng-template #verificationPhoneTemplate>
-        <app-form-password [form]="form" (switchTemplate)="switchTemplate($event)" (register)="register()"></app-form-password>
+        <app-form-password [form]="form" (switchTemplate)="switchTemplate($event)" (signUp)="signUp()"></app-form-password>
       </ng-template>
     </div>
     <div class="overlay-container">

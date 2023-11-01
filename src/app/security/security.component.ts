@@ -10,7 +10,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./security.component.css']
 })
 export class SecurityComponent implements OnInit {
-  title: string = 'Sign In';
+  title: string;
   templateType: string = 'email-pass';
   labelSwitch: string = 'With SMS';
   footer: string = 'Not register yet? Create An Account';
@@ -27,7 +27,9 @@ export class SecurityComponent implements OnInit {
   constructor(private authService: AuthService,
     private tokenService: TokenService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute) {
+    this.title = 'Sign In';
+  }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -115,12 +117,26 @@ export class SecurityComponent implements OnInit {
     this.authService.sendVerificationEmail(email).subscribe();
   }
 
-  sendVerificationPhone(phone: string) {
+  sendOtp(phone: string) {
     this.phoneInput = phone;
-    phone = "+84867706259";
+    phone = "867706259";
     const obj = {
       'phoneNumber': phone
     };
-    this.authService.sendOtpLogin(obj).subscribe();
+    if (this.title === 'Sign In') {
+      this.authService.sendOtpLogin(obj).subscribe();
+    } else if (this.title === 'Sign Up') {
+      this.authService.sendOtpRegister(obj).subscribe();
+    }
+  }
+
+  verificationPhone(form: any) {
+    console.log(this.title)
+    console.log(form)
+    if (this.title === 'Sign In') {
+      this.signInPhone(form);
+    } else if (this.title === 'Sign Up') {
+      this.authService.sendVerificationPhone(form).subscribe();
+    }
   }
 }

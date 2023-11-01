@@ -13,10 +13,6 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  register(form: any): Observable<any> {
-    return this.http.post(`${API_URL}/register`, form);
-  }
-
   sendVerificationEmail(email: string): Observable<any> {
     return this.http.post(`${API_URL}/verifyEmail?email=${email}`, {});
   }
@@ -31,5 +27,23 @@ export class AuthService {
 
   loginPhone(obj: any): Observable<any> {
     return this.http.post(`${API_URL}/loginByPhone`, obj);
+  }
+
+  sendOtpRegister(obj: any): Observable<any> {
+    return this.http.post(`${API_URL}/send-otp`, obj);
+  }
+
+  registerEmail(form: any): Observable<any> {
+    return this.http.post(`${API_URL}/register`, form);
+  }
+
+  sendVerificationPhone(form: any): Observable<any> {
+    console.log(`${API_URL}/validate-otp`)
+    console.log(form)
+    return this.http.post(`${API_URL}/validate-otp?phone=${form.phoneNumber}&otp=${form.otpNumber}`, {});
+  }
+
+  registerPhone(form: any): Observable<any> {
+    return this.http.post(`${API_URL}/registerByPhone`, form);
   }
 }
