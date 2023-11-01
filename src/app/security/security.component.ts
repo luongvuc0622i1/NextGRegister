@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { TokenService } from '../service/token.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-security',
@@ -17,12 +18,27 @@ export class SecurityComponent implements OnInit {
   phoneInput: string = '';
   statusLogin: string = '';
 
-  ngOnInit(): void {
-  }
+  form: FormGroup = new FormGroup({
+    email: new FormControl(),
+    phone: new FormControl(),
+    otp: new FormControl(),
+  });
 
   constructor(private authService: AuthService,
     private tokenService: TokenService,
-    private router: Router) { }
+    private router: Router,
+    private route: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      const phone = params['phone'];
+      const otp = params['otp'];
+      this.form.patchValue({
+        phone: phone,
+        otp: otp,
+      });
+    });
+  }
 
   switchPage() {
     if (this.title == 'Sign In') {
@@ -52,8 +68,29 @@ export class SecurityComponent implements OnInit {
   }
 
   // actions
-  signIn(formSignUp: any) {
-    this.authService.login(formSignUp).subscribe(data => {
+  signInEmail(formSignUp: any) {
+    this.authService.loginEmail(formSignUp).subscribe(data => {
+      if (data.token != undefined) {
+        this.tokenService.setID(data.id);
+        this.tokenService.setToken(data.token);
+        this.tokenService.setUsername(data.username);
+        this.tokenService.setRole(data.roles[0]);
+
+        this.statusLogin = 'Login Success!';
+        this.router.navigate(['/home']);
+        // if (data.roleSet[0].name == 'MANAGER') {
+        //   this.router.navigate(['/manager/profile']);
+        // } else if (data.roleSet[0].name == 'USER') {
+        //   this.router.navigate(['/user/home']);
+        // } else if (data.roleSet[0].name == 'ADMIN') {
+        //   this.router.navigate(['/admin/profile']);
+        // }
+      }
+    })
+  }
+
+  signInPhone(formSignUp: any) {
+    this.authService.loginPhone(formSignUp).subscribe(data => {
       if (data.token != undefined) {
         this.tokenService.setID(data.id);
         this.tokenService.setToken(data.token);
@@ -80,6 +117,10 @@ export class SecurityComponent implements OnInit {
 
   sendVerificationPhone(phone: string) {
     this.phoneInput = phone;
-    // this.authService.sendVerificationPhone(phone).subscribe();
+    phone = "+84867706259";
+    const obj = {
+      'phoneNumber': phone
+    };
+    this.authService.sendOtpLogin(obj).subscribe();
   }
 }

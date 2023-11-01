@@ -21,7 +21,15 @@ export class AuthService {
     return this.http.post(`${API_URL}/verifyEmail?email=${email}`, {});
   }
 
-  login(form: any): Observable<JwtResponse> {
+  loginEmail(form: any): Observable<JwtResponse> {
     return this.http.post<JwtResponse>(`${API_URL}/login`, form);
+  }
+
+  sendOtpLogin(obj: any): Observable<any> {
+    return this.http.post(`${API_URL}/send-otp-login`, obj);
+  }
+
+  loginPhone(obj: any): Observable<any> {
+    return this.http.post(`${API_URL}/loginByPhone`, obj);
   }
 }

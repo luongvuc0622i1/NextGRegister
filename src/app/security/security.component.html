@@ -13,7 +13,7 @@
     <ng-template #formEmailPassTemplate>
       <app-form-email-pass [title]="title" [labelSwitch]="labelSwitch" [footer]="footer"
         (switchTemplate)="switchTemplate($event)" (switchPage)="switchPage()"
-        (signIn)="signIn($event)" (forgotPass)="forgotPassword()"></app-form-email-pass>
+        (signIn)="signInEmail($event)" (forgotPass)="forgotPassword()"></app-form-email-pass>
     </ng-template>
     <ng-template #formPhoneTemplate>
       <app-form-phone [title]="title" [labelSwitch]="labelSwitch" [footer]="footer"
@@ -31,7 +31,7 @@
     </ng-template>
     <ng-template #verificationPhoneTemplate>
       <app-verification-phone [phoneInput]="phoneInput"
-        (switchTemplate)="switchTemplate($event)"></app-verification-phone>
+        (switchTemplate)="switchTemplate($event)" (signIn)="signInPhone($event)"></app-verification-phone>
     </ng-template>
     <div class="overlay-container">
       <div class="overlay">

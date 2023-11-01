@@ -52,10 +52,11 @@ export class RegisterComponent implements OnInit {
       'email': this.form.value.email,
       'firstName': this.form.value.firstName,
       'lastName': this.form.value.lastName,
+      'tokenSignup': this.form.value.token,
       'status': 1,
     }
     this.authService.register(formRegister).subscribe(data => {
-      this.authService.login(data).subscribe(data => {
+      this.authService.loginEmail(data).subscribe(data => {
         if (data.token != undefined) {
           this.tokenService.setID(data.id);
           this.tokenService.setToken(data.token);
