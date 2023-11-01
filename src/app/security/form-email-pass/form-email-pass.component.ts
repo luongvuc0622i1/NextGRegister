@@ -17,7 +17,7 @@ import { ErrorService } from 'src/app/service/error.service';
         <input type="email" formControlName="email" placeholder="Email" (blur)="validateEmail()" (click)="statusEmail = ''" />
         <span class="error">{{statusEmail}}</span>
         <input type="password" formControlName="password" placeholder="Password" autocomplete="current-password" required=""
-          id="id_password" (blur)="validatePassword()" (click)="statusPassword = ''">
+          id="id_password" (blur)="validatePassword()" (click)="statusPassword = ''" />
         <span class="error">{{statusPassword}}</span>
         <span class="material-symbols-outlined eye" id="togglePassword">visibility</span><br>
         <div>
@@ -57,7 +57,7 @@ export class FormEmailPassComponent implements AfterViewInit {
     password: new FormControl(),
   });
 
-  constructor(private errorService: ErrorService) {}
+  constructor(private errorService: ErrorService) { }
 
   ngAfterViewInit() {
     // Show password click eye
@@ -82,16 +82,18 @@ export class FormEmailPassComponent implements AfterViewInit {
   }
 
   login() {
-    this.errorService.error$.subscribe((error) => {
-      this.error = error;
-    });
-    this.signIn.emit(this.form.value);
+    if (this.statusEmail === '' && this.statusPassword === '') {
+      this.errorService.error$.subscribe((error) => {
+        this.error = error;
+      });
+      this.signIn.emit(this.form.value);
+    }
   }
 
   validateEmail() {
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    if (this.form.value.email === null) {
-      this.statusEmail= 'Email is require';
+    if (!this.form.value.email) {
+      this.statusEmail = 'Email is require';
     } else if (!emailRegex.test(this.form.value.email)) {
       this.statusEmail = 'Email format is not correct';
     }
@@ -99,7 +101,7 @@ export class FormEmailPassComponent implements AfterViewInit {
 
   validatePassword() {
     const passwordRegex = /^(?=.*[A-Z]).{8,}$/;
-    if (this.form.value.password === null) {
+    if (!this.form.value.password) {
       this.statusPassword = 'Password is require';
     } else if (!passwordRegex.test(this.form.value.password)) {
       this.statusPassword = 'Minimum is 8 characters with at least 1 upcase';

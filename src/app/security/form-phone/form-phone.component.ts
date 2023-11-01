@@ -10,10 +10,10 @@ import { FormControl, FormGroup } from '@angular/forms';
         <h4>{{title}}</h4>
         <span>Please enter your credentials to access your account.</span>
       </div>
-      <form [formGroup]="signInWithPhoneForm" (ngSubmit)="continue()">
+      <form [formGroup]="form" (ngSubmit)="continue()">
         <p style="color: red">{{statusLogin}}</p>
-          <input type="text" formControlName="phone" placeholder="Phone Number" />
-          <p></p>
+          <input type="text" formControlName="phone" placeholder="Phone Number"  (blur)="validatePhone()" (click)="statusPhone = ''" />
+          <span class="error">{{statusPhone}}</span>
           <div>
             <a style="float: left;" (click)="switchTo()">{{title}} {{labelSwitch}}</a>
           </div>
@@ -36,12 +36,13 @@ export class FormPhoneComponent {
   @Output() switchPage = new EventEmitter<void>();
   @Output() switchTemplate = new EventEmitter<string>();
   @Output() sendVerificationPhone = new EventEmitter<string>();
+  statusLogin: string = '';
+  statusPhone: string = '';
 
-  signInWithPhoneForm: FormGroup = new FormGroup({
+  form: FormGroup = new FormGroup({
     phone: new FormControl(),
     password: new FormControl(),
   });
-  statusLogin: string = '';
 
   switchTo() {
     if (this.title == 'Sign In') {
@@ -52,7 +53,16 @@ export class FormPhoneComponent {
   }
 
   continue() {
-    this.switchTemplate.emit('verification-phone');
-    this.sendVerificationPhone.emit(this.signInWithPhoneForm.value.phone);
+    if (!this.statusPhone) {
+      this.switchTemplate.emit('verification-phone');
+      this.sendVerificationPhone.emit(this.form.value.phone);
+    }
+  }
+
+  validatePhone() {
+    console.log(this.form.value.phone)
+    if (!this.form.value.phone) {
+      this.statusPhone = 'Phone Number is require';
+    }
   }
 }

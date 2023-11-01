@@ -15,6 +15,7 @@ import { VerificationPhoneComponent } from './security/verification-phone/verifi
 import { RegisterComponent } from './security/register.component';
 import { FormNameComponent } from './security/form-name/form-name.component';
 import { FormPasswordComponent } from './security/form-password/form-password.component';
+import { ResetPasswordComponent } from './security/resetPassword.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { FormPasswordComponent } from './security/form-password/form-password.co
     FormEmailComponent,
     VerificationEmailComponent,
     VerificationPhoneComponent,
+    ResetPasswordComponent,
     RegisterComponent,
     FormNameComponent,
     FormPasswordComponent
