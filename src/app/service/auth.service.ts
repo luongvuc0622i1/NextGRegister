@@ -38,12 +38,18 @@ export class AuthService {
   }
 
   sendVerificationPhone(form: any): Observable<any> {
-    console.log(`${API_URL}/validate-otp`)
-    console.log(form)
     return this.http.post(`${API_URL}/validate-otp?phone=${form.phoneNumber}&otp=${form.otpNumber}`, {});
   }
 
   registerPhone(form: any): Observable<any> {
     return this.http.post(`${API_URL}/registerByPhone`, form);
+  }
+
+  sendVerificationEmailChangePass(email: string): Observable<any> {
+    return this.http.post(`${API_URL}/verifyEmailChangePass?email=${email}`, {});
+  }
+
+  resetPasswordEmail(obj: any): Observable<any> {
+    return this.http.put(`${API_URL}/changePassword-using-mail`, obj);
   }
 }

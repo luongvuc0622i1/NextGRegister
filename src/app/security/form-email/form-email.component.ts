@@ -48,7 +48,7 @@ export class FormEmailComponent {
   }
 
   continue() {
-    if (this.statusEmail === '') {
+    if (!this.statusEmail) {
       this.switchTemplate.emit('verification-email');
       this.sendVerificationEmail.emit(this.form.value.email);
     }

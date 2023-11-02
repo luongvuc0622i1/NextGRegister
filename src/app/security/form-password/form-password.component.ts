@@ -23,8 +23,11 @@ import { FormGroup } from '@angular/forms';
 export class FormPasswordComponent implements AfterViewInit {
   // @ts-ignore
   @Input() form: FormGroup;
+  // @ts-ignore
+  @Input() isResetPassword: boolean;
   @Output() switchTemplate = new EventEmitter<string>();
   @Output() signUp = new EventEmitter<void>();
+  @Output() resetPassword = new EventEmitter<void>();
   statusLogin: string = '';
   statusPassword: string = '';
   statusConfirm: string = '';
@@ -61,8 +64,12 @@ export class FormPasswordComponent implements AfterViewInit {
 
   continue() {
     if (!this.statusPassword && !this.statusConfirm) {
-      if ((this.form.value.token || this.form.value.otp) && !this.statusPassword && !this.statusConfirm) {
-        this.signUp.emit();
+      if (this.isResetPassword) {
+        this.resetPassword.emit();
+      } else {
+        if (this.form.value.token || this.form.value.otp) {
+          this.signUp.emit();
+        }
       }
     }
   }

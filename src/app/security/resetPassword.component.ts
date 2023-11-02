@@ -13,8 +13,6 @@ import { TokenService } from "../service/token.service";
 export class ResetPasswordComponent implements OnInit {
   form: FormGroup = new FormGroup({
     email: new FormControl(),
-    firstName: new FormControl(),
-    lastName: new FormControl(),
     password: new FormControl(),
     confirm: new FormControl(),
     token: new FormControl(),
@@ -41,26 +39,27 @@ export class ResetPasswordComponent implements OnInit {
     this.form.patchValue(updatedValues);
   }
 
-  register() {
-  //   const formRegister = {
-  //     'username': this.form.value.username,
-  //     'password': this.form.value.password,
-  //     'email': this.form.value.email,
-  //     'firstName': this.form.value.firstName,
-  //     'lastName': this.form.value.lastName,
-  //     'status': 1,
-  //   }
-  //   this.authService.register(formRegister).subscribe(data => {
-  //     this.authService.login(data).subscribe(data => {
-  //       if (data.token != undefined) {
-  //         this.tokenService.setID(data.id);
-  //         this.tokenService.setToken(data.token);
-  //         this.tokenService.setUsername(data.username);
-  //         this.tokenService.setRole(data.roles[0]);
+  resetPassword() {
+    const formResetPassword = {
+      'email': this.form.value.email,
+      'newPassword': this.form.value.password,
+      'tokenChangePass': this.form.value.token,
+    }
+    this.authService.resetPasswordEmail(formResetPassword).subscribe(data => {
+      const obj = {
+        "email": data.email,
+        "password": data.newPass
+    }
+      this.authService.loginEmail(obj).subscribe(data => {
+        if (data.token != undefined) {
+          this.tokenService.setID(data.id);
+          this.tokenService.setToken(data.token);
+          this.tokenService.setUsername(data.username);
+          this.tokenService.setRole(data.roles[0]);
 
-  //         this.router.navigate(['/home']);
-  //       }
-  //     })
-  //   })
+          this.router.navigate(['/home']);
+        }
+      })
+    })
   }
 }

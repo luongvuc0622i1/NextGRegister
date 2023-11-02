@@ -114,7 +114,11 @@ export class SecurityComponent implements OnInit {
 
   sendVerificationEmail(email: string) {
     this.emailInput = email;
-    this.authService.sendVerificationEmail(email).subscribe();
+    if (this.title === 'Sign Up') {
+      this.authService.sendVerificationEmail(email).subscribe();
+    } else if (this.title === 'Forgot Password') {
+      this.authService.sendVerificationEmailChangePass(email).subscribe();
+    }
   }
 
   sendOtp(phone: string) {
@@ -125,14 +129,12 @@ export class SecurityComponent implements OnInit {
     };
     if (this.title === 'Sign In') {
       this.authService.sendOtpLogin(obj).subscribe();
-    } else if (this.title === 'Sign Up') {
+    } else if (this.title === 'Forgot Password') {
       this.authService.sendOtpRegister(obj).subscribe();
     }
   }
 
   verificationPhone(form: any) {
-    console.log(this.title)
-    console.log(form)
     if (this.title === 'Sign In') {
       this.signInPhone(form);
     } else if (this.title === 'Sign Up') {

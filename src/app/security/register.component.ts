@@ -85,7 +85,6 @@ export class RegisterComponent implements OnInit {
         'otp': this.form.value.otp,
         'status': 1,
       }
-      console.log(formRegister);
       this.authService.registerPhone(formRegister).subscribe(data => {
         const obj = {
           "email": data.email,
