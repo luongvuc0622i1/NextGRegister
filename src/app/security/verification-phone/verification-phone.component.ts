@@ -52,8 +52,16 @@ export class VerificationPhoneComponent {
   }
 
   continue() {
+    let phoneNumber = '';
+    if (this.phoneInput.startsWith("0")) {
+      phoneNumber = this.phoneInput.substring(1); // Loại bỏ số 0 đầu tiên
+    } else if (this.phoneInput.startsWith("+84")) {
+      phoneNumber = this.phoneInput.substring(3); // Loại bỏ số +84 đầu tiên
+    } else {
+      phoneNumber = this.phoneInput;
+    }
     this.form.setValue({
-      phoneNumber: '867706259',
+      phoneNumber: phoneNumber,
       otpNumber: this.formNo.value.no1 + this.formNo.value.no2 + this.formNo.value.no3 + this.formNo.value.no4 + this.formNo.value.no5 + this.formNo.value.no6,
     });
     this.verificationPhone.emit(this.form.value);

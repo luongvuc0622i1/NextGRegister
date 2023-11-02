@@ -123,13 +123,20 @@ export class SecurityComponent implements OnInit {
 
   sendOtp(phone: string) {
     this.phoneInput = phone;
-    phone = "867706259";
+    let phoneNumber = '';
+    if (phone.startsWith("0")) {
+      phoneNumber = phone.substring(1); // Loại bỏ số 0 đầu tiên
+    } else if (phone.startsWith("+84")) {
+      phoneNumber = phone.substring(3); // Loại bỏ số +84 đầu tiên
+    } else {
+      phoneNumber = phone;
+    }
     const obj = {
-      'phoneNumber': phone
+      'phoneNumber': phoneNumber
     };
-    if (this.title === 'Sign In') {
+    if (this.title === 'Sign In' || this.title === 'Forgot Password') {
       this.authService.sendOtpLogin(obj).subscribe();
-    } else if (this.title === 'Forgot Password') {
+    } else if (this.title === 'Sign Up') {
       this.authService.sendOtpRegister(obj).subscribe();
     }
   }
@@ -139,6 +146,8 @@ export class SecurityComponent implements OnInit {
       this.signInPhone(form);
     } else if (this.title === 'Sign Up') {
       this.authService.sendVerificationPhone(form).subscribe();
+    } else if (this.title === 'Forgot Password') {
+      this.authService.sendVerificationPhoneChangePass(form).subscribe();
     }
   }
 }

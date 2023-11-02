@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { JwtResponse } from "../model/JwtResponse";
 import { environment } from 'src/environments/environment';
@@ -51,5 +51,13 @@ export class AuthService {
 
   resetPasswordEmail(obj: any): Observable<any> {
     return this.http.put(`${API_URL}/changePassword-using-mail`, obj);
+  }
+
+  sendVerificationPhoneChangePass(obj: any): Observable<any> {
+    return this.http.post(`${API_URL}/validate-otp-change-pass`, obj);
+  }
+
+  resetPasswordPhone(obj: any): Observable<any> {
+    return this.http.put(`${API_URL}/changePassword-using-phone`, obj);
   }
 }
