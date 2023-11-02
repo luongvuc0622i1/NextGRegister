@@ -85,10 +85,10 @@ span {
   font-size: 20px;
   margin-left: 5px;
   font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
 }
 
 .eye {
@@ -216,7 +216,8 @@ input {
 
 /* Tùy chỉnh chiều rộng của ô nhập */
 .group-col {
-  width: calc(50% - 5px); /* Chia đều chiều rộng */
+  width: calc(50% - 5px);
+  /* Chia đều chiều rộng */
 }
 
 .right {
@@ -226,7 +227,23 @@ input {
 /* Tùy chỉnh khi xem trên màn hình nhỏ */
 @media (max-width: 576px) {
   .group-col {
-    width: 100%; /* Trên màn hình nhỏ, chiếm toàn bộ chiều rộng */
-    margin-right: 0; /* Không có khoảng cách giữa hai ô nhập */
+    width: 100%;
+    /* Trên màn hình nhỏ, chiếm toàn bộ chiều rộng */
+    margin-right: 0;
+    /* Không có khoảng cách giữa hai ô nhập */
   }
+}
+
+.wr-otp-inp {
+  display: grid;
+  grid-template-columns: repeat(6, 35px);
+  padding: 0 0 30px;
+  gap: 10px;
+}
+
+.otp-inp {
+  padding: 2px;
+  height: 40px;
+  width: 40px;
+  text-align: center;
 }

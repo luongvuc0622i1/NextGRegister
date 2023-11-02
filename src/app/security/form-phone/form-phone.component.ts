@@ -60,7 +60,6 @@ export class FormPhoneComponent {
   }
 
   validatePhone() {
-    console.log(this.form.value.phone)
     if (!this.form.value.phone) {
       this.statusPhone = 'Phone Number is require';
     }

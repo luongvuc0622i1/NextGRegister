@@ -14,13 +14,13 @@ import { FormControl, FormGroup } from '@angular/forms';
         </div>
         <span>Your verification codes is sent via number</span>
         <p>{{phoneInput}}</p>
-        <form [formGroup]="formNo">
-          <input type="text" formControlName="no1" />
-          <input type="text" formControlName="no2" />
-          <input type="text" formControlName="no3" />
-          <input type="text" formControlName="no4" />
-          <input type="text" formControlName="no5" />
-          <input type="text" formControlName="no6" />
+        <form class="wr-otp-inp" [formGroup]="formNo">
+          <input [maxLength]="1" class="otp-inp" type="text" formControlName="no1" />
+          <input [maxLength]="1" class="otp-inp" type="text" formControlName="no2" />
+          <input [maxLength]="1" class="otp-inp" type="text" formControlName="no3" />
+          <input [maxLength]="1" class="otp-inp" type="text" formControlName="no4" />
+          <input [maxLength]="1" class="otp-inp" type="text" formControlName="no5" />
+          <input [maxLength]="1" class="otp-inp" type="text" formControlName="no6" />
         </form>
         <button class="button-form" (click)="continue()">Continue<span class="material-symbols-outlined">east</span></button>
       </div>

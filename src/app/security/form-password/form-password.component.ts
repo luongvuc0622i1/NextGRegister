@@ -89,6 +89,8 @@ export class FormPasswordComponent implements AfterViewInit {
       this.statusConfirm = 'Password is require';
     } else if (!passwordRegex.test(this.form.value.confirm)) {
       this.statusConfirm = 'Minimum is 8 characters with at least 1 upcase';
+    } else if (this.form.value.confirm != this.form.value.password) {
+      this.statusConfirm = 'Confirm Password must be the same with Password';
     }
   }
 }

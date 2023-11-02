@@ -145,9 +145,25 @@ export class SecurityComponent implements OnInit {
     if (this.title === 'Sign In') {
       this.signInPhone(form);
     } else if (this.title === 'Sign Up') {
-      this.authService.sendVerificationPhone(form).subscribe();
+      this.authService.sendVerificationPhone(form).subscribe(data => {
+        if (data.otp) {
+          this.router.navigate(['/register'], {
+            queryParams: {
+              phone: data.phoneNumber,
+              otp: data.otp,
+            }
+          });
+        }
+      })
     } else if (this.title === 'Forgot Password') {
-      this.authService.sendVerificationPhoneChangePass(form).subscribe();
+      this.authService.sendVerificationPhoneChangePass(form).subscribe(data => {
+        if (data.token) this.router.navigate(['/resetPassword'], {
+          queryParams: {
+            phone: data.phoneNumber,
+            token: data.token,
+          }
+        });
+      });
     }
   }
 }

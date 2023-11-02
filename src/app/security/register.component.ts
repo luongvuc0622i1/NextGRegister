@@ -33,12 +33,10 @@ export class RegisterComponent implements OnInit {
       const token = params['token'];
       const phone = params['phone'];
       const otp = params['otp'];
-      this.form.patchValue({
-        email: email,
-        token: token,
-        phone: phone,
-        otp: otp,
-      });
+      if (email) this.form.patchValue({ email: email });
+      if (token) this.form.patchValue({ token: token });
+      if (phone) this.form.patchValue({ phone: phone });
+      if (otp) this.form.patchValue({ otp: otp });
     });
   }
 
