@@ -9,7 +9,6 @@ import { TokenService } from "../service/token.service";
   templateUrl: './resetPassword.component.html',
   styleUrls: ['./security.component.css']
 })
-// export class ResetPasswordComponent {
 export class ResetPasswordComponent implements OnInit {
   form: FormGroup = new FormGroup({
     email: new FormControl(),

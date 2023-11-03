@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-verification-email',
@@ -12,7 +13,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
           <h4>Email Verification</h4>
         </div>
         <span>We have sent an email to this address to verify your email address and activate your account.</span>
-        <p>{{emailInput}}</p>
+        <p>{{this.form.value.email}}</p>
         <span>If you did not receive any email. Resend verification email.</span>
       </div>
     </div>
@@ -21,7 +22,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class VerificationEmailComponent {
   // @ts-ignore
-  @Input() emailInput: string;
+  @Input() form: FormGroup;
   @Output() switchTemplate = new EventEmitter<string>();
 
   switchTo() {

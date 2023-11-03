@@ -1,8 +1,8 @@
 import { Component, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { errorMessages } from '../../service/error-messages';
-import { ErrorService } from 'src/app/service/error.service';
+import { errorMessages } from '../../../environments/error-messages';
+import { ErrorService } from '../../service/error.service';
 
 @Component({
   selector: 'app-form-email-pass',
@@ -14,10 +14,10 @@ import { ErrorService } from 'src/app/service/error.service';
         <span>Please enter your credentials to access your account.</span>
       </div>
       <form [formGroup]="form" (ngSubmit)="login()">
-        <input type="email" formControlName="email" placeholder="Email" (blur)="validateEmail()" (click)="statusEmail = ''" />
+        <input type="email" formControlName="email" placeholder="Email" (keyup)="validateEmail()" />
         <span class="error">{{statusEmail}}</span>
         <input type="password" formControlName="password" placeholder="Password" autocomplete="current-password" required=""
-          id="id_password" (blur)="validatePassword()" (click)="statusPassword = ''" />
+          id="id_password" (keyup)="validatePassword()" />
         <span class="error">{{statusPassword}}</span>
         <span class="material-symbols-outlined eye" id="togglePassword">visibility</span><br>
         <div>
@@ -96,7 +96,7 @@ export class FormEmailPassComponent implements AfterViewInit {
       this.statusEmail = 'Email is require';
     } else if (!emailRegex.test(this.form.value.email)) {
       this.statusEmail = 'Email format is not correct';
-    }
+    } else this.statusEmail = '';
   }
 
   validatePassword() {
@@ -105,6 +105,6 @@ export class FormEmailPassComponent implements AfterViewInit {
       this.statusPassword = 'Password is require';
     } else if (!passwordRegex.test(this.form.value.password)) {
       this.statusPassword = 'Minimum is 8 characters with at least 1 upcase';
-    }
+    } else this.statusPassword = '';
   }
 }

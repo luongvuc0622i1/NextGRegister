@@ -12,7 +12,7 @@ import { FormControl, FormGroup } from '@angular/forms';
       </div>
       <form [formGroup]="form" (ngSubmit)="continue()">
         <p style="color: red">{{statusLogin}}</p>
-          <input type="text" formControlName="email" placeholder="Email" (blur)="validateEmail()" (click)="statusEmail = ''" />
+          <input type="text" formControlName="email" placeholder="Email" (keyup)="validateEmail()" />
           <span class="error">{{statusEmail}}</span>
           <div>
             <a style="float: left;" (click)="switchTo()">{{title}} {{labelSwitch}}</a>
@@ -60,6 +60,6 @@ export class FormEmailComponent {
       this.statusEmail= 'Email is require';
     } else if (!emailRegex.test(this.form.value.email)) {
       this.statusEmail = 'Email format is not correct';
-    }
+    } else this.statusEmail = '';
   }
 }

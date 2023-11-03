@@ -12,7 +12,7 @@ import { FormControl, FormGroup } from '@angular/forms';
       </div>
       <form [formGroup]="form" (ngSubmit)="continue()">
         <p style="color: red">{{statusLogin}}</p>
-          <input type="text" formControlName="phone" placeholder="Phone Number"  (blur)="validatePhone()" (click)="statusPhone = ''" />
+          <input type="text" formControlName="phone" placeholder="Phone Number" (keyup)="validatePhone()" />
           <span class="error">{{statusPhone}}</span>
           <div>
             <a style="float: left;" (click)="switchTo()">{{title}} {{labelSwitch}}</a>
@@ -62,6 +62,6 @@ export class FormPhoneComponent {
   validatePhone() {
     if (!this.form.value.phone) {
       this.statusPhone = 'Phone Number is require';
-    }
+    } else this.statusPhone = '';
   }
 }

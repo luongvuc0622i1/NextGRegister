@@ -8,15 +8,16 @@ import { FormGroup } from '@angular/forms';
       <p style="color: red">{{statusLogin}}</p>
       <div style="display: flex;">
         <div class="group-col left">
-          <input type="text" formControlName="firstName" placeholder="First Name" (blur)="validateFName()" (click)="statusFName = ''" />
+          <input type="text" formControlName="firstName" placeholder="First Name" (keyup)="validateFName()" />
           <span class="error">{{statusFName}}</span>
         </div>
         <div class="group-col right">
-          <input type="text" formControlName="lastName" placeholder="Last Name" (blur)="validateLName()" (click)="statusLName = ''" />
+          <input type="text" formControlName="lastName" placeholder="Last Name" (keyup)="validateLName()" />
           <span class="error">{{statusLName}}</span>
         </div>
       </div>
-      <input type="text" formControlName="email" placeholder="Email" [attr.readonly]="form.value.email ? true : null" (blur)="validateEmail()" (click)="statusEmail = ''" />
+      <input type="text" formControlName="email" placeholder="Email" (keyup)="validateEmail()" *ngIf="status" readonly />
+      <input type="text" formControlName="email" placeholder="Email" *ngIf="!status" />
       <span class="error">{{statusEmail}}</span>
       <button class="button-form">Continue<span class="material-symbols-outlined">east</span></button>
     </form>
@@ -26,13 +27,18 @@ import { FormGroup } from '@angular/forms';
 export class FormNameComponent {
   // @ts-ignore
   @Input() form: FormGroup;
-  // @ts-ignore
-  // @Input() email: string;
   @Output() switchTemplate = new EventEmitter<string>();
   statusLogin: string = '';
   statusFName: string = '';
   statusLName: string = '';
   statusEmail: string = '';
+  status: boolean = false;
+
+  ngOnInit(): void {
+    if (this.form.value.email) {
+      this.status = true;
+    }
+  }
 
   continue() {
     if (!this.statusFName && !this.statusLName && !this.statusEmail) {
@@ -43,13 +49,13 @@ export class FormNameComponent {
   validateFName() {
     if (!this.form.value.firstName) {
       this.statusFName = 'First Name is require';
-    }
+    } else this.statusFName = '';
   }
 
   validateLName() {
     if (!this.form.value.lastName) {
       this.statusLName = 'Last Name is require';
-    }
+    } else this.statusLName = '';
   }
 
   validateEmail() {
@@ -58,6 +64,6 @@ export class FormNameComponent {
       this.statusEmail= 'Email is require';
     } else if (!emailRegex.test(this.form.value.email)) {
       this.statusEmail = 'Email format is not correct';
-    }
+    } else this.statusEmail = '';
   }
 }

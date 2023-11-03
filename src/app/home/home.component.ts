@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-
+  isAdmin(): boolean {
+    const userRole = localStorage.getItem('Role_Key');
+    return userRole === 'ROLE_ADMIN';
+  }
 }

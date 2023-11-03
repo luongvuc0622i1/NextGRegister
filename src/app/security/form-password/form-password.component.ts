@@ -7,11 +7,11 @@ import { FormGroup } from '@angular/forms';
     <form [formGroup]="form">
       <p style="color: red">{{statusLogin}}</p>
       <input type="password" formControlName="password" placeholder="Password" autocomplete="current-password" required=""
-          id="id_password" (blur)="validatePassword()" (click)="statusPassword = ''" />
+          id="id_password" (keyup)="validatePassword()" />
       <span class="error">{{statusPassword}}</span>
       <span class="material-symbols-outlined eye" id="togglePassword">visibility</span><br>
       <input type="password" formControlName="confirm" placeholder="Confirm Password" autocomplete="current-password" required=""
-          id="id_confirm" (blur)="validateConfirm()" (click)="statusConfirm = ''" />
+          id="id_confirm" (keyup)="validateConfirm()" />
       <span class="error">{{statusConfirm}}</span>
       <span class="material-symbols-outlined eye" id="toggleConfirm">visibility</span><br>
       <!-- <button (click)="back()">Back</button> -->
@@ -64,13 +64,14 @@ export class FormPasswordComponent implements AfterViewInit {
 
   continue() {
     if (!this.statusPassword && !this.statusConfirm) {
-      if (this.isResetPassword) {
-        this.resetPassword.emit();
-      } else {
-        if (this.form.value.token || this.form.value.otp) {
-          this.signUp.emit();
-        }
-      }
+      console.log(this.form.value);
+      // if (this.isResetPassword) {
+      //   this.resetPassword.emit();
+      // } else {
+      //   if (this.form.value.token || this.form.value.otp) {
+      //     this.signUp.emit();
+      //   }
+      // }
     }
   }
 
@@ -80,7 +81,7 @@ export class FormPasswordComponent implements AfterViewInit {
       this.statusPassword = 'Password is require';
     } else if (!passwordRegex.test(this.form.value.password)) {
       this.statusPassword = 'Minimum is 8 characters with at least 1 upcase';
-    }
+    } else this.statusPassword = '';
   }
 
   validateConfirm() {
@@ -91,6 +92,6 @@ export class FormPasswordComponent implements AfterViewInit {
       this.statusConfirm = 'Minimum is 8 characters with at least 1 upcase';
     } else if (this.form.value.confirm != this.form.value.password) {
       this.statusConfirm = 'Confirm Password must be the same with Password';
-    }
+    } else this.statusConfirm = '';
   }
 }

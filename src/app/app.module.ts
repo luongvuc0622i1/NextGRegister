@@ -16,6 +16,7 @@ import { RegisterComponent } from './security/register.component';
 import { FormNameComponent } from './security/form-name/form-name.component';
 import { FormPasswordComponent } from './security/form-password/form-password.component';
 import { ResetPasswordComponent } from './security/resetPassword.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ResetPasswordComponent } from './security/resetPassword.component';
     ResetPasswordComponent,
     RegisterComponent,
     FormNameComponent,
-    FormPasswordComponent
+    FormPasswordComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

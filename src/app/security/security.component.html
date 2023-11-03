@@ -26,11 +26,11 @@
         (sendVerificationEmail)="sendVerificationEmail($event)"></app-form-email>
     </ng-template>
     <ng-template #verificationEmailTemplate>
-      <app-verification-email [emailInput]="emailInput"
+      <app-verification-email [form]="form"
         (switchTemplate)="switchTemplate($event)"></app-verification-email>
     </ng-template>
     <ng-template #verificationPhoneTemplate>
-      <app-verification-phone [phoneInput]="phoneInput"
+      <app-verification-phone [form]="form"
         (switchTemplate)="switchTemplate($event)" (verificationPhone)="verificationPhone($event)"></app-verification-phone>
     </ng-template>
     <div class="overlay-container">

@@ -11,12 +11,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class SecurityComponent implements OnInit {
   title: string;
-  templateType: string = 'email-pass';
-  labelSwitch: string = 'With SMS';
-  footer: string = 'Not register yet? Create An Account';
-  emailInput: string = '';
-  phoneInput: string = '';
-  statusLogin: string = '';
+  templateType: string;
+  labelSwitch: string;
+  footer: string;
 
   form: FormGroup = new FormGroup({
     email: new FormControl(),
@@ -29,6 +26,9 @@ export class SecurityComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute) {
     this.title = 'Sign In';
+    this.templateType = 'email-pass';
+    this.labelSwitch = 'With SMS';
+    this.footer = 'Not register yet? Create An Account';
   }
 
   ngOnInit(): void {
@@ -57,9 +57,9 @@ export class SecurityComponent implements OnInit {
   switchTemplate(template: string) {
     this.templateType = template;
     if (this.templateType == 'email-pass' || this.templateType == 'email') {
-      this.labelSwitch = 'With Email';
-    } else if (this.templateType == 'phone') {
       this.labelSwitch = 'With SMS';
+    } else if (this.templateType == 'phone') {
+      this.labelSwitch = 'With Email';
     }
   }
 
@@ -78,7 +78,6 @@ export class SecurityComponent implements OnInit {
         this.tokenService.setUsername(data.username);
         this.tokenService.setRole(data.roles[0]);
 
-        this.statusLogin = 'Login Success!';
         this.router.navigate(['/home']);
         // if (data.roleSet[0].name == 'MANAGER') {
         //   this.router.navigate(['/manager/profile']);
@@ -99,7 +98,6 @@ export class SecurityComponent implements OnInit {
         this.tokenService.setUsername(data.username);
         this.tokenService.setRole(data.roles[0]);
 
-        this.statusLogin = 'Login Success!';
         this.router.navigate(['/home']);
         // if (data.roleSet[0].name == 'MANAGER') {
         //   this.router.navigate(['/manager/profile']);
@@ -113,7 +111,9 @@ export class SecurityComponent implements OnInit {
   }
 
   sendVerificationEmail(email: string) {
-    this.emailInput = email;
+    this.form.patchValue({
+      email: email,
+    });
     if (this.title === 'Sign Up') {
       this.authService.sendVerificationEmail(email).subscribe();
     } else if (this.title === 'Forgot Password') {
@@ -122,7 +122,9 @@ export class SecurityComponent implements OnInit {
   }
 
   sendOtp(phone: string) {
-    this.phoneInput = phone;
+    this.form.patchValue({
+      phone: phone,
+    });
     let phoneNumber = '';
     if (phone.startsWith("0")) {
       phoneNumber = phone.substring(1); // Loại bỏ số 0 đầu tiên
