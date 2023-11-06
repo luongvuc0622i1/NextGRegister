@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from '../service/user.service';
-import { User } from '../model/User';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -9,20 +9,37 @@ import { User } from '../model/User';
 })
 export class HomeComponent {
   // @ts-ignore
-  user: User
+  user: FormGroup = new FormGroup({
+    name: new FormControl(),
+    lastName: new FormControl(),
+    email: new FormControl(),
+    emailVerifired: new FormControl(),
+    phone: new FormControl(),
+    phoneVerifired: new FormControl(),
+    bio: new FormControl(),
+    img: new FormControl(),
+  });
 
-  isAdmin(): boolean {
-    const userRole = localStorage.getItem('Role_Key');
-    return userRole === 'ROLE_ADMIN';
-  }
+  constructor(private userService: UserService) { }
 
-  constructor(private userService: UserService) {  }
-
-  ngOnInit() {
+  ngOnInit(): void {
     // Gọi API findById và xử lý dữ liệu khi được nhận
     this.userService.findById().subscribe(data => {
-      this.user = data;
+      console.log(data);
+      this.user.patchValue({
+        name: data.name,
+        lastName: null,
+        email: data.email,
+        emailVerifired: data.emailVerifired,
+        phone: data.phoneNumber,
+        phoneVerifired: data.phoneVerifired,
+        bio: data.bio,
+        img: data.imageUrl
+      });
     });
-    console.log(this.user);
+  }
+
+  saveChanges() {
+    console.log(this.user.value);
   }
 }

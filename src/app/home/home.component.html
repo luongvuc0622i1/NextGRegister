@@ -5,4 +5,100 @@
 <ng-template #userContent>
   <app-profile-employee></app-profile-employee>
 </ng-template> -->
-Nội dung
+
+<!-- <form [formGroup]="user" (ngSubmit)="saveChanges()">
+    <input type="text" formControlName="name" placeholder="Name" />
+    <input type="email" formControlName="email" placeholder="Email" />
+    <input type="text" formControlName="phone" placeholder="Phone Number" />
+    <input type="text" formControlName="bio" placeholder="Bio" />
+    <p>{{this.user.value.img}}</p>
+    <button class="button-form">Save Changes</button>
+</form> -->
+
+
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="row" style="align-items: center; display: grid; grid-template-columns: 1fr 9fr;">
+                <div>
+                    <img class="rounded-circle" style="width: 50px; max-width: 100%;"
+                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                </div>
+                <div>
+                    <span class="font-weight-bold">{{this.user.value.name}} ABC</span><br>
+                    <span class="text-black-50">Update your username and manage your account</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 border-right">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center experience">
+                            <span class="border px-3 p-1 add-experience" style="width: 100%; text-align: center;">
+                                <i class="fa fa-plus"></i>&nbsp;General
+                            </span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center experience">
+                            <span class="border px-3 p-1 add-experience" style="width: 100%; text-align: center;">
+                                <i class="fa fa-plus"></i>&nbsp;Password
+                            </span>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="row">
+                        <form [formGroup]="user" (ngSubmit)="saveChanges()">
+                        <div class="col-md-5">
+                            <div class="p-3 py-5">
+                                <span class="font-weight-bold">Profile picture</span><br>
+                                <div class="d-flex flex-column align-items-center text-center"><img class="rounded-circle mt-5"
+                                        width="150px"
+                                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="p-3 py-5">
+                                <div class="row mt-2">
+                                    <div class="col-md-6">
+                                        <label class="labels">First Name</label>
+                                        <input type="text" class="form-control" formControlName="name" placeholder="First Name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="labels">Last Name</label>
+                                        <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name">
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <label class="labels">Phone Number</label>
+                                        <input type="text" class="form-control" formControlName="phone" placeholder="Phone number">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="labels">Email</label>
+                                        <input type="email" class="form-control" formControlName="email" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <label class="labels">Bio</label>
+                                        <textarea type="text" class="form-control" value=""></textarea>
+                                    </div>
+                                </div>
+                                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Changes</button></div>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="d-flex justify-content-between align-items-center experience">
+                <span class="border px-3 p-1 add-experience" style="width: 100%; text-align: center;">
+                    <i class="fa fa-plus"></i>&nbsp;Go Pro
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -22,10 +22,7 @@ export class HeaderComponent {
   constructor(private tokenService: TokenService, private router: Router) { }
 
   logout() {
-    localStorage.removeItem('ID_KEY');
-    localStorage.removeItem('Token_Key');
-    localStorage.removeItem('Username_Key');
-    localStorage.removeItem('Role_Key');
+    localStorage.clear();
     this.router.navigate(['/']);
   }
 }

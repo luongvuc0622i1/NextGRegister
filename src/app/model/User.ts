@@ -1,13 +1,21 @@
 export class User {
-  id: string;
-  username: string;
+  name: string;
+  lastName: string;
   email: string;
-  phone: string;
+  emailVerifired: boolean;
+  phoneNumber: string;
+  phoneVerifired: boolean;
+  bio: string;
+  imageUrl: string;
 
-  constructor(id: string, username: string, email: string, phone: string) {
-    this.id = id;
-    this.username = username;
+  constructor(name: string, lastName: string, email: string, emailVerifired: boolean, phoneNumber: string, phoneVerifired: boolean, bio: string, imageUrl: string) {
+    this.name = name;
+    this.lastName = lastName;
     this.email = email;
-    this.phone = phone;
+    this.emailVerifired = emailVerifired;
+    this.phoneNumber = phoneNumber;
+    this.phoneVerifired = phoneVerifired;
+    this.bio = bio;
+    this.imageUrl = imageUrl;
   }
 }
