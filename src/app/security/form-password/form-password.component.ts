@@ -64,14 +64,13 @@ export class FormPasswordComponent implements AfterViewInit {
 
   continue() {
     if (!this.statusPassword && !this.statusConfirm) {
-      console.log(this.form.value);
-      // if (this.isResetPassword) {
-      //   this.resetPassword.emit();
-      // } else {
-      //   if (this.form.value.token || this.form.value.otp) {
-      //     this.signUp.emit();
-      //   }
-      // }
+      if (this.isResetPassword) {
+        this.resetPassword.emit();
+      } else {
+        if (this.form.value.token || this.form.value.otp) {
+          this.signUp.emit();
+        }
+      }
     }
   }
 

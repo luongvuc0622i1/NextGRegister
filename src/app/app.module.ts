@@ -17,6 +17,7 @@ import { FormNameComponent } from './security/form-name/form-name.component';
 import { FormPasswordComponent } from './security/form-password/form-password.component';
 import { ResetPasswordComponent } from './security/resetPassword.component';
 import { HeaderComponent } from './header/header.component';
+import { DataService } from './service/data.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { HeaderComponent } from './header/header.component';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Auth_interceptor, multi: true
-    }
+    },
+    DataService
   ],
   bootstrap: [AppComponent]
 })

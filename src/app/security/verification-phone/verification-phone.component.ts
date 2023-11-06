@@ -57,19 +57,11 @@ export class VerificationPhoneComponent {
   }
 
   continue() {
-    let phoneNumber = '';
-    if (this.form.value.phone.startsWith("0")) {
-      phoneNumber = this.form.value.phone.substring(1); // Loại bỏ số 0 đầu tiên
-    } else if (this.form.value.phone.startsWith("+84")) {
-      phoneNumber = this.form.value.phone.substring(3); // Loại bỏ số +84 đầu tiên
-    } else {
-      phoneNumber = this.form.value.phone;
-    }
-    const form = {
+    const obj = {
       "phoneNumber": this.form.value.phone,
       "otpNumber": this.formNo.value.no1 + this.formNo.value.no2 + this.formNo.value.no3 + this.formNo.value.no4 + this.formNo.value.no5 + this.formNo.value.no6,
     }
-    this.verificationPhone.emit(form);
+    this.verificationPhone.emit(obj);
   }
 
   next(id: number) {

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../service/auth.service';
-import { TokenService } from '../service/token.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { AuthService } from '../service/auth.service';
+import { DataService } from '../service/data.service';
 
 @Component({
   selector: 'app-security',
@@ -22,9 +22,9 @@ export class SecurityComponent implements OnInit {
   });
 
   constructor(private authService: AuthService,
-    private tokenService: TokenService,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private dataService: DataService) {
     this.title = 'Sign In';
     this.templateType = 'email-pass';
     this.labelSwitch = 'With SMS';
@@ -72,41 +72,13 @@ export class SecurityComponent implements OnInit {
   // actions
   signInEmail(formSignUp: any) {
     this.authService.loginEmail(formSignUp).subscribe(data => {
-      if (data.token != undefined) {
-        this.tokenService.setID(data.id);
-        this.tokenService.setToken(data.token);
-        this.tokenService.setUsername(data.username);
-        this.tokenService.setRole(data.roles[0]);
-
-        this.router.navigate(['/home']);
-        // if (data.roleSet[0].name == 'MANAGER') {
-        //   this.router.navigate(['/manager/profile']);
-        // } else if (data.roleSet[0].name == 'USER') {
-        //   this.router.navigate(['/user/home']);
-        // } else if (data.roleSet[0].name == 'ADMIN') {
-        //   this.router.navigate(['/admin/profile']);
-        // }
-      }
+      this.authService.signInSuccess(data);
     })
   }
 
   signInPhone(formSignUp: any) {
     this.authService.loginPhone(formSignUp).subscribe(data => {
-      if (data.token != undefined) {
-        this.tokenService.setID(data.id);
-        this.tokenService.setToken(data.token);
-        this.tokenService.setUsername(data.username);
-        this.tokenService.setRole(data.roles[0]);
-
-        this.router.navigate(['/home']);
-        // if (data.roleSet[0].name == 'MANAGER') {
-        //   this.router.navigate(['/manager/profile']);
-        // } else if (data.roleSet[0].name == 'USER') {
-        //   this.router.navigate(['/user/home']);
-        // } else if (data.roleSet[0].name == 'ADMIN') {
-        //   this.router.navigate(['/admin/profile']);
-        // }
-      }
+      this.authService.signInSuccess(data);
     })
   }
 
@@ -114,10 +86,13 @@ export class SecurityComponent implements OnInit {
     this.form.patchValue({
       email: email,
     });
+    const obj = {
+      'email': email
+    }
     if (this.title === 'Sign Up') {
-      this.authService.sendVerificationEmail(email).subscribe();
+      this.authService.sendVerificationEmail(obj).subscribe();
     } else if (this.title === 'Forgot Password') {
-      this.authService.sendVerificationEmailChangePass(email).subscribe();
+      this.authService.sendVerificationEmailChangePass(obj).subscribe();
     }
   }
 
@@ -125,16 +100,8 @@ export class SecurityComponent implements OnInit {
     this.form.patchValue({
       phone: phone,
     });
-    let phoneNumber = '';
-    if (phone.startsWith("0")) {
-      phoneNumber = phone.substring(1); // Loại bỏ số 0 đầu tiên
-    } else if (phone.startsWith("+84")) {
-      phoneNumber = phone.substring(3); // Loại bỏ số +84 đầu tiên
-    } else {
-      phoneNumber = phone;
-    }
     const obj = {
-      'phoneNumber': phoneNumber
+      "phoneNumber": this.form.value.phone
     };
     if (this.title === 'Sign In' || this.title === 'Forgot Password') {
       this.authService.sendOtpLogin(obj).subscribe();
@@ -143,28 +110,30 @@ export class SecurityComponent implements OnInit {
     }
   }
 
-  verificationPhone(form: any) {
+  verificationPhone(obj: any) {
     if (this.title === 'Sign In') {
-      this.signInPhone(form);
+      this.signInPhone(obj);
     } else if (this.title === 'Sign Up') {
-      this.authService.sendVerificationPhone(form).subscribe(data => {
+      this.authService.sendVerificationPhone(obj).subscribe(data => {
         if (data.otp) {
-          this.router.navigate(['/register'], {
-            queryParams: {
-              phone: data.phoneNumber,
-              otp: data.otp,
-            }
-          });
+          const dataToSend = {
+            phone: data.phoneNumber,
+            otp: data.otp,
+          }
+          this.dataService.setData(dataToSend);
+          this.router.navigate(['/register']);
         }
       })
     } else if (this.title === 'Forgot Password') {
-      this.authService.sendVerificationPhoneChangePass(form).subscribe(data => {
-        if (data.token) this.router.navigate(['/resetPassword'], {
-          queryParams: {
+      this.authService.sendVerificationPhoneChangePass(obj).subscribe(data => {
+        if (data.token) {
+          const dataToSend = {
             phone: data.phoneNumber,
             token: data.token,
-          }
-        });
+          };
+          this.dataService.setData(dataToSend);
+          this.router.navigate(['/resetPassword']);
+        }
       });
     }
   }

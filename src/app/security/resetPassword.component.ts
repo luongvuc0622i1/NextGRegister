@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
-import { AuthService } from "../service/auth.service";
-import { TokenService } from "../service/token.service";
+import { AuthService } from '../service/auth.service';
+import { DataService } from '../service/data.service';
 
 @Component({
   selector: 'app-resetPassword',
@@ -19,21 +19,22 @@ export class ResetPasswordComponent implements OnInit {
   });
 
   constructor(private authService: AuthService,
-              private tokenService: TokenService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private dataService: DataService) {
+    this.form.patchValue({
+      phone: this.dataService.getData().phone,
+      token: this.dataService.getData().token,
+    });
+  }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       const email = params['email'];
-      const phone = params['phone'];
       const token = params['token'];
-      this.form.patchValue({
-        email: email,
-        phone: phone,
-        token: token,
-      });
+      if (email) this.form.patchValue({ email: email });
+      if (token) this.form.patchValue({ token: token });
     });
+    console.log(this.form.value)
   }
 
   updateForm(updatedValues: any) {
@@ -52,16 +53,9 @@ export class ResetPasswordComponent implements OnInit {
         const obj = {
           "email": data.email,
           "password": data.newPass
-      }
+        }
         this.authService.loginEmail(obj).subscribe(data => {
-          if (data.token != undefined) {
-            this.tokenService.setID(data.id);
-            this.tokenService.setToken(data.token);
-            this.tokenService.setUsername(data.username);
-            this.tokenService.setRole(data.roles[0]);
-
-            this.router.navigate(['/home']);
-          }
+          this.authService.signInSuccess(data);
         })
       })
     } else if (this.form.value.phone) {
@@ -74,16 +68,9 @@ export class ResetPasswordComponent implements OnInit {
         const obj = {
           "email": data.email,
           "password": data.newPass
-      }
+        }
         this.authService.loginEmail(obj).subscribe(data => {
-          if (data.token != undefined) {
-            this.tokenService.setID(data.id);
-            this.tokenService.setToken(data.token);
-            this.tokenService.setUsername(data.username);
-            this.tokenService.setRole(data.roles[0]);
-
-            this.router.navigate(['/home']);
-          }
+          this.authService.signInSuccess(data);
         })
       })
     }

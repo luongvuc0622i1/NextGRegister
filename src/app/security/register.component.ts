@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
-import { AuthService } from "../service/auth.service";
-import { TokenService } from "../service/token.service";
+import { AuthService } from '../service/auth.service';
+import { DataService } from '../service/data.service';
 
 @Component({
   selector: 'app-register',
@@ -23,20 +23,21 @@ export class RegisterComponent implements OnInit {
   });
 
   constructor(private authService: AuthService,
-              private tokenService: TokenService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private dataService: DataService) {
+    console.log(this.dataService.getData());
+    this.form.patchValue({
+      phone: this.dataService.getData().phone,
+      otp: this.dataService.getData().otp,
+    });
+  }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       const email = params['email'];
       const token = params['token'];
-      const phone = params['phone'];
-      const otp = params['otp'];
       if (email) this.form.patchValue({ email: email });
       if (token) this.form.patchValue({ token: token });
-      if (phone) this.form.patchValue({ phone: phone });
-      if (otp) this.form.patchValue({ otp: otp });
     });
   }
 
@@ -62,14 +63,7 @@ export class RegisterComponent implements OnInit {
       }
       this.authService.registerEmail(formRegister).subscribe(data => {
         this.authService.loginEmail(data).subscribe(data => {
-          if (data.token != undefined) {
-            this.tokenService.setID(data.id);
-            this.tokenService.setToken(data.token);
-            this.tokenService.setUsername(data.username);
-            this.tokenService.setRole(data.roles[0]);
-  
-            this.router.navigate(['/home']);
-          }
+          this.authService.signInSuccess(data);
         })
       })
     } else if (this.form.value.otp) {
@@ -89,14 +83,7 @@ export class RegisterComponent implements OnInit {
           "password": data.password
       }
         this.authService.loginEmail(obj).subscribe(data => {
-          if (data.token != undefined) {
-            this.tokenService.setID(data.id);
-            this.tokenService.setToken(data.token);
-            this.tokenService.setUsername(data.username);
-            this.tokenService.setRole(data.roles[0]);
-  
-            this.router.navigate(['/home']);
-          }
+          this.authService.signInSuccess(data);
         })
       })
     }

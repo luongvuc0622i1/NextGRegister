@@ -4,6 +4,7 @@ import * as jwt_decode from "jwt-decode";
 const ID_KEY = 'ID_KEY';
 const USERNAME_KEY = 'Username_Key';
 const TOKEN_KEY = 'Token_Key';
+const REFRESH_TOKEN_KEY = 'Refresh_Token_Key';
 const ROLE_KEY = 'Role_Key';
 
 @Injectable({
@@ -41,6 +42,16 @@ export class TokenService {
   public getToken():string {
     // @ts-ignore
     return localStorage.getItem(TOKEN_KEY);
+  }
+
+  public setRefreshToken(refreshToken: string) {
+    localStorage.removeItem(REFRESH_TOKEN_KEY);
+    localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
+  }
+
+  public getRefreshToken():string {
+    // @ts-ignore
+    return localStorage.getItem(REFRESH_TOKEN_KEY);
   }
 
   public setRole(role: string) {
