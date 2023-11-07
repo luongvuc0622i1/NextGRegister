@@ -1,38 +1,40 @@
 <div class="containerBody">
   <div class="container" id="container">
-    <ng-container *ngIf="templateType != 'email-pass'; else formEmailPassTemplate">
-      <ng-container *ngIf="templateType != 'phone'; else formPhoneTemplate">
-        <ng-container *ngIf="templateType != 'email'; else formEmailTemplate">
-          <ng-container *ngIf="templateType != 'verification-email'; else verificationEmailTemplate">
-            <ng-container *ngIf="templateType != 'verification-phone'; else verificationPhoneTemplate">
+    <div class="form-container sign-in-container">
+      <ng-container *ngIf="templateType != 'email-pass'; else formEmailPassTemplate">
+        <ng-container *ngIf="templateType != 'phone'; else formPhoneTemplate">
+          <ng-container *ngIf="templateType != 'email'; else formEmailTemplate">
+            <ng-container *ngIf="templateType != 'verification-email'; else verificationEmailTemplate">
+              <ng-container *ngIf="templateType != 'verification-phone'; else verificationPhoneTemplate">
+              </ng-container>
             </ng-container>
           </ng-container>
         </ng-container>
       </ng-container>
-    </ng-container>
-    <ng-template #formEmailPassTemplate>
-      <app-form-email-pass [title]="title" [labelSwitch]="labelSwitch" [footer]="footer"
-        (switchTemplate)="switchTemplate($event)" (switchPage)="switchPage()"
-        (signIn)="signInEmail($event)" (forgotPass)="forgotPassword()"></app-form-email-pass>
-    </ng-template>
-    <ng-template #formPhoneTemplate>
-      <app-form-phone [title]="title" [labelSwitch]="labelSwitch" [footer]="footer"
-        (switchTemplate)="switchTemplate($event)" (switchPage)="switchPage()"
-        (sendOtp)="sendOtp($event)"></app-form-phone>
-    </ng-template>
-    <ng-template #formEmailTemplate>
-      <app-form-email [title]="title" [labelSwitch]="labelSwitch" [footer]="footer"
-        (switchTemplate)="switchTemplate($event)" (switchPage)="switchPage()"
-        (sendVerificationEmail)="sendVerificationEmail($event)"></app-form-email>
-    </ng-template>
-    <ng-template #verificationEmailTemplate>
-      <app-verification-email [form]="form"
-        (switchTemplate)="switchTemplate($event)"></app-verification-email>
-    </ng-template>
-    <ng-template #verificationPhoneTemplate>
-      <app-verification-phone [form]="form"
-        (switchTemplate)="switchTemplate($event)" (verificationPhone)="verificationPhone($event)"></app-verification-phone>
-    </ng-template>
+      <ng-template #formEmailPassTemplate>
+        <app-form-email-pass [title]="title" [labelSwitch]="labelSwitch" [footer]="footer"
+          (switchTemplate)="switchTemplate($event)" (switchPage)="switchPage()"
+          (signIn)="signInEmail($event)" (forgotPass)="forgotPassword()"></app-form-email-pass>
+      </ng-template>
+      <ng-template #formPhoneTemplate>
+        <app-form-phone [title]="title" [labelSwitch]="labelSwitch" [footer]="footer"
+          (switchTemplate)="switchTemplate($event)" (switchPage)="switchPage()"
+          (sendOtp)="sendOtp($event)"></app-form-phone>
+      </ng-template>
+      <ng-template #formEmailTemplate>
+        <app-form-email [title]="title" [labelSwitch]="labelSwitch" [footer]="footer"
+          (switchTemplate)="switchTemplate($event)" (switchPage)="switchPage()"
+          (sendVerificationEmail)="sendVerificationEmail($event)"></app-form-email>
+      </ng-template>
+      <ng-template #verificationEmailTemplate>
+        <app-verification-email [form]="form"
+          (switchTemplate)="switchTemplate($event)"></app-verification-email>
+      </ng-template>
+      <ng-template #verificationPhoneTemplate>
+        <app-verification-phone [form]="form"
+          (switchTemplate)="switchTemplate($event)" (verificationPhone)="verificationPhone($event)"></app-verification-phone>
+      </ng-template>
+    </div>
     <div class="overlay-container">
       <div class="overlay">
         <div class="overlay-panel overlay-right">

@@ -3,6 +3,7 @@ import { UserService } from '../service/user.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { User } from '../model/User';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,8 @@ export class HomeComponent {
   });
 
   constructor(private userService: UserService,
-    private storage: AngularFireStorage) { }
+    private storage: AngularFireStorage,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     // Gọi API findById và xử lý dữ liệu khi được nhận
@@ -44,7 +46,7 @@ export class HomeComponent {
   saveChanges() {
     const user = new User(
       this.user.value.firstName,
-      this.user.value.lastName, 
+      this.user.value.lastName,
       this.user.value.email,
       this.user.value.emailVerifired,
       this.user.value.phone,
@@ -92,5 +94,19 @@ export class HomeComponent {
         this.user.patchValue({ img: downloadURL });
       });
     });
+  }
+  
+  sendVerifyEmail() {
+    const obj = {
+      'email': this.user.value.email
+    }
+    this.authService.sendVerificationEmailChangePass(obj).subscribe();
+  }
+  
+  sendOtp() {
+    const obj = {
+      "phoneNumber": this.user.value.phone
+    };
+    this.authService.sendOtpLogin(obj).subscribe();
   }
 }
