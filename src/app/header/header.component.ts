@@ -23,6 +23,7 @@ export class HeaderComponent {
 
   logout() {
     localStorage.clear();
-    this.router.navigate(['/']);
+    window.location.reload();
+    // this.router.navigate(['/']);
   }
 }

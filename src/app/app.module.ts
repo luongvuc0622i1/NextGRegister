@@ -18,6 +18,10 @@ import { FormPasswordComponent } from './security/form-password/form-password.co
 import { ResetPasswordComponent } from './security/resetPassword.component';
 import { HeaderComponent } from './header/header.component';
 import { DataService } from './service/data.service';
+import { GeneralProfileComponent } from './home/general-profile/general-profile.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -33,14 +37,17 @@ import { DataService } from './service/data.service';
     RegisterComponent,
     FormNameComponent,
     FormPasswordComponent,
-    HeaderComponent
+    HeaderComponent,
+    GeneralProfileComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule
   ],
   providers: [
     {

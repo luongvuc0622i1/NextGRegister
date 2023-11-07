@@ -25,9 +25,9 @@ export class UserService {
     return this.http.get<User>(`${API_URL}/info`);
   }
 
-//   update(id: number, employee : FormEmployee): Observable<Employee> {
-//     return this.http.put<Employee>(`${API_URL}/employees/${id}`, employee);
-//   }
+  update(user : User): Observable<User> {
+    return this.http.put<User>(`${API_URL}/update-info`, user);
+  }
 
 //   delete(id: number): Observable<Employee> {
 //     return this.http.delete<Employee>(`${API_URL}/employees/${id}`);
