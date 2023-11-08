@@ -21,10 +21,12 @@ export class ResetPasswordComponent implements OnInit {
   constructor(private authService: AuthService,
               private route: ActivatedRoute,
               private dataService: DataService) {
-    this.form.patchValue({
-      phone: this.dataService.getData().phone,
-      token: this.dataService.getData().token,
-    });
+    if (dataService.getData()) {            
+      this.form.patchValue({
+        phone: this.dataService.getData().phone,
+        token: this.dataService.getData().token,
+      });
+    }
   }
 
   ngOnInit(): void {

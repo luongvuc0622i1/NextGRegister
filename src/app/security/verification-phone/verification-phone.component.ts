@@ -12,7 +12,7 @@ import { FormControl, FormGroup } from '@angular/forms';
         <h4>Enter Verification Code</h4>
       </div>
       <span>Your verification codes is sent via number</span>
-      <p>(+84) {{this.form.value.phone}}</p>
+      <p>(+84) {{displayPhone}}</p>
       <form class="wr-otp-inp" [formGroup]="formNo">
         <input [maxLength]="1" class="otp-inp" type="text" formControlName="no1" (keyup)="next(1)" />
         <input #no2 [maxLength]="1" class="otp-inp" type="text" formControlName="no2" (keyup)="next(2)" />
@@ -49,6 +49,16 @@ export class VerificationPhoneComponent {
     no5: new FormControl(),
     no6: new FormControl(),
   });
+  displayPhone: string = '';
+
+  ngOnInit(): void {
+    this.displayPhone = this.form.value.phone
+    if (this.displayPhone.startsWith("0")) {
+      this.displayPhone = this.form.value.phone.slice(1);
+    } else if (this.displayPhone.startsWith("+")) {
+      this.displayPhone = this.form.value.phone.slice(3);
+    }
+  }
 
   switchTo() {
     this.switchTemplate.emit('phone');

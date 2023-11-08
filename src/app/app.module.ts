@@ -22,6 +22,7 @@ import { GeneralProfileComponent } from './home/general-profile/general-profile.
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { environment } from '../environments/environment';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { environment } from '../environments/environment';
     FormNameComponent,
     FormPasswordComponent,
     HeaderComponent,
-    GeneralProfileComponent
+    GeneralProfileComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,

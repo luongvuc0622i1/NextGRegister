@@ -5,7 +5,6 @@ import { FormGroup } from '@angular/forms';
   selector: 'app-form-password',
   template: `
     <form [formGroup]="form">
-      <p style="color: red">{{statusLogin}}</p>
       <input type="password" formControlName="password" placeholder="Password" autocomplete="current-password" required=""
           id="id_password" (keyup)="validatePassword()" />
       <span class="error">{{statusPassword}}</span>
@@ -28,7 +27,6 @@ export class FormPasswordComponent implements AfterViewInit {
   @Output() switchTemplate = new EventEmitter<string>();
   @Output() signUp = new EventEmitter<void>();
   @Output() resetPassword = new EventEmitter<void>();
-  statusLogin: string = '';
   statusPassword: string = '';
   statusConfirm: string = '';
 

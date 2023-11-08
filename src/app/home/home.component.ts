@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { User } from '../model/User';
 import { AuthService } from '../service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,8 @@ export class HomeComponent {
 
   constructor(private userService: UserService,
     private storage: AngularFireStorage,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit(): void {
     // Gọi API findById và xử lý dữ liệu khi được nhận
@@ -59,30 +61,6 @@ export class HomeComponent {
     });
   }
 
-  // onFileSelected(event: any) {
-  //   const file = event.target.files[0];
-  //   const filePath = 'nextG/' + file.name; // Đặt đường dẫn tới file trong Firebase Storage
-  //   const storageRef = this.storage.ref(filePath);
-
-  //   // Tải file lên Firebase Storage
-  //   const task = storageRef.put(file);
-
-  //   // Theo dõi tiến trình tải lên
-  //   task.snapshotChanges().subscribe(
-  //     (snapshot) => {
-  //       // @ts-ignore
-  //       if (snapshot.state === 'success') {
-  //         storageRef.getDownloadURL().subscribe((downloadURL) => {
-  //           this.user.patchValue({ img: downloadURL });
-  //         });
-  //       }
-  //     },
-  //     (error) => {
-  //       console.error('Lỗi khi tải lên: ', error);
-  //     }
-  //   );
-  // }
-
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     const filePath = `nextG/${file.name}`;
@@ -95,18 +73,28 @@ export class HomeComponent {
       });
     });
   }
-  
+
   sendVerifyEmail() {
     const obj = {
       'email': this.user.value.email
     }
-    this.authService.sendVerificationEmailChangePass(obj).subscribe();
+    this.authService.sendVerificationEmailWhenVerify(obj).subscribe();
   }
-  
+
   sendOtp() {
     const obj = {
       "phoneNumber": this.user.value.phone
     };
     this.authService.sendOtpLogin(obj).subscribe();
+  }
+
+  verificationPhoneWhenVerify(obj: any) {
+    this.authService.sendVerificationPhoneWhenVerify(obj).subscribe(() => {
+      window.location.reload();
+    });
+  }
+
+  goToCard() {
+    this.router.navigate(['/card']);
   }
 }

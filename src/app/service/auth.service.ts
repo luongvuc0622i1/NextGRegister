@@ -55,16 +55,16 @@ export class AuthService {
     return this.http.post(`${API_URL}/send-otp`, obj);
   }
 
-  registerEmail(form: any): Observable<any> {
-    return this.http.post(`${API_URL}/register`, form);
+  registerEmail(obj: any): Observable<any> {
+    return this.http.post(`${API_URL}/register`, obj);
   }
 
   sendVerificationPhone(obj: any): Observable<any> {
     return this.http.post(`${API_URL}/validate-otp`, obj);
   }
 
-  registerPhone(form: any): Observable<any> {
-    return this.http.post(`${API_URL}/registerByPhone`, form);
+  registerPhone(obj: any): Observable<any> {
+    return this.http.post(`${API_URL}/registerByPhone`, obj);
   }
 
   sendVerificationEmailChangePass(obj: any): Observable<any> {
@@ -81,5 +81,13 @@ export class AuthService {
 
   resetPasswordPhone(obj: any): Observable<any> {
     return this.http.put(`${API_URL}/changePassword-using-phone`, obj);
+  }
+
+  sendVerificationEmailWhenVerify(obj: any): Observable<any> {
+    return this.http.post(`${API_URL}/emailVerify`, obj);
+  }
+
+  sendVerificationPhoneWhenVerify(obj: any): Observable<any> {
+    return this.http.post(`${API_URL}/validate-otp-success`, obj);
   }
 }

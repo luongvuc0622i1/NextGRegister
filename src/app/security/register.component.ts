@@ -25,11 +25,12 @@ export class RegisterComponent implements OnInit {
   constructor(private authService: AuthService,
               private route: ActivatedRoute,
               private dataService: DataService) {
-    console.log(this.dataService.getData());
-    this.form.patchValue({
-      phone: this.dataService.getData().phone,
-      otp: this.dataService.getData().otp,
-    });
+    if (dataService.getData()) {
+      this.form.patchValue({
+        phone: this.dataService.getData().phone,
+        otp: this.dataService.getData().otp,
+      });
+    }
   }
 
   ngOnInit(): void {

@@ -5,7 +5,6 @@ import { FormGroup } from '@angular/forms';
   selector: 'app-form-name',
   template: `
     <form [formGroup]="form" (ngSubmit)="continue()">
-      <p style="color: red">{{statusLogin}}</p>
       <div style="display: flex;">
         <div class="group-col left">
           <input type="text" formControlName="firstName" placeholder="First Name" (keyup)="validateFName()" />
@@ -28,7 +27,6 @@ export class FormNameComponent {
   // @ts-ignore
   @Input() form: FormGroup;
   @Output() switchTemplate = new EventEmitter<string>();
-  statusLogin: string = '';
   statusFName: string = '';
   statusLName: string = '';
   statusEmail: string = '';
