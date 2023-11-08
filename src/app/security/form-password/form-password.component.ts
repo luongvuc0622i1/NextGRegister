@@ -5,14 +5,18 @@ import { FormGroup } from '@angular/forms';
   selector: 'app-form-password',
   template: `
     <form [formGroup]="form">
-      <input type="password" formControlName="password" placeholder="Password" autocomplete="current-password" required=""
-          id="id_password" (keyup)="validatePassword()" />
+      <div class="relative">
+        <input type="password" formControlName="password" placeholder="Password" autocomplete="current-password" required=""
+            id="id_password" (keyup)="validatePassword()" />
+        <span class="material-symbols-outlined eye" id="togglePassword">visibility</span>
+      </div>
       <span class="error">{{statusPassword}}</span>
-      <span class="material-symbols-outlined eye" id="togglePassword">visibility</span><br>
-      <input type="password" formControlName="confirm" placeholder="Confirm Password" autocomplete="current-password" required=""
-          id="id_confirm" (keyup)="validateConfirm()" />
+      <div class="relative">
+        <input type="password" formControlName="confirm" placeholder="Confirm Password" autocomplete="current-password" required=""
+            id="id_confirm" (keyup)="validateConfirm()" />
+        <span class="material-symbols-outlined eye" id="toggleConfirm">visibility</span>
+      </div>
       <span class="error">{{statusConfirm}}</span>
-      <span class="material-symbols-outlined eye" id="toggleConfirm">visibility</span><br>
       <!-- <button (click)="back()">Back</button> -->
       <button class="button-form" (click)="continue()">Continue<span class="material-symbols-outlined">east</span></button>
     </form>
@@ -42,7 +46,7 @@ export class FormPasswordComponent implements AfterViewInit {
       // @ts-ignore
       password.setAttribute('type', type);
     });
-    
+
     // Show password click eye
     const toggleConfirm = document.querySelector('#toggleConfirm');
     const confirm = document.querySelector('#id_confirm');

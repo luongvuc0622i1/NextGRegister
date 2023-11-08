@@ -15,10 +15,12 @@ import { ErrorService } from '../../service/error.service';
     <form [formGroup]="form" (ngSubmit)="login()">
       <input type="email" formControlName="email" placeholder="Email" (keyup)="validateEmail()" />
       <span class="error">{{statusEmail}}</span>
-      <input type="password" formControlName="password" placeholder="Password" autocomplete="current-password" required=""
-        id="id_password" (keyup)="validatePassword()" />
+      <div class="relative">
+        <input type="password" formControlName="password" placeholder="Password" autocomplete="current-password" required=""
+          id="id_password" (keyup)="validatePassword()" />
+        <span class="material-symbols-outlined eye" id="togglePassword">visibility</span>
+      </div>
       <span class="error">{{statusPassword}}</span>
-      <span class="material-symbols-outlined eye" id="togglePassword">visibility</span><br>
       <div>
         <a style="float: left;" (click)="switchTo()">{{title}} {{labelSwitch}}</a>
         <a style="float: right;" (click)="forgotPassword()">Forgot password?</a>

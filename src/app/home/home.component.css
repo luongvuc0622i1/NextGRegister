@@ -72,3 +72,24 @@ body {
 .error {
   color: red;
 }
+
+.relative {
+  position: relative;
+}
+
+.verify {
+  position: absolute;
+  margin-top: -30px;
+  right: 25px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.verifi {
+  color: blue;
+  cursor: pointer;
+}
+
+.verified {
+  color: green;
+}

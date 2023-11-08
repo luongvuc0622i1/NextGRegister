@@ -27,14 +27,13 @@
           <span style="font-size: 14px;">Your name may appear where you contribute or are mentioned.</span>
         </div>
         <div class="row mt-3">
-          <div class="col-md-12">
+          <div class="col-md-12 relative">
             <label class="labels">Phone Number</label>
             <input type="text" class="form-control" formControlName="phone" placeholder="Phone number"
               (keyup)="validatePhone()" [readOnly]="this.user.value.phoneVerifired">
             <span class="error">{{statusPhone}}</span>
-            <button style="background-color: blue;" *ngIf="!this.user.value.phoneVerifired"
-              (click)="verify(1)">Verify</button>
-            <button style="background-color: green;" *ngIf="this.user.value.phoneVerifired">Verified</button>
+            <a class="verify verifi" *ngIf="!this.user.value.phoneVerifired" (click)="verify(1)">Verify</a>
+            <p class="verify verified" *ngIf="this.user.value.phoneVerifired">Verified</p>
           </div>
           <div class="modal" *ngIf="showModalPhone">
             <div class="modal-content">
@@ -42,14 +41,13 @@
                 (verificationPhone)="verificationPhone($event)"></app-verification-phone>
             </div>
           </div>
-          <div class="col-md-12">
+          <div class="col-md-12 relative">
             <label class="labels">Email</label>
             <input type="email" class="form-control" formControlName="email" placeholder="Email"
               (keyup)="validateEmail()" [readOnly]="this.user.value.emailVerifired">
             <span class="error">{{statusEmail}}</span>
-            <button style="background-color: blue;" *ngIf="!this.user.value.emailVerifired"
-              (click)="verify(2)">Verify</button>
-            <button style="background-color: green;" *ngIf="this.user.value.emailVerifired">Verified</button>
+            <a class="verify verifi" *ngIf="!this.user.value.emailVerifired" (click)="verify(2)">Verify</a>
+            <p class="verify verified" *ngIf="this.user.value.emailVerifired">Verified</p>
           </div>
           <div class="modal" *ngIf="showModalEmail">
             <div class="modal-content">
