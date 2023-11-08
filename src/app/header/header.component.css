@@ -1,4 +1,4 @@
-.header{
+.header {
     width: 100%;
     height: 8vh;
     align-items: center;
@@ -7,29 +7,34 @@
     margin-bottom: 15px;
 }
 
-.header, div{
+.header,
+div {
     display: flex;
 }
 
-img{
+img {
     height: 35px;
     margin-left: 15px;
     margin-top: 5px;
 }
 
-span{
+span {
     color: blue;
     margin-left: 5px;
 }
 
-p{
+a {
+    text-decoration: none;
+}
+
+p {
     margin-top: 15px;
     margin-left: 30px;
     font-size: 15px;
     color: #000000;
 }
 
-.user-info{
+.user-info {
     display: flex;
     width: max-content;
     flex-direction: row;
@@ -37,12 +42,12 @@ p{
     justify-content: center;
 }
 
-button{
-border: none;
-border-radius: 3px;
-padding: 5px 10px;
+button {
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
     margin-right: 15px;
-    background-color:  rgb(248, 195, 49);
+    background-color: rgb(248, 195, 49);
     box-shadow: 0 0 5px #7e7e7e;
     color: white;
     font-size: 13px;

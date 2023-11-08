@@ -1,15 +1,20 @@
 <form [formGroup]="user">
   <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-4">
       <div class="p-3 py-5">
         <span class="font-weight-bold">Profile picture</span><br>
-        <div class="d-flex flex-column align-items-center text-center">
-          <img class="rounded-circle mt-5" width="150px" src={{user.value.img}}>
-          <input type="file" (change)="uploadImg($event)" />
+        <div class="relative combo mt-3">
+          <div class="avatar">
+            <img src={{user.value.img}} alt="Avatar">
+          </div>
+          <div class="label-container">
+            <label for="file-upload" class="edit-button">Edit</label>
+            <input type="file" id="file-upload" class="input-file" (change)="uploadImg($event)"/>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-md-7">
+    <div class="col-md-8">
       <div class="p-3 py-5">
         <div class="row mt-2">
           <div class="col-md-6">

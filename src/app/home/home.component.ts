@@ -97,4 +97,9 @@ export class HomeComponent {
   goToCard() {
     this.router.navigate(['/card']);
   }
+
+  logout() {
+    localStorage.clear();
+    window.location.reload();
+  }
 }

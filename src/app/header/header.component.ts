@@ -4,7 +4,17 @@ import { TokenService } from '../service/token.service';
 
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html',
+  template: `
+    <div class="header">
+    <div>
+      <img src="../../../assets/nextG.png" />
+      <a class="user-info">
+        <p>Xin chào <span>{{this.role}} {{this.username}}</span></p>
+      </a>
+    </div>
+    <button (click)="logout()">LOGOUT</button>
+</div>
+  `,
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
@@ -24,6 +34,5 @@ export class HeaderComponent {
   logout() {
     localStorage.clear();
     window.location.reload();
-    // this.router.navigate(['/']);
   }
 }

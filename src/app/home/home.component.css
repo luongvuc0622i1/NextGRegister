@@ -8,31 +8,41 @@ body {
 
 .form-control:focus {
   box-shadow: none;
-  border-color: #BA68C8
+  border-color: #f99131;
 }
 
 .profile-button {
-  background: rgb(99, 39, 120);
+  background: #bebebe;
   box-shadow: none;
-  border: none
+  border: none;
+}
+
+.go-pro-button, .go-pro-button:hover {
+  background-color: #ffffff;
+  color: #a3a8ad;
+  border: 1px solid #ced4da;
+}
+
+.go-pro-button label:hover {
+  cursor: pointer;
 }
 
 .profile-button:hover {
-  background: #682773
+  background: #f58926
 }
 
 .profile-button:focus {
-  background: #682773;
+  background: #f58926;
   box-shadow: none
 }
 
 .profile-button:active {
-  background: #682773;
+  background: #f58926;
   box-shadow: none
 }
 
 .back:hover {
-  color: #682773;
+  color: #f58926;
   cursor: pointer
 }
 
@@ -41,10 +51,10 @@ body {
 }
 
 .add-experience:hover {
-  background: #BA68C8;
-  color: #fff;
+  background: #f99131;
+  color: #f6f5f7;
   cursor: pointer;
-  border: solid 1px #BA68C8
+  border: solid 1px #f99131
 }
 
 .modal {
@@ -83,6 +93,7 @@ body {
   right: 25px;
   font-size: 14px;
   font-weight: 600;
+  text-decoration: none;
 }
 
 .verifi {
@@ -92,4 +103,79 @@ body {
 
 .verified {
   color: green;
+}
+
+.combo {
+  width: 150px;
+  height: 150px;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.edit-button {
+  position: absolute;
+  background-color: #bebebe;
+  color: white;
+  margin: -20px;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 4px;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+}
+
+.edit-button:hover {
+  background: #f58926
+}
+
+.input-file {
+  display: none;
+}
+
+.label-container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: gray;
+  display: block;
+  padding: 16px;
+  text-align: center;
+  position: relative;
+}
+
+.navbar a::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 5px;
+  background-color: transparent;
+  left: 0;
+  top: 0;
+  transition: background-color 0.3s;
+}
+
+.navbar a:hover::before {
+  background-color: #f58926;
+}
+
+.navbar a:hover {
+  color: #f58926;
 }
