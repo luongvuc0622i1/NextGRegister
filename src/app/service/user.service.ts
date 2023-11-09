@@ -25,7 +25,7 @@ export class UserService {
     return this.http.get<User>(`${API_URL}/info`);
   }
 
-  update(user : User): Observable<User> {
+  update(user : any): Observable<User> {
     return this.http.put<User>(`${API_URL}/update-info`, user);
   }
 
@@ -36,4 +36,72 @@ export class UserService {
 //   reset() {
 //     //
 //   }
+  findMenu(): any[] {
+    const value = [
+      {
+        "title": "Silver",
+        "price": "$100",
+        "detail": [
+          {
+            "icon": "A",
+            "title": "Title",
+            "description": "hsgfsdghdfjjfdjgfdjg;kfd1"
+          },
+          {
+            "icon": "B",
+            "title": "Title",
+            "description": "hsgfsdghdfjjfdjgfdjg;kfd"
+          },
+          {
+            "icon": "C",
+            "title": "Title",
+            "description": "hsgfsdghdfjjfdjgfdjg;kfd"
+          }
+        ]
+      },
+      {
+        "title": "Gold",
+        "price": "$150",
+        "detail": [
+          {
+            "icon": "D",
+            "title": "Title",
+            "description": "hsgfsdghdfjjfdjgfdjg;kfd2"
+          },
+          {
+            "icon": "E",
+            "title": "Title",
+            "description": "hsgfsdghdfjjfdjgfdjg;kfd"
+          },
+          {
+            "icon": "F",
+            "title": "Title",
+            "description": "hsgfsdghdfjjfdjgfdjg;kfd"
+          }
+        ]
+      },
+      {
+        "title": "Platinum",
+        "price": "$200",
+        "detail": [
+          {
+            "icon": "G",
+            "title": "Title",
+            "description": "hsgfsdghdfjjfdjgfdjg;kfd3"
+          },
+          {
+            "icon": "H",
+            "title": "Title",
+            "description": "hsgfsdghdfjjfdjgfdjg;kfd"
+          },
+          {
+            "icon": "K",
+            "title": "Title",
+            "description": "hsgfsdghdfjjfdjgfdjg;kfd"
+          }
+        ]
+      }
+    ];
+    return value;
+  }
 }

@@ -1,0 +1,39 @@
+<app-header></app-header>
+<div class="row">
+  <div class="split left">
+    <div class="centered">
+      <img width="120px" src="../../assets/nextG.png" />
+      <h3>NextG Solutions - And some content this long</h3>
+
+      <h3>#Title 1 For this section</h3>
+      <p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam quis lacinia
+        ipsum. Sed tincidunt, purus sit
+        amet pellentesque consequat, metus arcu ultricies quam, varius gravida enim</p>
+      <div *ngFor="let item of menu; let i = index">
+        <div (click)="onDivClick(i)" class="custom-div" [ngClass]="{ 'selected': selectedDiv === i }">
+          <div>
+            <input type="radio" [checked]="selectedDiv === i">
+            <label class="mgl-10 tit" style="font-weight: 600;">{{item.title}}</label>
+            <label class="mgl-10 tit" style="position: absolute;  right: 0px;">{{item.price}}</label>
+          </div>
+          <hr>
+          <div *ngFor="let content of item.detail">
+            <div class="content">
+              <p>{{content.icon}}</p>
+              <div class="content-detail">
+                <h5>{{content.title}}</h5>
+                <p>{{content.description}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="split right">
+    <div class="centered">
+      <h2>Bên phải {{menu[selectedDiv].price}}</h2>
+      <p>Nền trắng</p>
+    </div>
+  </div>
+</div>

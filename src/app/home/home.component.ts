@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { UserService } from '../service/user.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { User } from '../model/User';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
+import { CssService } from '../service/css.service';
+
+const cssImportUrl = 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css';
 
 @Component({
   selector: 'app-home',
@@ -27,9 +29,11 @@ export class HomeComponent {
   constructor(private userService: UserService,
     private storage: AngularFireStorage,
     private authService: AuthService,
-    private router: Router) { }
+    private router: Router,
+    private cssService: CssService) { }
 
   ngOnInit(): void {
+    this.cssService.addCss(cssImportUrl);
     // Gọi API findById và xử lý dữ liệu khi được nhận
     this.userService.findById().subscribe(data => {
       this.user.patchValue({
@@ -45,19 +49,19 @@ export class HomeComponent {
     });
   }
 
+  ngOnDestroy() {
+    this.cssService.removeCss(cssImportUrl);
+  }
+
   saveChanges() {
-    const user = new User(
-      this.user.value.firstName,
-      this.user.value.lastName,
-      this.user.value.email,
-      this.user.value.emailVerifired,
-      this.user.value.phone,
-      this.user.value.phoneVerifired,
-      this.user.value.bio,
-      this.user.value.img
-    );
+    const user = {
+      'firstName': this.user.value.firstName,
+      'lastName': this.user.value.lastName,
+      'bio': this.user.value.bio,
+      'imageUrl': this.user.value.img,
+    };
     this.userService.update(user).subscribe(data => {
-      console.log("update done!")
+      console.log("update done!");
     });
   }
 
@@ -85,7 +89,7 @@ export class HomeComponent {
     const obj = {
       "phoneNumber": this.user.value.phone
     };
-    this.authService.sendOtpLogin(obj).subscribe();
+    this.authService.sendOtpRegister(obj).subscribe();
   }
 
   verificationPhoneWhenVerify(obj: any) {
@@ -95,11 +99,11 @@ export class HomeComponent {
   }
 
   goToCard() {
-    this.router.navigate(['/card']);
+    this.router.navigate(['/payment']);
   }
 
   logout() {
     localStorage.clear();
-    window.location.reload();
+    this.router.navigate(['/']);
   }
 }

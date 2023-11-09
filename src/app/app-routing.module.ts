@@ -5,7 +5,7 @@ import { AuthGuard } from './service/auth.guard';
 import { SecurityComponent } from './security/security.component';
 import { RegisterComponent } from './security/register.component';
 import { ResetPasswordComponent } from './security/resetPassword.component';
-import { CardComponent } from './card/card.component';
+import { PayComponent } from './card/pay.component';
 
 const routes: Routes = [
   {
@@ -13,8 +13,8 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'card', canActivate: [AuthGuard],
-    component: CardComponent
+    path: 'payment', canActivate: [AuthGuard],
+    component: PayComponent
   },
   {
     path: 'register',

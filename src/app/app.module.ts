@@ -22,7 +22,7 @@ import { GeneralProfileComponent } from './home/general-profile/general-profile.
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { environment } from '../environments/environment';
-import { CardComponent } from './card/card.component';
+import { PayComponent } from './card/pay.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,7 @@ import { CardComponent } from './card/card.component';
     FormPasswordComponent,
     HeaderComponent,
     GeneralProfileComponent,
-    CardComponent
+    PayComponent
   ],
   imports: [
     BrowserModule,
