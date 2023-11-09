@@ -9,6 +9,7 @@ import { UserService } from '../service/user.service';
 export class PaymentComponent {
   menu: any[] = [];
   selectedDiv: number = 0;
+  activeButton: string = 'payment-card';
 
   constructor(private userService: UserService) { }
 
@@ -18,5 +19,9 @@ export class PaymentComponent {
 
   onDivClick(divIndex: number) {
     this.selectedDiv = divIndex;
+  }
+
+  selectButton(buttonType: string) {
+    this.activeButton = buttonType;
   }
 }

@@ -37,7 +37,8 @@
     margin: 5px;
 } */
 
-p, h5 {
+p,
+h5 {
     margin: 5px;
 }
 
@@ -46,7 +47,6 @@ p, h5 {
     border: 1px solid #ced4da;
     border-radius: 8px;
     padding: 10px;
-    width: 100%;
 }
 
 .selected {
@@ -56,6 +56,7 @@ p, h5 {
 .mgl-10 {
     font-size: 18px;
     margin-left: 5px;
+    margin-right: 20px;
 }
 
 .content {
@@ -66,3 +67,109 @@ p, h5 {
 .content>p {
     margin: 5px
 }
+
+.payment {
+    background-color: #ced4da;
+    border-radius: 8px;
+    padding: 2px;
+    margin-bottom: 20px;
+}
+
+.content {
+    display: flex;
+    gap: 2px;
+}
+
+.button {
+    flex: 1;
+    border-radius: 8px;
+    background-color: lightgray;
+    border: none;
+    padding: 10px 20px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.button-active {
+    background-color: white;
+}
+
+.items-pay-by-card {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.item-pay-by-card {
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #a3a7aa;
+    cursor: pointer;
+}
+
+.item-pay-by-card+.item-pay-by-card {
+    margin-left: 10px;
+}
+
+.contentA {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.icon {
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.title {
+    text-align: center;
+}
+
+.item-selected {
+    border: 2px solid #f58926;
+    color: #f58926;
+}
+
+.input-card {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    padding: 15px 10px;
+    margin-bottom: 10px;
+}
+
+.input-card:focus {
+    border: 2px solid #f58926;
+    outline: none;
+  }
+
+  /* // */
+
+  .input-container {
+    position: relative;
+    margin: 20px;
+  }
+  
+  .input-label {
+    position: absolute;
+    pointer-events: none;
+    left: 10px;
+    top: 15px;
+    color: #999;
+  }
+  
+  .input-field {
+    width: 200px;
+    padding: 15px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+  }

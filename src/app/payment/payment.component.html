@@ -32,8 +32,23 @@
   </div>
   <div class="split right">
     <div class="centered">
-      <h2>Bên phải {{menu[selectedDiv].price}}</h2>
-      <p>Nền trắng</p>
+      <div class="payment">
+        <div class="content">
+          <button class="button" (click)="activeButton = 'payment-card'" [ngClass]="{ 'button-active': activeButton === 'payment-card' }">Pay By Card</button>
+          <button class="button" (click)="activeButton = 'payment-paypal'" [ngClass]="{ 'button-active': activeButton === 'payment-paypal' }">Pay With Paypal</button>
+        </div>
+      </div>
+      <ng-container *ngIf="activeButton != 'payment-card'; else paymentCardTemplate">
+        <ng-container *ngIf="activeButton != 'payment-paypal'; else paymentPaypalTemplate">
+        </ng-container>
+      </ng-container>
+      <ng-template #paymentCardTemplate>
+        <app-payment-card [price]="menu[selectedDiv].price"></app-payment-card>
+      </ng-template>
+      <ng-template #paymentPaypalTemplate>
+        abc
+      </ng-template>
+
     </div>
   </div>
 </div>

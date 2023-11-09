@@ -23,6 +23,8 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { environment } from '../environments/environment';
 import { PaymentComponent } from './payment/payment.component';
+import { PaymentCardComponent } from './payment/payment-card/payment-card.component';
+import { CardComponent } from './payment/card/card.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { PaymentComponent } from './payment/payment.component';
     FormPasswordComponent,
     HeaderComponent,
     GeneralProfileComponent,
-    PaymentComponent
+    PaymentComponent,
+    PaymentCardComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,
