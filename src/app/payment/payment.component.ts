@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { UserService } from '../service/user.service';
 
 @Component({
-  selector: 'app-pay',
-  templateUrl: './pay.component.html',
-  styleUrls: ['./pay.component.css']
+  selector: 'app-payment',
+  templateUrl: './payment.component.html',
+  styleUrls: ['./payment.component.css']
 })
-export class PayComponent {
+export class PaymentComponent {
   menu: any[] = [];
   selectedDiv: number = 0;
 
