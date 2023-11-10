@@ -72,7 +72,7 @@ h5 {
     background-color: #ced4da;
     border-radius: 8px;
     padding: 2px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 .content {
@@ -97,7 +97,7 @@ h5 {
 .items-pay-by-card {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
 
 .item-pay-by-card {
@@ -142,34 +142,92 @@ h5 {
     box-sizing: border-box;
     border-radius: 8px;
     border: 1px solid #ced4da;
-    padding: 15px 10px;
+    padding: 18px 20px;
+    font-size: 16px;
+}
+
+.mb-10 {
     margin-bottom: 10px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
 }
 
 .input-card:focus {
     border: 2px solid #f58926;
     outline: none;
-  }
+}
 
-  /* // */
+/* // */
 
-  .input-container {
+.relative {
     position: relative;
-    margin: 20px;
-  }
-  
-  .input-label {
+}
+
+.input-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-label {
     position: absolute;
     pointer-events: none;
-    left: 10px;
-    top: 15px;
+    left: 20px;
+    top: 18px;
     color: #999;
-  }
-  
-  .input-field {
-    width: 200px;
-    padding: 15px 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
     font-size: 16px;
-  }
+}
+
+.input-field {
+    padding: 28px 20px 8px;
+    font-weight: 600;
+}
+
+.pc50 {
+    width: 50%;
+}
+
+.icon-input {
+    font-size: 30px;
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    transform: translate(-50%, -50%);
+}
+
+.fs-30 {
+    font-size: 30px;
+}
+
+.fs-25 {
+    font-size: 25px;
+}
+
+.fs-20 {
+    font-size: 20px;
+}
+
+.right-5 {
+    right: 5px;
+    color: #999;
+}
+
+.address {
+    appearance: none;
+    -webkit-appearance: none; /* For older versions of Safari and Chrome */
+}
+
+.apply {
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    transform: translate(-50%, -50%);
+    text-decoration: none;
+    font-weight: 600;
+    color: blue;
+}
+
+.total {
+    font-size: 18px;
+}

@@ -14,7 +14,7 @@
           <div>
             <input type="radio" [checked]="selectedDiv === i">
             <label class="mgl-10 tit" style="font-weight: 600;">{{item.title}}</label>
-            <label class="mgl-10 tit" style="position: absolute;  right: 0px;">{{item.price}}</label>
+            <label class="mgl-10 tit" style="position: absolute;  right: 0px;">${{item.price}}</label>
           </div>
           <hr>
           <div *ngFor="let content of item.detail">
@@ -43,7 +43,7 @@
         </ng-container>
       </ng-container>
       <ng-template #paymentCardTemplate>
-        <app-payment-card [price]="menu[selectedDiv].price"></app-payment-card>
+        <app-payment-card [price]="menu[selectedDiv].price" [countries]="countries" (findDiscount)="findDiscount($event)" [formDiscount]="formDiscount"></app-payment-card>
       </ng-template>
       <ng-template #paymentPaypalTemplate>
         abc

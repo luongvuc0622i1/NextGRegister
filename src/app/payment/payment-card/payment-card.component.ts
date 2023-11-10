@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-payment-card',
@@ -30,7 +30,7 @@ import { Component, Input } from '@angular/core';
       </ng-container>
     </ng-container>
     <ng-template #cardTemplate>
-      <app-card [price]="price"></app-card>
+      <app-card [price]="price" [countries]="countries" (findDiscountPer)="findDiscountPer($event)" [formDiscount]="formDiscount"></app-card>
     </ng-template>
     <ng-template #debitTemplate>
       debit
@@ -43,9 +43,14 @@ import { Component, Input } from '@angular/core';
 })
 export class PaymentCardComponent {
   // @ts-ignore
-  @Input price: string;
+  @Input price: number;
+  // @ts-ignore
+  @Input formDiscount: any;
+  // @ts-ignore
+  @Input countries: string[];
   itemChoose: string = 'card';
-  //
-    //
-  //
+  @Output() findDiscount = new EventEmitter<string>();
+  findDiscountPer(discountCode: string) {
+    this.findDiscount.emit(discountCode);
+  }
 }

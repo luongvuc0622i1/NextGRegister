@@ -40,7 +40,7 @@ export class UserService {
     const value = [
       {
         "title": "Silver",
-        "price": "$100",
+        "price": 100,
         "detail": [
           {
             "icon": "A",
@@ -61,7 +61,7 @@ export class UserService {
       },
       {
         "title": "Gold",
-        "price": "$150",
+        "price": 150,
         "detail": [
           {
             "icon": "D",
@@ -82,7 +82,7 @@ export class UserService {
       },
       {
         "title": "Platinum",
-        "price": "$200",
+        "price": 200,
         "detail": [
           {
             "icon": "G",
@@ -103,5 +103,13 @@ export class UserService {
       }
     ];
     return value;
+  }
+
+  findAllCountry(): Observable<any[]> {
+    return this.http.get<any[]>(`https://restcountries.com/v3.1/all`);
+  }
+
+  findDiscount(obj: any): Observable<any> {
+    return this.http.get<any>(`${API_URL}/getDiscountPercent?discountCode=`+obj.discountCode);
   }
 }
