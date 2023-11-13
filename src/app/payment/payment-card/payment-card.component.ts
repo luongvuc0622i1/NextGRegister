@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-payment-card',
@@ -30,7 +31,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
       </ng-container>
     </ng-container>
     <ng-template #cardTemplate>
-      <app-card [price]="price" [countries]="countries" (findDiscountPer)="findDiscountPer($event)" [formDiscount]="formDiscount"></app-card>
+      <app-card [countries]="countries" (findDiscountPer)="findDiscountPer($event)" [formTotal]="formTotal"></app-card>
     </ng-template>
     <ng-template #debitTemplate>
       debit
@@ -43,9 +44,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class PaymentCardComponent {
   // @ts-ignore
-  @Input price: number;
-  // @ts-ignore
-  @Input formDiscount: any;
+  @Input formTotal: FormGroup;
   // @ts-ignore
   @Input countries: string[];
   itemChoose: string = 'card';

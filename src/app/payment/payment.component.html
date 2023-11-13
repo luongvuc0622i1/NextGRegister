@@ -43,7 +43,7 @@
         </ng-container>
       </ng-container>
       <ng-template #paymentCardTemplate>
-        <app-payment-card [price]="menu[selectedDiv].price" [countries]="countries" (findDiscount)="findDiscount($event)" [formDiscount]="formDiscount"></app-payment-card>
+        <app-payment-card [countries]="countries" (findDiscount)="findDiscount($event)" [formTotal]="formTotal"></app-payment-card>
       </ng-template>
       <ng-template #paymentPaypalTemplate>
         abc

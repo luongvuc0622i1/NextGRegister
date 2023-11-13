@@ -10,10 +10,15 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class PaymentComponent {
   menu: any[] = [];
   countries: string[] = [];
-  selectedDiv: number = 0;
+  selectedDiv: number = -1;
   activeButton: string = 'payment-card';
-  formDiscount: FormGroup = new FormGroup({
+  formTotal: FormGroup = new FormGroup({
+    subTotal: new FormControl(),
+    discountCode: new FormControl(),
     discountPer: new FormControl(),
+    discount: new FormControl(),
+    taxes: new FormControl(),
+    totalPay: new FormControl(),
   });
 
   constructor(private userService: UserService) { }
@@ -28,6 +33,9 @@ export class PaymentComponent {
 
   onDivClick(divIndex: number) {
     this.selectedDiv = divIndex;
+    this.formTotal.patchValue({
+      subTotal: this.menu[divIndex].price,
+    });
   }
 
   selectButton(buttonType: string) {
@@ -39,7 +47,7 @@ export class PaymentComponent {
       "discountCode": discountCode
     };
     this.userService.findDiscount(obj).subscribe(data => {
-      this.formDiscount.patchValue({
+      this.formTotal.patchValue({
         discountPer: data,
       });
     });

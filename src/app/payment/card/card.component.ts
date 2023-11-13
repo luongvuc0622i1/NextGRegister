@@ -1,19 +1,19 @@
-import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, DoCheck, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-card',
   template: `
-    <form [formGroup]="form">
+    <form [formGroup]="formPayByCard">
       <div class="mb-20 relative">
         <input class="input-card" formControlName="cardNumber" (input)="checkType($event)">
         <i class="fa-brands icon-input fs-30" [ngClass]="{
-          'fa-cc-visa': form.value.cardType === 'Visa' || !form.value.cardType,
-          'fa-cc-mastercard': form.value.cardType === 'MasterCard',
-          'fa-cc-amex': form.value.cardType === 'American Express',
-          'fa-cc-discover': form.value.cardType === 'Discover',
-          'fa-cc-jcb': form.value.cardType === 'JCB',
-          'fa-cc-diners-club': form.value.cardType === 'Diners Club'
+          'fa-cc-visa': formPayByCard.value.cardType === 'Visa' || !formPayByCard.value.cardType,
+          'fa-cc-mastercard': formPayByCard.value.cardType === 'MasterCard',
+          'fa-cc-amex': formPayByCard.value.cardType === 'American Express',
+          'fa-cc-discover': formPayByCard.value.cardType === 'Discover',
+          'fa-cc-jcb': formPayByCard.value.cardType === 'JCB',
+          'fa-cc-diners-club': formPayByCard.value.cardType === 'Diners Club'
         }" style="color: blue;"></i>
       </div>
 
@@ -50,6 +50,8 @@ import { FormControl, FormGroup } from '@angular/forms';
         <label class="input-label" for="taxIDNumber">Tax ID Number (Optional)</label>
         <input class="input-card input-field" type="text" id="taxIDNumber" formControlName="taxIDNumber" />
       </div>
+    </form>
+    <form [formGroup]="formTotal">
       <div class="mb-20 relative">
         <label class="input-label" for="discountCode">Discount Code (Optional)</label>
         <input class="input-card input-field" type="text" id="discountCode" formControlName="discountCode" />
@@ -58,34 +60,33 @@ import { FormControl, FormGroup } from '@angular/forms';
       </div>
       <div class="input-container">
         <p class="total">Subtotal</p>
-        <p class="total">{{ '$' + (form.value.subTotal | number: '1.2-2') }}</p>
+        <p class="total" *ngIf="formTotal.value.subTotal">{{ '$' + (formTotal.value.subTotal | number: '1.2-2') }}</p>
       </div>
       <div class="input-container">
         <p class="total">Discount</p>
-        <!-- <p class="total">{{ '-$' + (form.value.discount | number: '1.2-2') }}</p> -->
-        <p class="total">{{ '-$' + (formDiscount.value.discountPer | number: '1.2-2') }}</p>
+        <p class="total" *ngIf="formTotal.value.discount">{{ '-$' + (formTotal.value.discount | number: '1.2-2') }}</p>
       </div>
       <div class="input-container mb-10">
         <p class="total">Taxes</p>
-        <p class="total">{{ '$' + (form.value.taxes | number: '1.2-2') }}</p>
+        <p class="total" *ngIf="formTotal.value.taxes">{{ '$' + (formTotal.value.taxes | number: '1.2-2') }}</p>
       </div>
       <div class="input-container mb-20">
         <p class="total" style="font-size: 20px; font-weight:700;">Total Pay</p>
-        <p class="total" style="font-size: 20px; font-weight:700;">{{ '$' + (form.value.totalPay | number: '1.2-2') }}</p>
+        <p class="total" style="font-size: 20px; font-weight:700;" *ngIf="formTotal.value.totalPay">{{ '$' + (formTotal.value.totalPay | number: '1.2-2') }}</p>
       </div>
+      <div class="input-card button-pay" *ngIf="!formTotal.value.totalPay">Pay</div>
+      <div class="input-card button-pay button-pay-hover" *ngIf="formTotal.value.totalPay">Pay {{ '$' + (formTotal.value.totalPay | number: '1.2-2') }}</div>
     </form>
   `,
   styleUrls: ['../payment.component.css']
 })
-export class CardComponent implements AfterViewInit {
-  // @ts-ignore
-  @Input price: number;
+export class CardComponent implements AfterViewInit, DoCheck {
   // @ts-ignore
   @Input countries: string[];
   // @ts-ignore
-  @Input formDiscount: any;
+  @Input formTotal: FormGroup;
   @Output() findDiscountPer = new EventEmitter<string>();
-  form: FormGroup = new FormGroup({
+  formPayByCard: FormGroup = new FormGroup({
     cardNumber: new FormControl(),
     cardType: new FormControl(),
     cardholderName: new FormControl(),
@@ -94,29 +95,36 @@ export class CardComponent implements AfterViewInit {
     billingAddress: new FormControl(),
     postalCode: new FormControl(),
     taxIDNumber: new FormControl(),
-    discountCode: new FormControl(),
-    subTotal: new FormControl(),
-    discount: new FormControl(),
-    taxes: new FormControl(),
-    totalPay: new FormControl(),
   });
 
-  ngOnInit() {
-    this.form.patchValue({
-      subTotal: this.price,
-      taxes: this.price * 0.1,
+  ngDoCheck(): void {
+    const subTotal = this.formTotal.value.subTotal;
+    const discount = subTotal * this.formTotal.value.discountPer / 100;
+    const taxes = subTotal * 0.1;
+    const totalPay = subTotal - discount + taxes;
+    this.formTotal.patchValue({
+      discount: discount,
+      taxes: taxes,
+      totalPay: totalPay,
     });
   }
   
   ngAfterViewInit(): void {
-    this.form.patchValue({
-      discount: this.formDiscount.value.discountPer,
-      totalPay: this.form.value.subTotal - this.form.value.discount + this.form.value.taxes,
-    });
-
     const arr = ['cardholderName', 'expriration', 'cvc', 'billingAddress', 'postalCode', 'taxIDNumber', 'discountCode'];
     arr.forEach(element => {
       const inputField = document.getElementById(element) as HTMLInputElement;
+
+      if (inputField.value !== '' && inputField.previousElementSibling) {
+        const label = inputField.previousElementSibling as HTMLElement;
+        label.style.fontSize = '12px';
+        label.style.transform = 'translateY(-10px)';
+        label.style.color = '#333';
+      } else if (inputField.previousElementSibling) {
+        const label = inputField.previousElementSibling as HTMLElement;
+        label.style.fontSize = '';
+        label.style.transform = '';
+        label.style.color = '#999';
+      }
 
       inputField.addEventListener('focus', () => {
         if (inputField.previousElementSibling) {
@@ -154,10 +162,10 @@ export class CardComponent implements AfterViewInit {
     } else if (/^3(?:0[0-5]|[68])/.test(cardNumber)) {
       cardType = "Diners Club";
     }
-    this.form.patchValue({ cardType: cardType });
+    this.formPayByCard.patchValue({ cardType: cardType });
   }
 
   findDiscount() {
-    this.findDiscountPer.emit(this.form.value.discountCode);
+    this.findDiscountPer.emit(this.formTotal.value.discountCode);
   }
 }

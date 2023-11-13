@@ -231,3 +231,16 @@ h5 {
 .total {
     font-size: 18px;
 }
+
+.button-pay {
+    background-color: #ced4da;
+    border-color: #ced4da;
+    text-align: center;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.button-pay-hover:hover {
+    background-color: #f58926;
+    border-color: #f58926;
+}
