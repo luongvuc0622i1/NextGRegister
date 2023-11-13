@@ -226,6 +226,7 @@ h5 {
     text-decoration: none;
     font-weight: 600;
     color: blue;
+    cursor: pointer;
 }
 
 .total {
@@ -237,10 +238,14 @@ h5 {
     border-color: #ced4da;
     text-align: center;
     font-weight: 700;
-    cursor: pointer;
 }
 
 .button-pay-hover:hover {
     background-color: #f58926;
     border-color: #f58926;
+    cursor: pointer;
 }
+
+.error {
+    color: red;
+  }

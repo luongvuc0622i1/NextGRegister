@@ -110,6 +110,14 @@ export class UserService {
   }
 
   findDiscount(obj: any): Observable<any> {
-    return this.http.get<any>(`${API_URL}/getDiscountPercent?discountCode=`+obj.discountCode);
+    return this.http.post<any>(`${API_URL}/getDiscountPercent`, obj);
+  }
+
+  payWithPaypal(obj: any): Observable<any> {
+    return this.http.post<any>(`${API_URL}/pay`, obj);
+  }
+
+  payWithCard(obj: any): Observable<any> {
+    return this.http.post<any>(`${API_URL}/pay`, obj);
   }
 }

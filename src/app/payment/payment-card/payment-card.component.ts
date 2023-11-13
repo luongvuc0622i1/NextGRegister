@@ -31,7 +31,7 @@ import { FormGroup } from '@angular/forms';
       </ng-container>
     </ng-container>
     <ng-template #cardTemplate>
-      <app-card [countries]="countries" (findDiscountPer)="findDiscountPer($event)" [formTotal]="formTotal"></app-card>
+      <app-card [countries]="countries" (findDiscountPer)="findDiscountPer($event)" [formTotal]="formTotal" (payByCard)="payByCard($event)"></app-card>
     </ng-template>
     <ng-template #debitTemplate>
       debit
@@ -49,7 +49,12 @@ export class PaymentCardComponent {
   @Input countries: string[];
   itemChoose: string = 'card';
   @Output() findDiscount = new EventEmitter<string>();
+  @Output() payWithCard = new EventEmitter<any>();
   findDiscountPer(discountCode: string) {
     this.findDiscount.emit(discountCode);
+  }
+
+  payByCard(event: any) {
+    this.payWithCard.emit(event);
   }
 }

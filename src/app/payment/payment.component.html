@@ -43,12 +43,11 @@
         </ng-container>
       </ng-container>
       <ng-template #paymentCardTemplate>
-        <app-payment-card [countries]="countries" (findDiscount)="findDiscount($event)" [formTotal]="formTotal"></app-payment-card>
+        <app-payment-card [countries]="countries" (findDiscount)="findDiscount($event)" [formTotal]="formTotal" (payWithCard)="payWithCard($event)"></app-payment-card>
       </ng-template>
       <ng-template #paymentPaypalTemplate>
-        abc
+        <app-payment-paypal [countries]="countries" (findDiscount)="findDiscount($event)" [formTotal]="formTotal" (payWithPaypal)="payWithPaypal($event)"></app-payment-paypal>
       </ng-template>
-
     </div>
   </div>
 </div>

@@ -1,39 +1,10 @@
-import { AfterViewInit, Component, DoCheck, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-card',
+  selector: 'app-payment-paypal',
   template: `
-    <form [formGroup]="formPayByCard">
-      <div class="mb-20">
-        <div class="relative">
-          <input class="input-card" formControlName="cardNumber" (input)="checkType($event)" (input)="onInputChange($event)" >
-          <i class="fa-brands icon-input fs-30" [ngClass]="{
-            'fa-cc-visa': formPayByCard.value.cardType === 'Visa' || !formPayByCard.value.cardType,
-            'fa-cc-mastercard': formPayByCard.value.cardType === 'MasterCard',
-            'fa-cc-amex': formPayByCard.value.cardType === 'American Express',
-            'fa-cc-discover': formPayByCard.value.cardType === 'Discover',
-            'fa-cc-jcb': formPayByCard.value.cardType === 'JCB',
-            'fa-cc-diners-club': formPayByCard.value.cardType === 'Diners Club'
-          }" style="color: blue;"></i>
-        </div>
-        <span class="error">{{statusCardNumber}}</span>
-      </div>
-      <div class="mb-20 relative">
-        <label class="input-label" for="cardholderName">Cardholder Name</label>
-        <input class="input-card input-field" type="text" id="cardholderName" formControlName="cardholderName" />
-      </div>
-      <div class="input-container mb-20">
-        <div class="pc50 relative">
-          <label class="input-label" for="expriration">Expriration</label>
-          <input class="input-card input-field" type="text" id="expriration" formControlName="expriration" />
-          <i class="fa-solid fa-calendar-days icon-input fs-25 right-5"></i>
-        </div>
-        <div class="pc50 relative" style="margin-left: 20px;">
-          <label class="input-label" for="cvc">CVC</label>
-          <input class="input-card input-field" type="text" id="cvc" formControlName="cvc" />
-        </div>
-      </div>
+    <form [formGroup]="formPayByPaypal">
       <div class="input-container mb-20">
         <div class="pc50 relative">
           <label class="input-label" for="billingAddress">Billing Address</label>         
@@ -59,7 +30,7 @@ import { FormControl, FormGroup } from '@angular/forms';
           <label class="input-label" for="discountCode">Discount Code (Optional)</label>
           <input class="input-card input-field" type="text" id="discountCode" formControlName="discountCode" />
           <!-- <i class="fa-brands fa-cc-visa icon-input fs-30"></i> -->
-          <a (click)="findDiscount()" class="apply">Apply</a>
+          <a (click)="findDiscountPer()" class="apply">Apply</a>
         </div>
         <span class="error">{{formTotal.value.statusApplyDiscountCode}}</span>
       </div>
@@ -80,25 +51,19 @@ import { FormControl, FormGroup } from '@angular/forms';
         <p class="total" style="font-size: 20px; font-weight:700;" *ngIf="formTotal.value.totalPay">{{ '$' + (formTotal.value.totalPay | number: '1.2-2') }}</p>
       </div>
       <div class="input-card button-pay" *ngIf="!formTotal.value.totalPay">Pay</div>
-      <div class="input-card button-pay button-pay-hover" *ngIf="formTotal.value.totalPay" (click)="payWithCard()">Pay {{ '$' + (formTotal.value.totalPay | number: '1.2-2') }}</div>
+      <div class="input-card button-pay button-pay-hover" *ngIf="formTotal.value.totalPay" (click)="payByPaypal()">Pay {{ '$' + (formTotal.value.totalPay | number: '1.2-2') }}</div>
     </form>
   `,
   styleUrls: ['../payment.component.css']
 })
-export class CardComponent implements AfterViewInit, DoCheck {
-  // @ts-ignore
-  @Input countries: string[];
+export class PaymentPaypalComponent {
   // @ts-ignore
   @Input formTotal: FormGroup;
-  @Output() findDiscountPer = new EventEmitter<string>();
-  @Output() payByCard = new EventEmitter<any>();
-  statusCardNumber: string = '';
-  formPayByCard: FormGroup = new FormGroup({
-    cardNumber: new FormControl(),
-    cardType: new FormControl(),
-    cardholderName: new FormControl(),
-    expriration: new FormControl(),
-    cvc: new FormControl(),
+  // @ts-ignore
+  @Input countries: string[];
+  @Output() findDiscount = new EventEmitter<string>();
+  @Output() payWithPaypal = new EventEmitter<any>();
+  formPayByPaypal: FormGroup = new FormGroup({
     billingAddress: new FormControl(''),
     postalCode: new FormControl(),
     taxIDNumber: new FormControl(),
@@ -117,7 +82,7 @@ export class CardComponent implements AfterViewInit, DoCheck {
   }
 
   ngAfterViewInit(): void {
-    const arr = ['cardholderName', 'expriration', 'cvc', 'billingAddress', 'postalCode', 'taxIDNumber', 'discountCode'];
+    const arr = ['billingAddress', 'postalCode', 'taxIDNumber', 'discountCode'];
     arr.forEach(element => {
       const inputField = document.getElementById(element) as HTMLInputElement;
 
@@ -152,59 +117,15 @@ export class CardComponent implements AfterViewInit, DoCheck {
       });
     });
   }
-
-  checkType(event: any) {
-    const cardNumber = event.target.value;
-    let cardType = "";
-    if (/^4/.test(cardNumber)) {
-      cardType = "Visa";
-      this.statusCardNumber = "";
-    } else if (/^5[1-5]/.test(cardNumber)) {
-      cardType = "MasterCard";
-      this.statusCardNumber = "";
-    } else if (/^3[47]/.test(cardNumber)) {
-      cardType = "American Express";
-      this.statusCardNumber = "";
-    } else if (/^6(?:011|5)/.test(cardNumber)) {
-      cardType = "Discover";
-      this.statusCardNumber = "";
-    } else if (/^(?:2131|1800|35)/.test(cardNumber)) {
-      cardType = "JCB";
-      this.statusCardNumber = "";
-    } else if (/^3(?:0[0-5]|[68])/.test(cardNumber)) {
-      cardType = "Diners Club";
-      this.statusCardNumber = "";
-    } else this.statusCardNumber = "Your card number is incorrect";
-    this.formPayByCard.patchValue({ cardType: cardType });
+  
+  findDiscountPer() {
+    this.findDiscount.emit(this.formTotal.value.discountCode);
   }
 
-  onInputChange(event: any): void {
-    const inputValue = event.target.value;
-    
-    // Lọc ra chỉ số và loại bỏ các ký tự không phải số
-    const filteredValue = inputValue.replace(/\D/g, '');
-
-    // Cập nhật giá trị của cardNumber
-    this.formPayByCard.patchValue({ cardNumber: filteredValue });
-
-    // Ngắt sau mỗi chữ số
-    if (filteredValue.length > 0) {
-      const formattedNumber = filteredValue.match(/\d{1,4}/g).join(' ');
-      this.formPayByCard.patchValue({ cardNumber: formattedNumber });
-    }
-  }
-
-  findDiscount() {
-    this.findDiscountPer.emit(this.formTotal.value.discountCode);
-  }
-
-  payWithCard() {
-    this.statusCardNumber = 'Your card has insufficient funds';
-    const cardNumberFormatted = this.formPayByCard.value.cardNumber.replace(/\s/g, '');
-    this.formPayByCard.patchValue({ cardNumber: cardNumberFormatted });
-    this.payByCard.emit({
+  payByPaypal() {
+    this.payWithPaypal.emit({
       'formTotal': this.formTotal,
-      'formPayByPaypal': this.formPayByCard,
+      'formPayByPaypal': this.formPayByPaypal,
     });
   }
 }

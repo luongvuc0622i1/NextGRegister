@@ -25,6 +25,7 @@ import { environment } from '../environments/environment';
 import { PaymentComponent } from './payment/payment.component';
 import { PaymentCardComponent } from './payment/payment-card/payment-card.component';
 import { CardComponent } from './payment/card/card.component';
+import { PaymentPaypalComponent } from './payment/payment-paypal/payment-paypal.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { CardComponent } from './payment/card/card.component';
     GeneralProfileComponent,
     PaymentComponent,
     PaymentCardComponent,
-    CardComponent
+    CardComponent,
+    PaymentPaypalComponent
   ],
   imports: [
     BrowserModule,
