@@ -49,5 +49,21 @@
         <app-payment-paypal [countries]="countries" (findDiscount)="findDiscount($event)" [formTotal]="formTotal" (payWithPaypal)="payWithPaypal($event)"></app-payment-paypal>
       </ng-template>
     </div>
+    <div class="modal" *ngIf="showModalSuccessfully">
+      <div class="modal-content">
+        <img width="150px" src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSX1sjgKxrVbCa0m7uQRbT691YACAvzJsiDmQGPHD2ClGTt-sBc"><br>
+        <label class="tit">Purchase Successfully</label>
+        <p>You have purchased for the NextG Solution {{menu[selectedDiv].title}}</p>
+        <div class="input-card button-pay button-pay-hover mt-30" (click)="backToHomepage()">Back to Homepage</div>
+      </div>
+    </div>
+    <div class="modal" *ngIf="showModalFailed">
+      <div class="modal-content">
+        <img width="150px" class="mb-10" src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQd3JmvxQqlA2T_SYzaN_aujCGWF2VA45J0Y8WVk9I1R2Ka0qW9"><br>
+        <label class="tit">Purchase Failed</label>
+        <p>Make sure your payment menthod is up to date then try again</p>
+        <div class="input-card button-pay button-pay-hover mt-30" (click)="closeModal()">Back</div>
+      </div>
+    </div>
   </div>
 </div>

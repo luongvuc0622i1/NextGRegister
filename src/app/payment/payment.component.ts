@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UserService } from '../service/user.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TokenService } from '../service/token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment',
@@ -23,9 +24,12 @@ export class PaymentComponent {
     taxes: new FormControl(),
     totalPay: new FormControl(),
   });
+  showModalSuccessfully = false;
+  showModalFailed = false;
 
   constructor(private userService: UserService,
-    private tokenService: TokenService) { }
+    private tokenService: TokenService,
+    private router: Router) { }
 
   ngOnInit() {
     this.menu = this.userService.findMenu();
@@ -88,9 +92,9 @@ export class PaymentComponent {
       "rankId": this.selectedDiv + 2
     };
     this.userService.payWithPaypal(obj).subscribe(data => {
-      // đúng
+      this.showModalSuccessfully = true;
     }, () => {
-      // sai
+      this.showModalFailed = true;
     });
   }
 
@@ -119,9 +123,9 @@ export class PaymentComponent {
       "rankId": this.selectedDiv + 2
     };
     this.userService.payWithCard(obj).subscribe(data => {
-      console.log("ok")
+      this.showModalSuccessfully = true;
     }, () => {
-      console.log("error")
+      this.showModalFailed = true;
     });
   }
 
@@ -143,13 +147,11 @@ export class PaymentComponent {
     //   "rankId": this.selectedDiv + 2
     // };
     // this.userService.payWithCard(obj).subscribe(data => {
-    //   // đúng
+    //   this.showModalSuccessfully = true;
     // }, () => {
-    //   // sai
+    //   this.showModalFailed = true;
     // });
   }
-
-  
 
   payWithDebit(objj: any) {
     console.log(objj);
@@ -169,9 +171,17 @@ export class PaymentComponent {
     //   "rankId": this.selectedDiv + 2
     // };
     // this.userService.payWithCard(obj).subscribe(data => {
-    //   // đúng
+    //   this.showModalSuccessfully = true;
     // }, () => {
-    //   // sai
+    //   this.showModalFailed = true;
     // });
+  }
+
+  backToHomepage() {
+    this.router.navigate(['/home']);
+  }
+
+  closeModal() {
+    this.showModalFailed = false;
   }
 }
