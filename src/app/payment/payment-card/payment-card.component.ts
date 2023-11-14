@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-payment-card',
   template: `
-    <div class="items-pay-by-card">
+    <div class="items-pay-by-card mb-30">
       <div class="item-pay-by-card" (click)="itemChoose = 'card'" [ngClass]="{ 'item-selected': itemChoose === 'card' }">
         <div class="contentA">
           <i class="fa-solid fa-credit-card icon"></i>
@@ -34,7 +34,7 @@ import { FormGroup } from '@angular/forms';
       <app-card [countries]="countries" (findDiscountPer)="findDiscountPer($event)" [formTotal]="formTotal" (payByCard)="payByCard($event)"></app-card>
     </ng-template>
     <ng-template #debitTemplate>
-      debit
+      <app-debit [banks]="banks" [countries]="countries" (findDiscountPer)="findDiscountPer($event)" [formTotal]="formTotal" (payByDebit)="payByDebit($event)"></app-debit>
     </ng-template>
     <ng-template #aliTemplate>
       <app-alipay [countries]="countries" (findDiscountPer)="findDiscountPer($event)" [formTotal]="formTotal" (payByAlipay)="payByAlipay($event)"></app-alipay>
@@ -47,10 +47,13 @@ export class PaymentCardComponent {
   @Input formTotal: FormGroup;
   // @ts-ignore
   @Input countries: string[];
+  // @ts-ignore
+  @Input banks: any[];
   itemChoose: string = 'card';
   @Output() findDiscount = new EventEmitter<string>();
   @Output() payWithCard = new EventEmitter<any>();
   @Output() payWithAlipay = new EventEmitter<any>();
+  @Output() payWithDebit = new EventEmitter<any>();
 
   findDiscountPer(discountCode: string) {
     this.findDiscount.emit(discountCode);
@@ -62,5 +65,9 @@ export class PaymentCardComponent {
 
   payByAlipay(event: any) {
     this.payWithAlipay.emit(event);
+  }
+
+  payByDebit(event: any) {
+    this.payWithDebit.emit(event);
   }
 }

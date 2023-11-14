@@ -1,21 +1,30 @@
-import { Component, EventEmitter, Output, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-alipay',
+  selector: 'app-debit',
   template: `
-    <form [formGroup]="formPayByAlipay">
-      <div class="custom-div mb-20" style="padding: 15px;">
-        <div>
-          <i class="fa-brands fa-alipay ali"></i>
-          <p style="margin: 0; font-weight: 600; font-size: 18px;">Alipay Selected</p>
+    <form [formGroup]="formPayByDebit">
+      <div class="mb-10">
+        <input class="input-card" type="text" placeholder="Search for your bank" (input)="onInputBankName($event)" />
+      </div>
+      <div class="items-pay-by-card mb-10">
+        <div class="item-pay-by-card item" [ngClass]="{ 'item-selected': this.formPayByDebit.value.shortBankName === bank.shortName }" (click)="setShortBankName(bank.shortName)" *ngFor="let bank of banksFilter.slice(0, 3)">
+          <div class="contentA">
+            <img class="logo" [src]="bank.logo" alt="{{bank.shortName}} Logo">
+          </div>
         </div>
-        <hr>
-        <div style="color: #999; font-size: 16px;">
-          After submission,
-          <br>
-          you will be redirected to securely complete next steps.
+      </div>
+      <div class="items-pay-by-card mb-10">
+        <div class="item-pay-by-card item" [ngClass]="{ 'item-selected': this.formPayByDebit.value.shortBankName === bank.shortName }" (click)="setShortBankName(bank.shortName)" *ngFor="let bank of banksFilter.slice(3, 6)">
+          <div class="contentA">
+            <img class="logo" [src]="bank.logo" alt="{{bank.shortName}} Logo">
+          </div>
         </div>
+      </div>
+      <div class="mb-20">
+        <a class="enter-a">Enter bank details</a>
+        <span style="color: #999;"> (Takes 1-2 business days)</span>
       </div>
       <div class="relative mb-20">
         <label class="input-label" for="cardholderName">Cardholder Name</label>
@@ -67,24 +76,32 @@ import { FormControl, FormGroup } from '@angular/forms';
         <p class="total" style="font-size: 20px; font-weight:700;" *ngIf="formTotal.value.totalPay">{{ '$' + (formTotal.value.totalPay | number: '1.2-2') }}</p>
       </div>
       <div class="input-card button-pay" *ngIf="!formTotal.value.totalPay">Pay</div>
-      <div class="input-card button-pay button-pay-hover" *ngIf="formTotal.value.totalPay" (click)="payWithAlipay()">Pay {{ '$' + (formTotal.value.totalPay | number: '1.2-2') }}</div>
+      <div class="input-card button-pay button-pay-hover" *ngIf="formTotal.value.totalPay" (click)="payWithDebit()">Pay {{ '$' + (formTotal.value.totalPay | number: '1.2-2') }}</div>
     </form>
   `,
   styleUrls: ['../payment.component.css']
 })
-export class AlipayComponent {
+export class DebitComponent {
   // @ts-ignore
   @Input formTotal: FormGroup;
   // @ts-ignore
+  @Input banks: any[];
+  // @ts-ignore
   @Input countries: string[];
   @Output() findDiscountPer = new EventEmitter<string>();
-  @Output() payByAlipay = new EventEmitter<any>();
-  formPayByAlipay: FormGroup = new FormGroup({
+  @Output() payByDebit = new EventEmitter<any>();
+  banksFilter: any[] = [];
+  formPayByDebit: FormGroup = new FormGroup({
+    shortBankName: new FormControl(),
     cardholderName: new FormControl(),
     billingAddress: new FormControl(''),
     postalCode: new FormControl(),
     taxIDNumber: new FormControl(),
   });
+
+  ngOnInit() {
+    this.banksFilter = this.banks;
+  }
 
   ngDoCheck(): void {
     const subTotal = this.formTotal.value.subTotal;
@@ -135,18 +152,28 @@ export class AlipayComponent {
     });
   }
 
+  onInputBankName(event: any) {
+    const tuKhoa = event.target.value;
+    this.banksFilter = this.banks.filter(bank => bank.shortName.toLowerCase().includes(tuKhoa.toLowerCase()));
+  }
+
+  setShortBankName(shortBankName: string) {
+    console.log(shortBankName)
+    this.formPayByDebit.patchValue({ 'shortBankName': shortBankName });
+  }
+
   onInputCardholderName() {
-    this.formPayByAlipay.patchValue({ 'cardholderName': this.formPayByAlipay.value.cardholderName.toUpperCase() });
+    this.formPayByDebit.patchValue({ 'cardholderName': this.formPayByDebit.value.cardholderName.toUpperCase() });
   }
   
   findDiscount() {
     this.findDiscountPer.emit(this.formTotal.value.discountCode);
   }
 
-  payWithAlipay() {
-    this.payByAlipay.emit({
+  payWithDebit() {
+    this.payByDebit.emit({
       'formTotal': this.formTotal,
-      'formPayByAlipay': this.formPayByAlipay,
+      'formPayByDebit': this.formPayByDebit,
     });
   }
 }

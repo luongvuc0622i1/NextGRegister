@@ -120,4 +120,8 @@ export class UserService {
   payWithCard(obj: any): Observable<any> {
     return this.http.post<any>(`${API_URL}/pay-card`, obj);
   }
+
+  findAllBank(): Observable<any> {
+    return this.http.get<any>(`https://api.vietqr.io/v2/banks`);
+  }
 }

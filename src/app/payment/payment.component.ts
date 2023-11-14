@@ -11,6 +11,7 @@ import { TokenService } from '../service/token.service';
 export class PaymentComponent {
   menu: any[] = [];
   countries: string[] = [];
+  banks: any[] = [];
   selectedDiv: number = -1;
   activeButton: string = 'payment-card';
   formTotal: FormGroup = new FormGroup({
@@ -31,6 +32,12 @@ export class PaymentComponent {
 
     this.userService.findAllCountry().subscribe(data => {
       this.countries = data.map(item => item.name.common).sort();
+    });
+
+    this.userService.findAllBank().subscribe(data => {
+      let list = data.data;
+      // @ts-ignore
+      this.banks = list.sort((a, b) => (a.shortName > b.shortName) ? 1 : -1);
     });
   }
 
@@ -119,6 +126,32 @@ export class PaymentComponent {
   }
 
   payWithAlipay(objj: any) {
+    console.log(objj);
+    // const userId = parseInt(this.tokenService.getID());
+    // const obj = {
+    //   "billingAddress": objj.formPayByPaypal.value.billingAddress,
+    //   "postalCode": objj.formPayByPaypal.value.postalCode,
+    //   "taxIDNumber": objj.formPayByPaypal.value.taxIDNumber,
+
+    //   "total": objj.formTotal.value.totalPay,
+    //   "currency": "USD",
+    //   "description": "payment",
+    //   "tax": objj.formTotal.value.taxes,
+    //   "discountCode": objj.formTotal.value.discountCode,
+    //   "discount": objj.formTotal.value.discount,
+    //   "userId": userId,
+    //   "rankId": this.selectedDiv + 2
+    // };
+    // this.userService.payWithCard(obj).subscribe(data => {
+    //   // đúng
+    // }, () => {
+    //   // sai
+    // });
+  }
+
+  
+
+  payWithDebit(objj: any) {
     console.log(objj);
     // const userId = parseInt(this.tokenService.getID());
     // const obj = {

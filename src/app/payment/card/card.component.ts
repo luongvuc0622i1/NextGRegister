@@ -21,12 +21,12 @@ import { FormControl, FormGroup } from '@angular/forms';
       </div>
       <div class="mb-20 relative">
         <label class="input-label" for="cardholderName">Cardholder Name</label>
-        <input class="input-card input-field" type="text" id="cardholderName" formControlName="cardholderName" />
+        <input class="input-card input-field" type="text" id="cardholderName" formControlName="cardholderName" (input)="onInputCardholderName()" />
       </div>
       <div class="input-container mb-20">
         <div class="pc50 relative">
           <label class="input-label" for="expriration">Expriration</label>
-          <input class="input-card input-field" type="text" id="expriration" formControlName="expriration" />
+          <input class="input-card input-field" type="text" id="expriration" formControlName="expriration" (input)="onInputExpriration()" />
           <i class="fa-solid fa-calendar-days icon-input fs-25 right-5"></i>
         </div>
         <div class="pc50 relative" style="margin-left: 20px;">
@@ -151,6 +151,26 @@ export class CardComponent implements AfterViewInit, DoCheck {
         }
       });
     });
+  }
+
+  onInputExpriration() {
+    // Loại bỏ các ký tự không phải số
+    let expriration = this.formPayByCard.value.expriration.replace(/[^\d-]/g, '');
+
+    if (expriration.length > 7) {
+      // Nếu đủ, cắt chuỗi lại thành "YYYY-MM"
+      expriration = expriration.slice(0, 7);
+    }
+
+    // Thêm dấu gạch ngang vào vị trí thích hợp
+    if (expriration.length >= 4 && expriration.charAt(4) !== '-') {
+      expriration = expriration.slice(0, 4) + '-' + expriration.slice(4);
+    }
+    this.formPayByCard.patchValue({ 'expriration': expriration });
+  }
+
+  onInputCardholderName() {
+    this.formPayByCard.patchValue({ 'cardholderName': this.formPayByCard.value.cardholderName.toUpperCase() });
   }
 
   checkType(event: any) {

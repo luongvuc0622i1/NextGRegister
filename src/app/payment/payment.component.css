@@ -97,6 +97,9 @@ h5 {
 .items-pay-by-card {
     display: flex;
     justify-content: space-between;
+}
+
+.mb-30 {
     margin-bottom: 30px;
 }
 
@@ -117,6 +120,11 @@ h5 {
     margin-left: 10px;
 }
 
+.item {
+    width: calc((100% - 20px) / 3);
+    box-sizing: border-box;
+}
+
 .contentA {
     display: flex;
     flex-direction: column;
@@ -128,8 +136,15 @@ h5 {
     font-size: 18px;
 }
 
+.ali {
+    color: blue;
+    margin-bottom: 5px;
+    font-size: 36px;
+}
+
 .title {
     text-align: center;
+    font-size: 15px;
 }
 
 .item-selected {
@@ -229,6 +244,13 @@ h5 {
     cursor: pointer;
 }
 
+.enter-a {
+    text-decoration: none;
+    font-weight: 600;
+    color: blue;
+    cursor: pointer;
+}
+
 .total {
     font-size: 18px;
 }
@@ -249,3 +271,7 @@ h5 {
 .error {
     color: red;
   }
+
+.logo {
+    width: 100%;
+}  
