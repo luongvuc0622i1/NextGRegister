@@ -25,6 +25,7 @@ import { environment } from '../environments/environment';
 import { PaymentComponent } from './payment/payment.component';
 import { PaymentCardComponent } from './payment/payment-card/payment-card.component';
 import { CardComponent } from './payment/card/card.component';
+import { AlipayComponent } from './payment/alipay/alipay.component';
 import { PaymentPaypalComponent } from './payment/payment-paypal/payment-paypal.component';
 
 @NgModule({
@@ -46,7 +47,8 @@ import { PaymentPaypalComponent } from './payment/payment-paypal/payment-paypal.
     PaymentComponent,
     PaymentCardComponent,
     CardComponent,
-    PaymentPaypalComponent
+    PaymentPaypalComponent,
+    AlipayComponent
   ],
   imports: [
     BrowserModule,

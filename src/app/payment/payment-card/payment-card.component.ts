@@ -37,7 +37,7 @@ import { FormGroup } from '@angular/forms';
       debit
     </ng-template>
     <ng-template #aliTemplate>
-      ali
+      <app-alipay [countries]="countries" (findDiscountPer)="findDiscountPer($event)" [formTotal]="formTotal" (payByAlipay)="payByAlipay($event)"></app-alipay>
     </ng-template>
   `,
   styleUrls: ['../payment.component.css']
@@ -50,11 +50,17 @@ export class PaymentCardComponent {
   itemChoose: string = 'card';
   @Output() findDiscount = new EventEmitter<string>();
   @Output() payWithCard = new EventEmitter<any>();
+  @Output() payWithAlipay = new EventEmitter<any>();
+
   findDiscountPer(discountCode: string) {
     this.findDiscount.emit(discountCode);
   }
 
   payByCard(event: any) {
     this.payWithCard.emit(event);
+  }
+
+  payByAlipay(event: any) {
+    this.payWithAlipay.emit(event);
   }
 }

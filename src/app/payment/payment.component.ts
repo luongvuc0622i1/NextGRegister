@@ -46,8 +46,10 @@ export class PaymentComponent {
   }
 
   findDiscount(discountCode: string) {
+    const userId = parseInt(this.tokenService.getID());
     const obj = {
-      "discountCode": discountCode
+      "discountCode": discountCode,
+      "userId": userId
     };
     this.userService.findDiscount(obj).subscribe(data => {
       this.formTotal.patchValue({
@@ -86,7 +88,38 @@ export class PaymentComponent {
   }
 
   payWithCard(objj: any) {
-    console.log(objj)
+    objj.formPayByCard.value.cardNumber = objj.formPayByCard.value.cardNumber.replace(/\s/g, '');
+    const userId = parseInt(this.tokenService.getID());
+    const obj = {
+      "paymentType": "card",
+
+      "cardNumber": objj.formPayByCard.value.cardNumber,
+      "cardType": objj.formPayByCard.value.cardType,
+      "cardholderName": objj.formPayByCard.value.cardholderName,
+      "dayExpired": objj.formPayByCard.value.expriration,
+      "cvc": objj.formPayByCard.value.cvc,
+      "billingAddress": objj.formPayByCard.value.billingAddress,
+      "postalCode": objj.formPayByCard.value.postalCode,
+      "taxIDNumber": objj.formPayByCard.value.taxIDNumber,
+
+      "amount": objj.formTotal.value.totalPay,
+      "currency": "USD",
+      "description": "Buy MemberShip",
+      "tax": objj.formTotal.value.taxes,
+      "discountCode": objj.formTotal.value.discountCode,
+      "discount": objj.formTotal.value.discount,
+      "userId": userId,
+      "rankId": this.selectedDiv + 2
+    };
+    this.userService.payWithCard(obj).subscribe(data => {
+      console.log("ok")
+    }, () => {
+      console.log("error")
+    });
+  }
+
+  payWithAlipay(objj: any) {
+    console.log(objj);
     // const userId = parseInt(this.tokenService.getID());
     // const obj = {
     //   "billingAddress": objj.formPayByPaypal.value.billingAddress,

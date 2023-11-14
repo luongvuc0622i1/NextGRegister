@@ -118,6 +118,6 @@ export class UserService {
   }
 
   payWithCard(obj: any): Observable<any> {
-    return this.http.post<any>(`${API_URL}/pay`, obj);
+    return this.http.post<any>(`${API_URL}/pay-card`, obj);
   }
 }
