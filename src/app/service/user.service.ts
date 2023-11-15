@@ -43,17 +43,17 @@ export class UserService {
         "price": 100,
         "detail": [
           {
-            "icon": "A",
+            "status": true,
             "title": "Title",
             "description": "hsgfsdghdfjjfdjgfdjg;kfd1"
           },
           {
-            "icon": "B",
+            "status": false,
             "title": "Title",
             "description": "hsgfsdghdfjjfdjgfdjg;kfd"
           },
           {
-            "icon": "C",
+            "status": false,
             "title": "Title",
             "description": "hsgfsdghdfjjfdjgfdjg;kfd"
           }
@@ -64,17 +64,17 @@ export class UserService {
         "price": 150,
         "detail": [
           {
-            "icon": "D",
+            "status": true,
             "title": "Title",
             "description": "hsgfsdghdfjjfdjgfdjg;kfd2"
           },
           {
-            "icon": "E",
+            "status": true,
             "title": "Title",
             "description": "hsgfsdghdfjjfdjgfdjg;kfd"
           },
           {
-            "icon": "F",
+            "status": false,
             "title": "Title",
             "description": "hsgfsdghdfjjfdjgfdjg;kfd"
           }
@@ -85,17 +85,17 @@ export class UserService {
         "price": 200,
         "detail": [
           {
-            "icon": "G",
+            "status": true,
             "title": "Title",
             "description": "hsgfsdghdfjjfdjgfdjg;kfd3"
           },
           {
-            "icon": "H",
+            "status": true,
             "title": "Title",
             "description": "hsgfsdghdfjjfdjgfdjg;kfd"
           },
           {
-            "icon": "K",
+            "status": true,
             "title": "Title",
             "description": "hsgfsdghdfjjfdjgfdjg;kfd"
           }

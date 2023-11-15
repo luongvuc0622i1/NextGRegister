@@ -3,86 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-card',
-  template: `
-    <form [formGroup]="formPayByCard">
-      <div class="mb-20">
-        <div class="relative">
-          <input class="input-card" formControlName="cardNumber" (input)="checkType($event)" (input)="onInputChange($event)" >
-          <i class="fa-brands icon-input fs-30" [ngClass]="{
-            'fa-cc-visa': formPayByCard.value.cardType === 'Visa' || !formPayByCard.value.cardType,
-            'fa-cc-mastercard': formPayByCard.value.cardType === 'MasterCard',
-            'fa-cc-amex': formPayByCard.value.cardType === 'American Express',
-            'fa-cc-discover': formPayByCard.value.cardType === 'Discover',
-            'fa-cc-jcb': formPayByCard.value.cardType === 'JCB',
-            'fa-cc-diners-club': formPayByCard.value.cardType === 'Diners Club'
-          }" style="color: blue;"></i>
-        </div>
-        <span class="error">{{statusCardNumber}}</span>
-      </div>
-      <div class="mb-20 relative">
-        <label class="input-label" for="cardholderName">Cardholder Name</label>
-        <input class="input-card input-field" type="text" id="cardholderName" formControlName="cardholderName" (input)="onInputCardholderName()" />
-      </div>
-      <div class="input-container mb-20">
-        <div class="pc50 relative">
-          <label class="input-label" for="expriration">Expriration</label>
-          <input class="input-card input-field" type="text" id="expriration" formControlName="expriration" (input)="onInputExpriration()" />
-          <i class="fa-solid fa-calendar-days icon-input fs-25 right-5"></i>
-        </div>
-        <div class="pc50 relative" style="margin-left: 20px;">
-          <label class="input-label" for="cvc">CVC</label>
-          <input class="input-card input-field" type="text" id="cvc" formControlName="cvc" />
-        </div>
-      </div>
-      <div class="input-container mb-20">
-        <div class="pc50 relative">
-          <label class="input-label" for="billingAddress">Billing Address</label>         
-          <select class="input-card input-field address" id="billingAddress" formControlName="billingAddress">
-            <option selected disabled hidden></option>
-            <option *ngFor="let option of countries">{{ option }}</option>
-          </select>
-          <i class="fa-solid fa-chevron-down icon-input fs-20 right-5"></i>
-        </div>
-        <div class="pc50 relative" style="margin-left: 20px;">
-          <label class="input-label" for="postalCode">Postal Code</label>
-          <input class="input-card input-field" type="text" id="postalCode" formControlName="postalCode" />
-        </div>
-      </div>
-      <div class="mb-20 relative">
-        <label class="input-label" for="taxIDNumber">Tax ID Number (Optional)</label>
-        <input class="input-card input-field" type="text" id="taxIDNumber" formControlName="taxIDNumber" />
-      </div>
-    </form>
-    <form [formGroup]="formTotal">
-      <div class="mb-20">
-        <div class="relative">
-          <label class="input-label" for="discountCode">Discount Code (Optional)</label>
-          <input class="input-card input-field" type="text" id="discountCode" formControlName="discountCode" />
-          <!-- <i class="fa-brands fa-cc-visa icon-input fs-30"></i> -->
-          <a (click)="findDiscount()" class="apply">Apply</a>
-        </div>
-        <span class="error">{{formTotal.value.statusApplyDiscountCode}}</span>
-      </div>
-      <div class="input-container">
-        <p class="total">Subtotal</p>
-        <p class="total" *ngIf="formTotal.value.subTotal">{{ '$' + (formTotal.value.subTotal | number: '1.2-2') }}</p>
-      </div>
-      <div class="input-container">
-        <p class="total">Discount</p>
-        <p class="total" *ngIf="formTotal.value.discount">{{ '-$' + (formTotal.value.discount | number: '1.2-2') }}</p>
-      </div>
-      <div class="input-container mb-10">
-        <p class="total">Taxes</p>
-        <p class="total" *ngIf="formTotal.value.taxes">{{ '$' + (formTotal.value.taxes | number: '1.2-2') }}</p>
-      </div>
-      <div class="input-container mb-20">
-        <p class="total" style="font-size: 20px; font-weight:700;">Total Pay</p>
-        <p class="total" style="font-size: 20px; font-weight:700;" *ngIf="formTotal.value.totalPay">{{ '$' + (formTotal.value.totalPay | number: '1.2-2') }}</p>
-      </div>
-      <div class="input-card button-pay" *ngIf="!formTotal.value.totalPay">Pay</div>
-      <div class="input-card button-pay button-pay-hover" *ngIf="formTotal.value.totalPay" (click)="payWithCard()">Pay {{ '$' + (formTotal.value.totalPay | number: '1.2-2') }}</div>
-    </form>
-  `,
+  templateUrl: './card.component.html',
   styleUrls: ['../payment.component.css']
 })
 export class CardComponent implements AfterViewInit, DoCheck {
@@ -123,31 +44,23 @@ export class CardComponent implements AfterViewInit, DoCheck {
 
       if (inputField.value !== '' && inputField.previousElementSibling) {
         const label = inputField.previousElementSibling as HTMLElement;
-        label.style.fontSize = '12px';
-        label.style.transform = 'translateY(-10px)';
-        label.style.color = '#333';
+        label.classList.add('input-label');
       } else if (inputField.previousElementSibling) {
         const label = inputField.previousElementSibling as HTMLElement;
-        label.style.fontSize = '';
-        label.style.transform = '';
-        label.style.color = '#999';
+        label.classList.remove('input-label');
       }
 
       inputField.addEventListener('focus', () => {
         if (inputField.previousElementSibling) {
           const label = inputField.previousElementSibling as HTMLElement;
-          label.style.fontSize = '12px';
-          label.style.transform = 'translateY(-10px)';
-          label.style.color = '#333';
+          label.classList.add('input-label');
         }
       });
 
       inputField.addEventListener('blur', () => {
         if (inputField.value === '' && inputField.previousElementSibling) {
           const label = inputField.previousElementSibling as HTMLElement;
-          label.style.fontSize = '';
-          label.style.transform = '';
-          label.style.color = '#999';
+          label.classList.remove('input-label');
         }
       });
     });

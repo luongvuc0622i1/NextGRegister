@@ -1,0 +1,278 @@
+<!-- <form [formGroup]="formPayByCard">
+  <div class="mb-20">
+    <div class="relative">
+      <input class="input-card" formControlName="cardNumber" (input)="checkType($event)"
+        (input)="onInputChange($event)">
+      <i class="fa-brands icon-input fs-30" [ngClass]="{
+            'fa-cc-visa': formPayByCard.value.cardType === 'Visa' || !formPayByCard.value.cardType,
+            'fa-cc-mastercard': formPayByCard.value.cardType === 'MasterCard',
+            'fa-cc-amex': formPayByCard.value.cardType === 'American Express',
+            'fa-cc-discover': formPayByCard.value.cardType === 'Discover',
+            'fa-cc-jcb': formPayByCard.value.cardType === 'JCB',
+            'fa-cc-diners-club': formPayByCard.value.cardType === 'Diners Club'
+          }" style="color: blue;"></i>
+    </div>
+    <span class="error">{{statusCardNumber}}</span>
+  </div>
+  <div class="mb-20 relative">
+    <label class="input-label" for="cardholderName">Cardholder Name</label>
+    <input class="input-card input-field" type="text" id="cardholderName" formControlName="cardholderName"
+      (input)="onInputCardholderName()" />
+  </div>
+  <div class="input-container mb-20">
+    <div class="pc50 relative">
+      <label class="input-label" for="expriration">Expriration</label>
+      <input class="input-card input-field" type="text" id="expriration" formControlName="expriration"
+        (input)="onInputExpriration()" />
+      <i class="fa-solid fa-calendar-days icon-input fs-25 right-5"></i>
+    </div>
+    <div class="pc50 relative" style="margin-left: 20px;">
+      <label class="input-label" for="cvc">CVC</label>
+      <input class="input-card input-field" type="text" id="cvc" formControlName="cvc" />
+    </div>
+  </div>
+  <div class="input-container mb-20">
+    <div class="pc50 relative">
+      <label class="input-label" for="billingAddress">Billing Address</label>
+      <select class="input-card input-field address" id="billingAddress" formControlName="billingAddress">
+        <option selected disabled hidden></option>
+        <option *ngFor="let option of countries">{{ option }}</option>
+      </select>
+      <i class="fa-solid fa-chevron-down icon-input fs-20 right-5"></i>
+    </div>
+    <div class="pc50 relative" style="margin-left: 20px;">
+      <label class="input-label" for="postalCode">Postal Code</label>
+      <input class="input-card input-field" type="text" id="postalCode" formControlName="postalCode" />
+    </div>
+  </div>
+  <div class="mb-20 relative">
+    <label class="input-label" for="taxIDNumber">Tax ID Number (Optional)</label>
+    <input class="input-card input-field" type="text" id="taxIDNumber" formControlName="taxIDNumber" />
+  </div>
+</form>
+<form [formGroup]="formTotal">
+  <div class="mb-20">
+    <div class="relative">
+      <label class="input-label" for="discountCode">Discount Code (Optional)</label>
+      <input class="input-card input-field" type="text" id="discountCode" formControlName="discountCode" />
+      <a (click)="findDiscount()" class="apply">Apply</a>
+    </div>
+    <span class="error">{{formTotal.value.statusApplyDiscountCode}}</span>
+  </div>
+  <div class="input-container">
+    <p class="total">Subtotal</p>
+    <p class="total" *ngIf="formTotal.value.subTotal">{{ '$' + (formTotal.value.subTotal | number: '1.2-2') }}</p>
+  </div>
+  <div class="input-container">
+    <p class="total">Discount</p>
+    <p class="total" *ngIf="formTotal.value.discount">{{ '-$' + (formTotal.value.discount | number: '1.2-2') }}</p>
+  </div>
+  <div class="input-container mb-10">
+    <p class="total">Taxes</p>
+    <p class="total" *ngIf="formTotal.value.taxes">{{ '$' + (formTotal.value.taxes | number: '1.2-2') }}</p>
+  </div>
+  <div class="input-container mb-20">
+    <p class="total" style="font-size: 20px; font-weight:700;">Total Pay</p>
+    <p class="total" style="font-size: 20px; font-weight:700;" *ngIf="formTotal.value.totalPay">{{ '$' +
+      (formTotal.value.totalPay | number: '1.2-2') }}</p>
+  </div>
+  <div class="input-card button-pay" *ngIf="!formTotal.value.totalPay">Pay</div>
+  <div class="input-card button-pay button-pay-hover" *ngIf="formTotal.value.totalPay" (click)="payWithCard()">Pay {{
+    '$' + (formTotal.value.totalPay | number: '1.2-2') }}</div>
+</form> -->
+<form class="form-purchase" [formGroup]="formPayByCard">
+  <div class="w-100">
+    <div class="relative">
+      <input class="input-field input-field-center body-4 w-100" formControlName="cardNumber"
+        (input)="checkType($event)" (input)="onInputChange($event)">
+      <div class="card-icons">
+        <div class="visa">
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="24" viewBox="0 0 36 24" fill="none">
+            <rect width="36" height="24" rx="2.66667" fill="white" />
+            <rect x="0.666667" y="0.666667" width="34.6667" height="22.6667" rx="2" stroke="black" stroke-opacity="0.2"
+              stroke-width="1.33333" />
+            <path
+              d="M22.2374 7.31445C20.2493 7.31445 18.4726 8.34493 18.4726 10.2488C18.4726 12.4322 21.6236 12.583 21.6236 13.6799C21.6236 14.1417 21.0944 14.5552 20.1904 14.5552C18.9074 14.5552 17.9486 13.9775 17.9486 13.9775L17.5383 15.8987C17.5383 15.8987 18.6429 16.3867 20.1094 16.3867C22.283 16.3867 23.9934 15.3056 23.9934 13.3692C23.9934 11.062 20.8293 10.9157 20.8293 9.8976C20.8293 9.53581 21.2638 9.1394 22.1652 9.1394C23.1823 9.1394 24.012 9.55953 24.012 9.55953L24.4136 7.70395C24.4136 7.70395 23.5107 7.31445 22.2374 7.31445ZM4.04814 7.4545L4 7.73458C4 7.73458 4.8364 7.88766 5.58972 8.19301C6.55967 8.54315 6.62877 8.74699 6.79212 9.3801L8.57221 16.2422H10.9584L14.6346 7.4545H12.2538L9.89168 13.4293L8.92779 8.36478C8.83939 7.78515 8.39163 7.4545 7.84354 7.4545H4.04814ZM15.5919 7.4545L13.7243 16.2422H15.9945L17.8556 7.4545H15.5919ZM28.2538 7.4545C27.7064 7.4545 27.4163 7.74758 27.2035 8.25975L23.8775 16.2422H26.2582L26.7188 14.9118H29.6193L29.8993 16.2422H32L30.1674 7.4545H28.2538ZM28.5635 9.82868L29.2691 13.1263H27.3786L28.5635 9.82868Z"
+              fill="#1434CB" />
+          </svg>
+        </div>
+        <div class="visa" *ngIf="formPayByCard.value.cardType === 'MasterCard'">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="15" viewBox="0 0 24 15" fill="none">
+            <path d="M8.9375 2.42383H15.0663V13.4361H8.9375V2.42383Z" fill="#FF5F00" />
+            <path
+              d="M9.32605 7.93007C9.32605 5.69259 10.3767 3.70804 11.9916 2.42392C10.8047 1.49002 9.30659 0.925781 7.67226 0.925781C3.80044 0.925781 0.667969 4.05826 0.667969 7.93007C0.667969 11.8019 3.80044 14.9344 7.67226 14.9344C9.30659 14.9344 10.8047 14.3701 11.9916 13.4362C10.3767 12.1716 9.32605 10.1676 9.32605 7.93007Z"
+              fill="#EB001B" />
+            <path
+              d="M23.3353 7.93007C23.3353 11.8019 20.2029 14.9344 16.331 14.9344C14.6967 14.9344 13.1986 14.3701 12.0117 13.4362C13.6461 12.1521 14.6772 10.1676 14.6772 7.93007C14.6772 5.69259 13.6266 3.70804 12.0117 2.42392C13.1986 1.49002 14.6967 0.925781 16.331 0.925781C20.2029 0.925781 23.3353 4.07771 23.3353 7.93007Z"
+              fill="#F79E1B" />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="error body-5">{{statusCardNumber}}</div>
+  </div>
+  <div class="w-100">
+    <div class="relative">
+      <label class="input-label-default gray-1" for="cardholderName">Cardholder Name</label>
+      <input class="input-field body-4 w-100" type="text" id="cardholderName" formControlName="cardholderName"
+        (input)="onInputCardholderName()" />
+    </div>
+  </div>
+  <div class="w-100 divi-2">
+    <div class="w-100">
+      <div class="relative">
+        <label class="input-label-default gray-1" for="expriration">Expriration</label>
+        <input class="input-field body-4 w-100" type="text" id="expriration" formControlName="expriration"
+          (input)="onInputExpriration()" />
+        <div class="card-icons">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M8 2V5" stroke="#2F2F2F" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M16 2V5" stroke="#2F2F2F" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M3.5 9.08984H20.5" stroke="#2F2F2F" stroke-width="1.5" stroke-miterlimit="10"
+              stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z"
+              stroke="#2F2F2F" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M11.9945 13.6992H12.0035" stroke="#2F2F2F" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M8.29529 13.6992H8.30427" stroke="#2F2F2F" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M8.29529 16.6992H8.30427" stroke="#2F2F2F" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="w-100">
+      <div class="relative">
+        <label class="input-label-default gray-1" for="cvc">CVC</label>
+        <input class="input-field body-4 w-100" type="text" id="cvc" formControlName="cvc" />
+        <div class="card-icons">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M18.5 5H3.24219C2.55781 5 2 5.55781 2 6.24219V13.1609H17.1922L19.7422 12.1531V6.24688C19.7422 5.55781 19.1891 5.00469 18.5 5Z"
+              fill="#DEDEDE" />
+            <path
+              d="M2 13.1648V15.5883C2 16.2727 2.55781 16.8305 3.24219 16.8305H15.8516L15.9031 16.8211L17.1922 13.1602H2V13.1648Z"
+              fill="#999999" />
+            <path
+              d="M17.5399 8.87112C17.5867 9.62112 17.0196 10.2633 16.2742 10.3149C16.2461 10.3149 16.218 10.3196 16.1852 10.3196C16.1196 10.3196 16.0539 10.3149 15.9883 10.3055C15.3977 10.2211 14.8024 10.2211 14.2117 10.3055C14.1461 10.3149 14.0805 10.3196 14.0149 10.3196C13.2649 10.3196 12.6555 9.71018 12.6602 8.96018C12.6649 8.21018 13.2696 7.60081 14.0196 7.6055C14.0992 7.6055 14.1789 7.61487 14.2586 7.62893C14.8117 7.72737 15.3789 7.72737 15.9367 7.62893C16.6727 7.493 17.3805 7.98518 17.5164 8.72112C17.5305 8.768 17.5399 8.81956 17.5399 8.87112Z"
+              fill="#616161" />
+            <path
+              d="M19.7422 12.1055C21.9922 12.1055 23.8203 13.9289 23.8203 16.1836C23.8203 18.4383 21.9969 20.2617 19.7422 20.2617C17.4875 20.2617 15.6641 18.4383 15.6641 16.1836C15.6641 15.0352 16.1516 13.9383 17 13.1648C17.7547 12.4852 18.7344 12.1055 19.7422 12.1055Z"
+              fill="#DEDEDE" />
+            <path
+              d="M4.64844 5H3.24219C2.55781 5 2 5.55781 2 6.24219V13.1609H3.40625V6.24688C3.40625 5.55781 3.96406 5.00469 4.64844 5Z"
+              fill="#DEDEDE" />
+            <path
+              d="M3.40625 15.5895V13.166H2V15.5895C2 16.2738 2.55781 16.8316 3.24219 16.8316H4.64844C3.96406 16.8316 3.40625 16.2738 3.40625 15.5895Z"
+              fill="#999999" />
+            <path
+              d="M17.122 16.822C16.7705 14.6236 18.2517 12.547 20.4502 12.1674C18.233 11.7783 16.1189 13.2642 15.7299 15.4814C15.3408 17.6986 16.8267 19.8127 19.0439 20.2017C19.508 20.2814 19.9861 20.2814 20.4502 20.2017C18.7345 19.9017 17.3986 18.5424 17.122 16.822Z"
+              fill="#DEDEDE" />
+            <path
+              d="M8.29063 8.13086H4.20313C4.04844 8.13086 3.92188 8.0043 3.92188 7.84961C3.92188 7.69492 4.04844 7.56836 4.20313 7.56836H8.29531C8.45 7.56836 8.57656 7.69492 8.57656 7.84961C8.57656 8.0043 8.44531 8.13086 8.29063 8.13086Z"
+              fill="#616161" />
+            <path
+              d="M10.9641 8.13086H9.35156C9.19688 8.13086 9.07031 8.0043 9.07031 7.84961C9.07031 7.69492 9.19688 7.56836 9.35156 7.56836H10.9641C11.1187 7.56836 11.2453 7.69492 11.2453 7.84961C11.2453 8.0043 11.1187 8.13086 10.9641 8.13086Z"
+              fill="#616161" />
+            <path
+              d="M10.9711 9.52344H8.28516C8.13047 9.52344 8.00391 9.39687 8.00391 9.24219C8.00391 9.0875 8.13047 8.96094 8.28516 8.96094H10.9711C11.1258 8.96094 11.2523 9.0875 11.2523 9.24219C11.2523 9.39687 11.1258 9.52344 10.9711 9.52344Z"
+              fill="#616161" />
+            <path
+              d="M10.9734 10.7051H9.63281C9.47813 10.7051 9.35156 10.5785 9.35156 10.4238C9.35156 10.2691 9.47813 10.1426 9.63281 10.1426H10.9734C11.1281 10.1426 11.2547 10.2691 11.2547 10.4238C11.2547 10.5785 11.1281 10.7051 10.9734 10.7051Z"
+              fill="#616161" />
+            <path
+              d="M8.74687 10.7051H6C5.84531 10.7051 5.71875 10.5785 5.71875 10.4238C5.71875 10.2691 5.84531 10.1426 6 10.1426H8.74687C8.90156 10.1426 9.02812 10.2691 9.02812 10.4238C9.02812 10.5785 8.90156 10.7051 8.74687 10.7051Z"
+              fill="#616161" />
+            <path
+              d="M5.13438 10.7051H4.25781C4.10312 10.7051 3.97656 10.5785 3.97656 10.4238C3.97656 10.2691 4.10312 10.1426 4.25781 10.1426H5.13438C5.28906 10.1426 5.41563 10.2691 5.41563 10.4238C5.41563 10.5785 5.28906 10.7051 5.13438 10.7051Z"
+              fill="#616161" />
+            <path
+              d="M7.22578 9.52344H4.20703C4.05234 9.52344 3.92578 9.39687 3.92578 9.24219C3.92578 9.0875 4.05234 8.96094 4.20703 8.96094H7.22578C7.38047 8.96094 7.50703 9.0875 7.50703 9.24219C7.50703 9.39687 7.38047 9.52344 7.22578 9.52344Z"
+              fill="#616161" />
+            <path
+              d="M14.5672 18.541H4.69531C4.54063 18.541 4.41406 18.4145 4.41406 18.2598C4.41406 18.1051 4.54063 17.9785 4.69531 17.9785H14.5672C14.7219 17.9785 14.8484 18.1051 14.8484 18.2598C14.8484 18.4145 14.7219 18.541 14.5672 18.541Z"
+              fill="#999999" />
+            <path
+              d="M17.7281 15.4648C17.5406 15.4648 17.4328 15.568 17.4328 15.793V16.6648C17.4328 16.8898 17.5406 16.993 17.7328 16.993C17.9953 16.993 18.0141 16.7914 18.0234 16.6648C18.0328 16.543 18.1453 16.5102 18.2766 16.5102C18.4547 16.5102 18.5344 16.557 18.5344 16.7539C18.5344 17.1898 18.1781 17.4383 17.7094 17.4383C17.2781 17.4383 16.9219 17.2273 16.9219 16.6648V15.793C16.9219 15.2305 17.2781 15.0195 17.7094 15.0195C18.1781 15.0195 18.5344 15.2539 18.5344 15.6711C18.5344 15.868 18.45 15.9148 18.2766 15.9148C18.1406 15.9148 18.0281 15.8773 18.0188 15.7602C18.0188 15.6758 18.0094 15.4648 17.7281 15.4648Z"
+              fill="#616161" />
+            <path
+              d="M18.7703 15.2641C18.7656 15.25 18.7656 15.2359 18.7656 15.2266C18.7656 15.1047 18.9531 15.0156 19.0938 15.0156C19.1781 15.0156 19.2438 15.0438 19.2625 15.1094L19.7219 16.7922L20.1766 15.1094C20.1953 15.0391 20.2609 15.0156 20.3453 15.0156C20.4859 15.0156 20.6734 15.1047 20.6734 15.2266C20.6734 15.2359 20.6688 15.25 20.6688 15.2641L20.0594 17.2656C20.0219 17.3828 19.8766 17.4344 19.7266 17.4344C19.5766 17.4344 19.4266 17.3781 19.3937 17.2656L18.7703 15.2641Z"
+              fill="#616161" />
+            <path
+              d="M20.8328 15.2641C20.8281 15.25 20.8281 15.2359 20.8281 15.2266C20.8281 15.1047 21.0156 15.0156 21.1562 15.0156C21.2406 15.0156 21.3063 15.0438 21.325 15.1094L21.7844 16.7922L22.2391 15.1094C22.2578 15.0391 22.3234 15.0156 22.4078 15.0156C22.5484 15.0156 22.7359 15.1047 22.7359 15.2266C22.7359 15.2359 22.7313 15.25 22.7313 15.2641L22.1219 17.2656C22.0844 17.3828 21.9391 17.4344 21.7891 17.4344C21.6391 17.4344 21.4891 17.3781 21.4562 17.2656L20.8328 15.2641Z"
+              fill="#616161" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-100 divi-2">
+    <div class="w-100">
+      <div class="relative">
+        <label class="input-label-default gray-1" for="billingAddress">Billing Address</label>
+        <select class="input-field body-4 w-100 address" id="billingAddress" formControlName="billingAddress">
+          <option selected disabled hidden></option>
+          <option *ngFor="let option of countries">{{ option }}</option>
+        </select>
+        <div class="card-icons">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M8 10L12 14L16 10" stroke="#00214D" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="w-100">
+      <div class="relative">
+        <label class="input-label-default gray-1" for="postalCode">Postal Code</label>
+        <input class="input-field body-4 w-100" type="text" id="postalCode" formControlName="postalCode" />
+      </div>
+    </div>
+  </div>
+  <div class="w-100">
+    <div class="relative">
+      <label class="input-label-default gray-1" for="taxIDNumber">Tax ID Number (Optional)</label>
+      <input class="input-field body-4 w-100" type="text" id="taxIDNumber" formControlName="taxIDNumber" />
+    </div>
+  </div>
+</form>
+<form class="form-purchase" [formGroup]="formTotal" style="margin-top: 24px;">
+  <div class="w-100">
+    <div class="relative">
+      <label class="input-label-default gray-1" for="discountCode">Discount Code (Optional)</label>
+      <input class="input-field body-4 w-100" type="text" id="discountCode" formControlName="discountCode" />
+      <div class="card-icons">
+        <a (click)="findDiscount()" class="apply">Apply</a>
+      </div>
+    </div>
+  </div>
+  <div class="total">
+    <div class="detail-pay">
+      <div class="item">
+        <div class="body-5 black">Subtotal</div>
+        <div class="body-5 black" *ngIf="formTotal.value.subTotal">{{ '$' + (formTotal.value.subTotal | number: '1.2-2') }}</div>
+      </div>
+      <div class="item">
+        <div class="body-5 black">Discount</div>
+        <div class="body-5 black" *ngIf="formTotal.value.discount">{{ '-$' + (formTotal.value.discount | number: '1.2-2') }}</div>
+      </div>
+      <div class="item">
+        <div class="body-5 black">Taxes</div>
+        <div class="body-5 black" *ngIf="formTotal.value.taxes">{{ '$' + (formTotal.value.taxes | number: '1.2-2') }}</div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="body-1 black">Total Pay</div>
+      <div class="body-1 black" *ngIf="formTotal.value.totalPay">{{ '$' + (formTotal.value.totalPay | number: '1.2-2')
+        }}</div>
+    </div>
+  </div>
+  <div class="button-pay button-1 gray-1" *ngIf="!formTotal.value.totalPay">Pay</div>
+  <div class="button-pay button-1 button-pay-hover" *ngIf="formTotal.value.totalPay" (click)="payWithCard()">Pay {{
+    '$' + (formTotal.value.totalPay | number: '1.2-2') }}</div>
+</form>
