@@ -43,7 +43,7 @@
         </ng-container>
       </ng-container>
       <ng-template #paymentCardTemplate>
-        <app-payment-card [countries]="countries" [banks]="banks" (findDiscount)="findDiscount($event)" [formTotal]="formTotal" (payWithCard)="payWithCard($event)" (payWithAlipay)="payWithAlipay($event)" (payWithDebit)="payWithDebit($event)"></app-payment-card>
+        <app-payment-card [countries]="countries" [banks]="banks" (findDiscount)="findDiscount($event)" [formTotal]="formTotal" (payWithCard)="payWithCard($event)" (payWithAlipay)="payWithAlipay($event)" (payWithBank)="payWithBank($event)"></app-payment-card>
       </ng-template>
       <ng-template #paymentPaypalTemplate>
         <app-payment-paypal [countries]="countries" (findDiscount)="findDiscount($event)" [formTotal]="formTotal" (payWithPaypal)="payWithPaypal($event)"></app-payment-paypal>

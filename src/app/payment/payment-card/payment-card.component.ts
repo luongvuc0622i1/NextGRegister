@@ -20,7 +20,7 @@ import { FormGroup } from '@angular/forms';
           <path d="M15.4097 3.92526C8.16056 0.961174 8.35453 1.04045 8.34933 1.03835C8.12565 0.948845 7.87696 0.947026 7.64688 1.03967L0.589786 3.92526C0.231428 4.06944 0 4.41195 0 4.79836V6.01699C0 6.53594 0.422199 6.95813 0.941147 6.95813H15.0584C15.5773 6.95813 15.9995 6.53594 15.9995 6.01699V4.79836C15.9995 4.41195 15.7681 4.06944 15.4097 3.92526ZM8.47033 4.47975C8.47033 4.73963 8.25963 4.95032 7.99975 4.95032C7.73987 4.95032 7.52918 4.73963 7.52918 4.47975V3.47586C7.52918 3.21598 7.73987 3.00528 7.99975 3.00528C8.25963 3.00528 8.47033 3.21598 8.47033 3.47586V4.47975Z" fill="#999999" [ngClass]="{ 'fill-orange': itemChoose === 'debit' }"/>
           <path d="M1.50391 7.89844H4.45284V13.1061H1.50391V7.89844Z" fill="#999999" [ngClass]="{ 'fill-orange': itemChoose === 'debit' }"/>
         </svg>
-        Banh Account
+        Bank Account
       </div>
       <div class="item-pay-by-card body-5 gray-2" (click)="itemChoose = 'ali'" [ngClass]="{ 'item-selected selected': itemChoose === 'ali' }">
         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
@@ -46,7 +46,7 @@ import { FormGroup } from '@angular/forms';
       <app-card [countries]="countries" (findDiscountPer)="findDiscountPer($event)" [formTotal]="formTotal" (payByCard)="payByCard($event)"></app-card>
     </ng-template>
     <ng-template #debitTemplate>
-      <app-debit [banks]="banks" [countries]="countries" (findDiscountPer)="findDiscountPer($event)" [formTotal]="formTotal" (payByDebit)="payByDebit($event)"></app-debit>
+      <app-bank [banks]="banks" [countries]="countries" (findDiscountPer)="findDiscountPer($event)" [formTotal]="formTotal" (payByBank)="payByBank($event)"></app-bank>
     </ng-template>
     <ng-template #aliTemplate>
       <app-alipay [countries]="countries" (findDiscountPer)="findDiscountPer($event)" [formTotal]="formTotal" (payByAlipay)="payByAlipay($event)"></app-alipay>
@@ -65,7 +65,7 @@ export class PaymentCardComponent {
   @Output() findDiscount = new EventEmitter<string>();
   @Output() payWithCard = new EventEmitter<any>();
   @Output() payWithAlipay = new EventEmitter<any>();
-  @Output() payWithDebit = new EventEmitter<any>();
+  @Output() payWithBank = new EventEmitter<any>();
 
   findDiscountPer(discountCode: string) {
     this.findDiscount.emit(discountCode);
@@ -79,7 +79,7 @@ export class PaymentCardComponent {
     this.payWithAlipay.emit(event);
   }
 
-  payByDebit(event: any) {
-    this.payWithDebit.emit(event);
+  payByBank(event: any) {
+    this.payWithBank.emit(event);
   }
 }

@@ -27,7 +27,7 @@ import { PaymentCardComponent } from './payment/payment-card/payment-card.compon
 import { CardComponent } from './payment/card/card.component';
 import { AlipayComponent } from './payment/alipay/alipay.component';
 import { PaymentPaypalComponent } from './payment/payment-paypal/payment-paypal.component';
-import { DebitComponent } from './payment/debit/debit.component';
+import { BankComponent } from './payment/bank/bank.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +50,7 @@ import { DebitComponent } from './payment/debit/debit.component';
     CardComponent,
     PaymentPaypalComponent,
     AlipayComponent,
-    DebitComponent
+    BankComponent
   ],
   imports: [
     BrowserModule,

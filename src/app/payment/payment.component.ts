@@ -153,7 +153,7 @@ export class PaymentComponent {
     // });
   }
 
-  payWithDebit(objj: any) {
+  payWithBank(objj: any) {
     console.log(objj);
     // const userId = parseInt(this.tokenService.getID());
     // const obj = {
