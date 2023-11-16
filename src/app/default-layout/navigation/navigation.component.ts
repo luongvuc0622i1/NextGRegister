@@ -1,23 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { TokenService } from '../service/token.service';
+import { TokenService } from 'src/app/service/token.service';
 
 @Component({
-  selector: 'app-header',
-  template: `
-    <div class="header">
-    <div>
-      <img src="../../../assets/nextG.png" />
-      <a class="user-info">
-        <p>Xin chào <span>{{this.role}} {{this.username}}</span></p>
-      </a>
-    </div>
-    <button (click)="logout()">LOGOUT</button>
-</div>
-  `,
-  styleUrls: ['./header.component.css']
+  selector: 'app-navigation',
+  templateUrl: './navigation.component.html',
+  styleUrls: ['./../default-layout.component.css']
 })
-export class HeaderComponent {
+export class NavigationComponent {
   username: any;
   role: any;
   ngOnInit(): void {

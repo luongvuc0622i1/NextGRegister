@@ -16,7 +16,6 @@ import { RegisterComponent } from './security/register.component';
 import { FormNameComponent } from './security/form-name/form-name.component';
 import { FormPasswordComponent } from './security/form-password/form-password.component';
 import { ResetPasswordComponent } from './security/resetPassword.component';
-import { HeaderComponent } from './header/header.component';
 import { DataService } from './service/data.service';
 import { GeneralProfileComponent } from './home/general-profile/general-profile.component';
 import { AngularFireModule } from '@angular/fire/compat';
@@ -28,6 +27,10 @@ import { CardComponent } from './payment/card/card.component';
 import { AlipayComponent } from './payment/alipay/alipay.component';
 import { PaymentPaypalComponent } from './payment/payment-paypal/payment-paypal.component';
 import { BankComponent } from './payment/bank/bank.component';
+import { SettingsComponent } from './settings/settings.component';
+import { DefaultLayoutComponent } from './default-layout/default-layout.component';
+import { NavigationComponent } from './default-layout/navigation/navigation.component';
+import { FooterComponent } from './default-layout/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -43,14 +46,17 @@ import { BankComponent } from './payment/bank/bank.component';
     RegisterComponent,
     FormNameComponent,
     FormPasswordComponent,
-    HeaderComponent,
+    NavigationComponent,
     GeneralProfileComponent,
     PaymentComponent,
     PaymentCardComponent,
     CardComponent,
     PaymentPaypalComponent,
     AlipayComponent,
-    BankComponent
+    BankComponent,
+    SettingsComponent,
+    FooterComponent,
+    DefaultLayoutComponent
   ],
   imports: [
     BrowserModule,
