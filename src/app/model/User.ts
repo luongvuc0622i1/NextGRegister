@@ -1,5 +1,5 @@
 export class User {
-  name: string;
+  firstName: string;
   lastName: string;
   email: string;
   emailVerifired: boolean;
@@ -8,8 +8,8 @@ export class User {
   bio: string;
   imageUrl: string;
 
-  constructor(name: string, lastName: string, email: string, emailVerifired: boolean, phoneNumber: string, phoneVerifired: boolean, bio: string, imageUrl: string) {
-    this.name = name;
+  constructor(firstName: string, lastName: string, email: string, emailVerifired: boolean, phoneNumber: string, phoneVerifired: boolean, bio: string, imageUrl: string) {
+    this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.emailVerifired = emailVerifired;

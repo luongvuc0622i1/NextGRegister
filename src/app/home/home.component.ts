@@ -37,7 +37,7 @@ export class HomeComponent {
     // Gọi API findById và xử lý dữ liệu khi được nhận
     this.userService.findById().subscribe(data => {
       this.user.patchValue({
-        firstName: data.name,
+        firstName: data.firstName,
         lastName: data.lastName,
         email: data.email,
         emailVerifired: data.emailVerifired,
