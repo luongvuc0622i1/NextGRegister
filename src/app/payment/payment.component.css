@@ -46,6 +46,19 @@
     margin-bottom: 8px;
 }
 
+.pad-0 {
+    padding: 0px !important;
+}
+
+.pl-48 {
+    padding-left: 48px !important;
+}
+
+.combo-bank {
+    display: grid;
+    gap: 12px;
+}
+
 .img-NextG {
     height: 32px;
 }
@@ -60,6 +73,10 @@
 
 .gray-2 {
     color: var(--neutral-grey-2, #999);
+}
+
+.primary {
+    color: #314DD3;
 }
 
 .heading {
@@ -211,6 +228,15 @@
     color: #F58926 !important;
 }
 
+.items-pay-by-card > div {
+    flex-grow: 1;
+    max-width: calc(100% / 3 - 14px); /* 33.333% chiều rộng của cha chia 3 */
+}
+
+.items-pay-by-card:empty {
+    display: none;
+}
+
 .fill-orange {
     fill: #F58926;
 }
@@ -274,6 +300,18 @@
     transform: translateY(-50%);
     top: 50%;
     right: 16px;
+    display: flex;
+    height: 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-icons-left {
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    left: 16px;
     display: flex;
     height: 32px;
     justify-content: center;
@@ -364,9 +402,9 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
-  }
-  
-  .modal-content {
+}
+
+.modal-content {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -378,4 +416,13 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
     border-radius: 12px;
     text-align: center;
-  }
+}
+
+.logo {
+    width: 100%;
+}
+
+.enter-bank {
+    display: flex;
+    gap: 4px;
+}

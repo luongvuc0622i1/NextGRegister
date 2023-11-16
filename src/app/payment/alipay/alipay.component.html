@@ -1,38 +1,4 @@
-<!-- <form [formGroup]="formPayByDebit">
-  <div class="mb-20">
-    <a class="enter-a">Enter bank details</a>
-    <span style="color: #999;"> (Takes 1-2 business days)</span>
-  </div>
-</form> -->
-
-<form class="form-purchase" [formGroup]="formPayByBank">
-  <div class="w-100">
-    <div class="relative">
-      <div class="card-icons-left">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="11.058" cy="11.058" r="7.06194" stroke="#DEDEDE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M20.0063 20.0024L16.0547 16.0508" stroke="#DEDEDE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <input class="input-field input-field-center pl-48 body-4 w-100" type="text" placeholder="Search for your bank" (input)="onInputBankName($event)" />
-    </div>
-  </div>
-  <div class="combo-bank w-100">
-    <div class="items-pay-by-card">
-      <div class="item-pay-by-card pad-0" [ngClass]="{ 'item-selected': this.formPayByBank.value.shortBankName === bank.shortName }" (click)="setShortBankName(bank.shortName)" *ngFor="let bank of banksFilter.slice(0, 3)">
-        <img class="logo" [src]="bank.logo" alt="{{bank.shortName}} Logo">
-      </div>
-    </div>
-    <div class="items-pay-by-card">
-      <div class="item-pay-by-card pad-0" [ngClass]="{ 'item-selected': this.formPayByBank.value.shortBankName === bank.shortName }" (click)="setShortBankName(bank.shortName)" *ngFor="let bank of banksFilter.slice(3, 6)">
-        <img class="logo" [src]="bank.logo" alt="{{bank.shortName}} Logo">
-      </div>
-    </div>
-    <div class="enter-bank">
-      <div class="button-1 primary" style="line-height: 28px;">Enter bank details</div>
-      <div class="body-2 gray-2">(Takes 1-2 business days)</div>
-    </div>
-  </div>
+<form class="form-purchase" [formGroup]="formPayByAlipay">
   <div class="w-100">
     <div class="relative">
       <label class="input-label-default gray-1" for="cardholderName">Cardholder Name</label>
@@ -102,6 +68,6 @@
     </div>
   </div>
   <div class="button-pay button-1 gray-1" *ngIf="!formTotal.value.totalPay">Pay</div>
-  <div class="button-pay button-1 gray-1 button-pay-hover" *ngIf="formTotal.value.totalPay" (click)="payWithBank()">Pay {{
+  <div class="button-pay button-1 gray-1 button-pay-hover" *ngIf="formTotal.value.totalPay" (click)="payWithAlipay()">Pay {{
     '$' + (formTotal.value.totalPay | number: '1.2-2') }}</div>
 </form>

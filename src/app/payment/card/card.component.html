@@ -191,6 +191,6 @@
     </div>
   </div>
   <div class="button-pay button-1 gray-1" *ngIf="!formTotal.value.totalPay">Pay</div>
-  <div class="button-pay button-1 button-pay-hover" *ngIf="formTotal.value.totalPay" (click)="payWithCard()">Pay {{
+  <div class="button-pay button-1 gray-1 button-pay-hover" *ngIf="formTotal.value.totalPay" (click)="payWithCard()">Pay {{
     '$' + (formTotal.value.totalPay | number: '1.2-2') }}</div>
 </form>

@@ -3,73 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-alipay',
-  template: `
-    <form [formGroup]="formPayByAlipay">
-      <div class="custom-div mb-20" style="padding: 15px;">
-        <div>
-          <i class="fa-brands fa-alipay ali"></i>
-          <p style="margin: 0; font-weight: 600; font-size: 18px;">Alipay Selected</p>
-        </div>
-        <hr>
-        <div style="color: #999; font-size: 16px;">
-          After submission,
-          <br>
-          you will be redirected to securely complete next steps.
-        </div>
-      </div>
-      <div class="relative mb-20">
-        <label class="input-label" for="cardholderName">Cardholder Name</label>
-        <input class="input-card input-field" type="text" id="cardholderName" formControlName="cardholderName" (input)="onInputCardholderName()" />
-      </div>
-      <div class="input-container mb-20">
-        <div class="pc50 relative">
-          <label class="input-label" for="billingAddress">Billing Address</label>         
-          <select class="input-card input-field address" id="billingAddress" formControlName="billingAddress">
-            <option selected disabled hidden></option>
-            <option *ngFor="let option of countries">{{ option }}</option>
-          </select>
-          <i class="fa-solid fa-chevron-down icon-input fs-20 right-5"></i>
-        </div>
-        <div class="pc50 relative" style="margin-left: 20px;">
-          <label class="input-label" for="postalCode">Postal Code</label>
-          <input class="input-card input-field" type="text" id="postalCode" formControlName="postalCode" />
-        </div>
-      </div>
-      <div class="mb-20 relative">
-        <label class="input-label" for="taxIDNumber">Tax ID Number (Optional)</label>
-        <input class="input-card input-field" type="text" id="taxIDNumber" formControlName="taxIDNumber" />
-      </div>
-    </form>
-    <form [formGroup]="formTotal">
-      <div class="mb-20">
-        <div class="relative">
-          <label class="input-label" for="discountCode">Discount Code (Optional)</label>
-          <input class="input-card input-field" type="text" id="discountCode" formControlName="discountCode" />
-          <!-- <i class="fa-brands fa-cc-visa icon-input fs-30"></i> -->
-          <a (click)="findDiscount()" class="apply">Apply</a>
-        </div>
-        <span class="error">{{formTotal.value.statusApplyDiscountCode}}</span>
-      </div>
-      <div class="input-container">
-        <p class="total">Subtotal</p>
-        <p class="total" *ngIf="formTotal.value.subTotal">{{ '$' + (formTotal.value.subTotal | number: '1.2-2') }}</p>
-      </div>
-      <div class="input-container">
-        <p class="total">Discount</p>
-        <p class="total" *ngIf="formTotal.value.discount">{{ '-$' + (formTotal.value.discount | number: '1.2-2') }}</p>
-      </div>
-      <div class="input-container mb-10">
-        <p class="total">Taxes</p>
-        <p class="total" *ngIf="formTotal.value.taxes">{{ '$' + (formTotal.value.taxes | number: '1.2-2') }}</p>
-      </div>
-      <div class="input-container mb-20">
-        <p class="total" style="font-size: 20px; font-weight:700;">Total Pay</p>
-        <p class="total" style="font-size: 20px; font-weight:700;" *ngIf="formTotal.value.totalPay">{{ '$' + (formTotal.value.totalPay | number: '1.2-2') }}</p>
-      </div>
-      <div class="input-card button-pay" *ngIf="!formTotal.value.totalPay">Pay</div>
-      <div class="input-card button-pay button-pay-hover" *ngIf="formTotal.value.totalPay" (click)="payWithAlipay()">Pay {{ '$' + (formTotal.value.totalPay | number: '1.2-2') }}</div>
-    </form>
-  `,
+  templateUrl: './alipay.component.html',
   styleUrls: ['../payment.component.css']
 })
 export class AlipayComponent {
