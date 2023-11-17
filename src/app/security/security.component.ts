@@ -25,8 +25,8 @@ export class SecurityComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private dataService: DataService) {
-    this.title = 'Sign In';
-    this.templateType = 'email-pass';
+    this.title = '';//Sign In
+    this.templateType = '';//email-pass
     this.labelSwitch = 'With SMS';
     this.footer = 'Not register yet? Create An Account';
   }
@@ -135,6 +135,17 @@ export class SecurityComponent implements OnInit {
           this.router.navigate(['/resetPassword']);
         }
       });
+    }
+  }
+
+  setSecurity(title: string) {
+    this.title = title;
+    if (this.title == 'Sign Up') {
+      this.templateType = 'email';
+      this.footer = 'Already have an account? Sign In';
+    } else if (this.title == 'Sign In') {
+      this.templateType = 'email-pass';
+      this.footer = 'Not register yet? Create An Account';
     }
   }
 }

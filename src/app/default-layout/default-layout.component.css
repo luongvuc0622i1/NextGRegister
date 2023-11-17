@@ -29,6 +29,12 @@
     line-height: 24px;
 }
 
+.button-1 {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+}
+
 .button-2 {
     font-size: 16px;
     font-weight: 600;
@@ -88,6 +94,24 @@
 .circle-48 {
     width: 48px;
     height: 48px;
+}
+
+.button-co {
+    display: flex;
+    padding: 12px 24px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.button-signIn {
+    border: 2px solid var(--Secondary, #F58926);
+}
+
+.button-signUp {
+    background: var(--Secondary, #F58926);
 }
 
 /* CSS footer */
