@@ -1,0 +1,84 @@
+<form class="detail-information" [formGroup]="user">
+  <div class="profile-picture">
+    <div class="button-3 black">Profile picture</div>
+    <div class="relative">
+      <div class="avatar">
+        <img class="circle-200" src={{user.value.img}} alt="Avatar">
+      </div>
+      <div class="label-container">
+        <label for="file-upload" class="edit-button">
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M11.0131 1.42619C11.3412 1.09827 11.7862 0.914063 12.2501 0.914062C12.714 0.914063 13.1589 1.09827 13.4871 1.42619L14.5731 2.51219C14.901 2.84034 15.0852 3.28527 15.0852 3.74919C15.0852 4.2131 14.901 4.65804 14.5731 4.98619L5.9631 13.5962C5.7531 13.8062 5.4931 13.9602 5.2071 14.0412L1.9561 14.9712C1.82742 15.008 1.69124 15.0096 1.5617 14.976C1.43216 14.9424 1.31396 14.8748 1.21938 14.7801C1.1248 14.6854 1.05728 14.5672 1.02382 14.4376C0.99036 14.308 0.992181 14.1718 1.0291 14.0432L1.9581 10.7932C2.0391 10.5072 2.1931 10.2462 2.4031 10.0352L11.0131 1.42519V1.42619ZM11.1891 6.24919L9.7501 4.80919L3.4641 11.0962C3.43403 11.1262 3.41202 11.1634 3.4001 11.2042L2.8421 13.1572L4.7951 12.5992C4.8359 12.5873 4.87304 12.5653 4.9031 12.5352L11.1891 6.24919ZM12.4271 2.48619C12.4039 2.46291 12.3763 2.44444 12.3459 2.43183C12.3155 2.41923 12.283 2.41274 12.2501 2.41274C12.2172 2.41274 12.1847 2.41923 12.1543 2.43183C12.1239 2.44444 12.0963 2.46291 12.0731 2.48619L10.8111 3.74919L12.2501 5.18919L13.5131 3.92619C13.5364 3.90297 13.5548 3.87538 13.5675 3.84501C13.5801 3.81463 13.5865 3.78207 13.5865 3.74919C13.5865 3.71631 13.5801 3.68374 13.5675 3.65337C13.5548 3.623 13.5364 3.59541 13.5131 3.57219L12.4271 2.48619Z" fill="#24292F"/>
+            </svg>
+          </div>
+          <div class="edit">Edit</div>
+        </label>
+        <input type="file" id="file-upload" class="input-file" (change)="uploadImg($event)"/>
+      </div>
+    </div>
+  </div>
+  <div class="detail-inputs">
+    <div class="w-100">
+      <div class="w-100 divi-2">
+        <div class="w-100">
+          <div class="relative">
+            <label class="input-label-default gray-1" for="firstName">First Name</label>
+            <input class="input-field body-4 w-100" type="text" id="firstName" formControlName="firstName" (keyup)="validateFName()" />
+          </div>
+          <div class="mt-4 body-5 red">{{statusFName}}</div>
+        </div>
+        <div class="w-100">
+          <div class="relative">
+            <label class="input-label-default gray-1" for="lastName">Last Name</label>
+            <input class="input-field body-4 w-100" type="text" id="lastName" formControlName="lastName" (keyup)="validateLName()" />
+          </div>
+          <div class="mt-4 body-5 red">{{statusLName}}</div>
+        </div>
+      </div>
+      <div class="mt-4 body-5 gray-1">Your name may appear where you contribute or are mentioned. </div>
+    </div>
+    <div class="w-100">
+      <div class="relative">
+        <label class="input-label-default gray-1" for="phone">Phone Number</label>
+        <input class="input-field body-4 w-100" type="text" id="phone" formControlName="phone" (keyup)="validatePhone()" [readOnly]="this.user.value.phoneVerifired" />
+        <div class="card-icons">
+          <a class="verify verifi" *ngIf="!this.user.value.phoneVerifired" (click)="verify(1)">Verify</a>
+          <a class="verify verified" *ngIf="this.user.value.phoneVerifired">Verified</a>
+        </div>
+      </div>
+      <div class="mt-4 body-5 red">{{statusPhone}}</div>
+      
+      <div class="modal" *ngIf="showModalPhone">
+        <div class="modal-content">
+          <app-verification-phone [form]="user" (switchTemplate)="switchTemplate(1)"
+            (verificationPhone)="verificationPhone($event)"></app-verification-phone>
+        </div>
+      </div>
+    </div>
+    <div class="w-100">
+      <div class="relative">
+        <label class="input-label-default gray-1" for="email">Email</label>
+        <input class="input-field body-4 w-100" type="text" id="email" formControlName="email" (keyup)="validateEmail()" [readOnly]="this.user.value.emailVerifired" />
+        <div class="card-icons">
+          <a class="verify verifi" *ngIf="!this.user.value.emailVerifired" (click)="verify(2)">Verify</a>
+          <a class="verify verified" *ngIf="this.user.value.emailVerifired">Verified</a>
+        </div>
+      </div>
+      <div class="mt-4 body-5 red">{{statusEmail}}</div>
+      
+      <div class="modal" *ngIf="showModalEmail">
+        <div class="modal-content">
+          <app-verification-email [form]="user" (switchTemplate)="switchTemplate(2)"></app-verification-email>
+        </div>
+      </div>
+    </div>
+    <div class="w-100">
+      <div class="relative">
+        <label class="input-label-default gray-1" for="bio">Bio</label>
+        <textarea class="input-field body-4 w-100" style="height: 100px;" type="text" id="bio" formControlName="bio" ></textarea>
+      </div>
+    </div>
+    <div class="button-save button-1 mt-16 white" (click)="submit()">Save Changes</div>
+  </div>
+</form>

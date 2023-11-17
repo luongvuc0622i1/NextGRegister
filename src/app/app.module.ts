@@ -31,6 +31,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { DefaultLayoutComponent } from './default-layout/default-layout.component';
 import { NavigationComponent } from './default-layout/navigation/navigation.component';
 import { FooterComponent } from './default-layout/footer/footer.component';
+import { GeneralComponent } from './settings/general/general.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { FooterComponent } from './default-layout/footer/footer.component';
     BankComponent,
     SettingsComponent,
     FooterComponent,
-    DefaultLayoutComponent
+    DefaultLayoutComponent,
+    GeneralComponent
   ],
   imports: [
     BrowserModule,

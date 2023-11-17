@@ -1,5 +1,6 @@
 .w-100 {
   width: 100%;
+  box-sizing: border-box;
 }
 
 .settings-container {
@@ -31,12 +32,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 24px;
 }
 
 .circle-48 {
   width: 48px;
   height: 48px;
+  border-radius: 24px;
+}
+
+.circle-200 {
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
 }
 
 .short-information .name {
@@ -70,6 +77,10 @@
   color: var(--danger-danger-text, #FF3830);
 }
 
+.white {
+  color: var(--neutral-white, #FEFEFE);
+}
+
 .heading-7 {
   font-size: 20px;
   font-weight: 600;
@@ -82,6 +93,12 @@
   line-height: 24px;
 }
 
+.body-5 {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
 .body-6 {
   font-size: 14px;
   font-weight: 400;
@@ -92,6 +109,12 @@
   font-size: 12px;
   font-weight: 500;
   line-height: 12px;
+}
+
+.button-1 {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
 }
 
 .button-2 {
@@ -116,6 +139,7 @@
   border: 1px solid var(--neutral-grey-3, #DEDEDE);
   background: #FFF;
   box-shadow: 0px 1px 2px 0px rgba(237, 237, 237, 0.50);
+  cursor: pointer;
 }
 
 .go-pro .title {
@@ -127,7 +151,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  width: calc(100% - 230px);
+  width: 100%;
 }
 
 .detail .list {
@@ -167,6 +191,10 @@
   border-left-color: var(--Secondary, #F58926);
 }
 
+.button-orange {
+  border-left-color: var(--Secondary, #F58926) !important;
+}
+
 .line {
   height: 1px;
   align-self: stretch;
@@ -174,12 +202,46 @@
 
 .profile-picture {
   width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-button {
+  display: flex;
+  padding: 7px 8.8px 7px 9px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-radius: 6px;
+  border: 1px solid #D0D7DE;
+  background: #FFF;
+  gap: 2px;
+  cursor: pointer;
+}
+
+.input-file {
+  display: none;
+}
+
+.label-container {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.edit {
+  color: #24292F;
+  font-family: Noto Sans;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
 }
 
 .detail-information {
   display: flex;
   width: 100%;
-  justify-content: space-around;
+  justify-content: space-evenly;
   padding: 6px 0px;
 }
 
@@ -189,4 +251,119 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 24px;
+}
+
+.relative {
+  position: relative;
+}
+
+.input-field {
+  display: flex;
+  height: 56px;
+  padding: 24px 0 8px 16px;
+  align-items: center;
+  align-self: stretch;
+  outline: none;
+  border-radius: 8px;
+  border: 1px solid var(--neutral-grey-3, #DEDEDE);
+  background: var(--neutral-white, #FEFEFE);
+}
+
+.input-field-center {
+  padding: 8px 16px;
+}
+
+.input-field:focus {
+  border: 2px solid #F58926;
+}
+
+.input-label {
+  left: 17px !important;
+  top: 8px !important;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 12px !important;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.input-label-default {
+  position: absolute;
+  pointer-events: none;
+  left: 17px;
+  top: 19px;
+  font-size: 16px;
+}
+
+.relative {
+  position: relative;
+}
+
+.mt-4 {
+  margin-top: 4px;
+}
+
+.mt-16 {
+  margin-top: 16px;
+}
+
+.divi-2 {
+  display: flex;
+  gap: 16px;
+}
+
+.verify {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.verifi {
+  color: blue;
+  cursor: pointer;
+}
+
+.verified {
+  color: green;
+}
+
+.modal {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 384px;
+  height: 284px;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.button-save {
+  display: flex;
+  padding: 12px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  background: var(--Secondary, #F58926);
+  cursor: pointer;
+}
+
+.fill-orange {
+    fill: #F58926;
 }
