@@ -1,22 +1,19 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
+import { errorDescriptions } from '../../environments/error-codes';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class ErrorService {
-  private errorSubject = new BehaviorSubject<HttpErrorResponse | null>(null);
+  private errorMessageSubject = new Subject<string>();
+  private errorDescriptions = errorDescriptions;
 
-  setError(error: HttpErrorResponse) {
-    this.errorSubject.next(error);
+  errorMessage$ = this.errorMessageSubject.asObservable();
+
+  getDescription(errorCode: string): string {
+    return this.errorDescriptions[errorCode] || 'Unknown Error';
   }
 
-  clearError() {
-    this.errorSubject.next(null);
-  }
-
-  get error$() {
-    return this.errorSubject.asObservable();
+  setErrorMessage(message: string) {
+    this.errorMessageSubject.next(message);
   }
 }

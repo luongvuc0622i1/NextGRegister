@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import {Auth_interceptor} from "./service/auth_interceptor";
-import { HomeComponent } from './home/home.component';
 import { FormPhoneComponent } from './security/form-phone/form-phone.component';
 import { SecurityComponent } from './security/security.component';
 import { FormEmailComponent } from './security/form-email/form-email.component';
@@ -17,7 +16,6 @@ import { FormNameComponent } from './security/form-name/form-name.component';
 import { FormPasswordComponent } from './security/form-password/form-password.component';
 import { ResetPasswordComponent } from './security/resetPassword.component';
 import { DataService } from './service/data.service';
-import { GeneralProfileComponent } from './home/general-profile/general-profile.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { environment } from '../environments/environment';
@@ -33,11 +31,11 @@ import { NavigationComponent } from './default-layout/navigation/navigation.comp
 import { FooterComponent } from './default-layout/footer/footer.component';
 import { GeneralComponent } from './settings/general/general.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { ErrorService } from './service/error.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     SecurityComponent,
     FormEmailPassComponent,
     FormPhoneComponent,
@@ -49,7 +47,6 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     FormNameComponent,
     FormPasswordComponent,
     NavigationComponent,
-    GeneralProfileComponent,
     PaymentComponent,
     PaymentCardComponent,
     CardComponent,
@@ -74,9 +71,11 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: Auth_interceptor, multi: true
+      useClass: Auth_interceptor,
+      multi: true
     },
-    DataService
+    DataService,
+    ErrorService
   ],
   bootstrap: [AppComponent]
 })

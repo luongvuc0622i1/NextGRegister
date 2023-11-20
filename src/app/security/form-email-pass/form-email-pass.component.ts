@@ -1,7 +1,6 @@
 import { Component, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { errorMessages } from '../../../environments/error-messages';
 import { ErrorService } from '../../service/error.service';
 
 @Component({
@@ -25,9 +24,10 @@ import { ErrorService } from '../../service/error.service';
         <a style="float: left;" (click)="switchTo()">{{title}} {{labelSwitch}}</a>
         <a style="float: right;" (click)="forgotPassword()">Forgot password?</a>
       </div>
-      <div *ngIf="error">
-        {{ errorMessages[error.status] || 'Lỗi không xác định' }}
-      </div>
+      <!-- <div *ngIf="error"> -->
+        <!-- {{ errorMessages[error.status] || 'Lỗi không xác định' }} -->
+        {{errorMessage}}
+      <!-- </div> -->
       <button class="button-form">Sign In</button>
     </form>
     <div class="form">
@@ -47,8 +47,7 @@ export class FormEmailPassComponent implements AfterViewInit {
   @Output() switchTemplate = new EventEmitter<string>();
   @Output() forgotPass = new EventEmitter<void>();
   @Output() signIn = new EventEmitter<any>();
-  error: HttpErrorResponse | null = null;
-  errorMessages = errorMessages;
+  errorMessage: string = '';
   statusEmail: string = '';
   statusPassword: string = '';
 
@@ -58,6 +57,12 @@ export class FormEmailPassComponent implements AfterViewInit {
   });
 
   constructor(private errorService: ErrorService) { }
+
+  ngOnInit() {
+    this.errorService.errorMessage$.subscribe(message => {
+      this.errorMessage = message;
+    });
+  }
 
   ngAfterViewInit() {
     // Show password click eye
@@ -83,9 +88,6 @@ export class FormEmailPassComponent implements AfterViewInit {
 
   login() {
     if (this.statusEmail === '' && this.statusPassword === '') {
-      this.errorService.error$.subscribe((error) => {
-        this.error = error;
-      });
       this.signIn.emit(this.form.value);
     }
   }

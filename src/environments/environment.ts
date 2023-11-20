@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8989',
+  apiUrl: 'http://localhost:8989/NextGRegisterSrc',
 
   firebaseConfig: {
     apiKey: "AIzaSyD9X4SUBDgMgkYOr1_bUdAn69wlOAiqWV8",

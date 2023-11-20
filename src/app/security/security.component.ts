@@ -73,13 +73,13 @@ export class SecurityComponent implements OnInit {
   signInEmail(formSignUp: any) {
     this.authService.loginEmail(formSignUp).subscribe(data => {
       this.authService.signInSuccess(data);
-    })
+    }, error => {})
   }
 
   signInPhone(formSignUp: any) {
     this.authService.loginPhone(formSignUp).subscribe(data => {
       this.authService.signInSuccess(data);
-    })
+    }, error => {})
   }
 
   sendVerificationEmail(email: string) {
