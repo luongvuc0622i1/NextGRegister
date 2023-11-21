@@ -11,15 +11,17 @@ export class NavigationComponent {
   @Output() setSecurity = new EventEmitter<string>();
   token: any;
   username: any;
+  img: any;
   role: any;
   ngOnInit(): void {
     this.token = this.tokenService.getToken();
     if (this.token) {
-      if (this.tokenService.getUsername() === null) {
+      if (this.tokenService.getUsername() !== null) {
         this.username = this.tokenService.getUsername();
       } else {
         this.username = '';
       }
+      this.img = this.tokenService.getImage();
       this.role = this.tokenService.getRole().slice(5);
     }
   }

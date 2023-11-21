@@ -20,6 +20,8 @@ export class AuthService {
   signInSuccess(data: any) {
     if (data.token) {
       this.tokenService.setID(data.id);
+      this.tokenService.setUsername(data.username);
+      this.tokenService.setImage(data.imageUrl);
       this.tokenService.setToken(data.token);
       this.tokenService.setRefreshToken(data.refreshToken);
       this.tokenService.setRole(data.roles[0]);

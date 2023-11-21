@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import * as jwt_decode from "jwt-decode";
 const ID_KEY = 'ID_KEY';
 const USERNAME_KEY = 'Username_Key';
+const IMAGE_KEY = 'Image_Key';
 const TOKEN_KEY = 'Token_Key';
 const REFRESH_TOKEN_KEY = 'Refresh_Token_Key';
 const ROLE_KEY = 'Role_Key';
@@ -32,6 +33,16 @@ export class TokenService {
   public getUsername():string {
     // @ts-ignore
     return localStorage.getItem(USERNAME_KEY);
+  }
+
+  public setImage(img: string) {
+    localStorage.removeItem(IMAGE_KEY);
+    localStorage.setItem(IMAGE_KEY, img);
+  }
+
+  public getImage():string {
+    // @ts-ignore
+    return localStorage.getItem(IMAGE_KEY);
   }
 
   public setToken(token: string) {

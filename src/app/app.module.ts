@@ -32,6 +32,7 @@ import { FooterComponent } from './default-layout/footer/footer.component';
 import { GeneralComponent } from './settings/general/general.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ErrorService } from './service/error.service';
+import { PasswordComponent } from './settings/password/password.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { ErrorService } from './service/error.service';
     FooterComponent,
     DefaultLayoutComponent,
     GeneralComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    PasswordComponent
   ],
   imports: [
     BrowserModule,

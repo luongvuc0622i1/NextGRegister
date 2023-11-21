@@ -8,8 +8,8 @@
   </div>
   <div class="container" style="gap: 16px" *ngIf="token">
     <div class="profile">
-      <img class="avatar circle-48" src="https://d1hjkbq40fs2x4.cloudfront.net/2017-08-21/files/landscape-photography_1645-t.jpg" />
-      <div class="button-2 white">{{this.role}} {{this.username}}</div>
+      <img class="avatar circle-48" src={{img}} />
+      <div class="button-2 white">{{ this.username ? this.username : this.role }}</div>
     </div>
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M12.4016 6.30859L8.77934 9.93082C8.35156 10.3586 7.65156 10.3586 7.22379 9.93082L3.60156 6.30859"

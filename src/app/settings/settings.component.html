@@ -66,7 +66,7 @@
         (verificationPhoneWhenVerify)="verificationPhoneWhenVerify($event)"></app-general>
     </ng-template>
     <ng-template #passwordTemplate>
-      Đang phát triển
+      <app-password class="w-100" [formChangePassword]="formChangePassword" (saveChanges)="saveChangesPass()"></app-password>
     </ng-template>
   </div>
 </div>

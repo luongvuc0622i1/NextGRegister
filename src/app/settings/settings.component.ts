@@ -22,6 +22,11 @@ export class SettingsComponent {
     bio: new FormControl(),
     img: new FormControl(),
   });
+  formChangePassword: FormGroup = new FormGroup({
+    oldPass: new FormControl(),
+    newPass: new FormControl(),
+    confirmPass: new FormControl(),
+  });
   tabChoose: string = 'general';
 
   constructor(private userService: UserService,
@@ -53,6 +58,16 @@ export class SettingsComponent {
       'imageUrl': this.user.value.img,
     };
     this.userService.update(user).subscribe(data => {
+      console.log("update done!");
+    });
+  }
+
+  saveChangesPass() {
+    const form = {
+      'oldPass': this.formChangePassword.value.oldPass,
+      'newPass': this.formChangePassword.value.newPass,
+    };
+    this.userService.changePass(form).subscribe(data => {
       console.log("update done!");
     });
   }

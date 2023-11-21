@@ -29,6 +29,10 @@ export class UserService {
     return this.http.put<User>(`${API_URL}/update-info`, user);
   }
 
+  changePass(obj : any): Observable<any> {
+    return this.http.post<any>(`${API_URL}/changePass`, obj);
+  }
+
 //   delete(id: number): Observable<Employee> {
 //     return this.http.delete<Employee>(`${API_URL}/employees/${id}`);
 //   }
