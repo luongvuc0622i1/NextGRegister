@@ -66,6 +66,10 @@
     gap: 24px;
 }
 
+.list-item .item {
+    cursor: pointer;
+}
+
 .body-5 {
     font-size: 14px;
     font-weight: 500;

@@ -3,6 +3,7 @@ import { UserService } from '../service/user.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TokenService } from '../service/token.service';
 import { Router } from '@angular/router';
+import { RankService } from '../service/rank.service';
 
 @Component({
   selector: 'app-payment',
@@ -29,10 +30,11 @@ export class PaymentComponent {
 
   constructor(private userService: UserService,
     private tokenService: TokenService,
-    private router: Router) { }
+    private router: Router,
+    private rankService: RankService) { }
 
   ngOnInit() {
-    this.menu = this.userService.findMenu();
+    this.rankService.findMenu().subscribe(data => { this.menu = data });
 
     this.userService.findAllCountry().subscribe(data => {
       this.countries = data.map(item => item.name.common).sort();

@@ -5,16 +5,17 @@
       <div class="heading mb-32 black">NextG Solutions - And some content this long</div>
       <div class="body-1 mb-8 black">#Title 1 For this section</div>
       <div class="body-5 mb-32 black">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo con</div>
-      <div class="item-rank mb-32" *ngFor="let item of menu; let i = index" (click)="onDivClick(i)" [ngClass]="{ 'item-selected': selectedDiv === i }">
+      <div *ngFor="let item of menu; let i = index">
+      <div class="item-rank mb-32" *ngIf="item.id > 1" (click)="onDivClick(i)" [ngClass]="{ 'item-selected': selectedDiv === i }">
         <div class="title-rank">
           <div class="title-detail">
             <input type="radio" [checked]="selectedDiv === i">
-            <div class="body-1">{{item.title}}</div>
+            <div class="body-1">{{item.rankName.charAt(0).toUpperCase() + item.rankName.slice(1)}}</div>
           </div>
-          <div class="body-2">${{item.price}}</div>
+          <div class="body-2">${{item.rankTotal}}</div>
         </div>
         <div class="line"></div>
-        <div class="column item-detail" *ngFor="let content of item.detail">
+        <div class="column item-detail" *ngFor="let content of item.rankDesId">
           <div class="item-detail">
             <svg *ngIf="content.status" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M13.7432 3.7646C14.0231 4.00954 14.0485 4.43627 13.7995 4.71262L6.79025 12.4925C6.53996 12.7703 6.11021 12.7879 5.83796 12.5317L1.78194 8.71328C1.529 8.47515 1.50478 8.07835 1.7218 7.80708C1.96127 7.50775 2.40721 7.46655 2.6922 7.72288L5.83913 10.5535C6.11261 10.7995 6.53366 10.7775 6.78005 10.5043L12.8091 3.81974C13.053 3.54924 13.4691 3.52472 13.7432 3.7646Z" fill="#34C85A"/>
@@ -30,6 +31,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
   <div class="divide right">

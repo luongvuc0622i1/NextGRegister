@@ -536,13 +536,47 @@
     </div>
   </div>
   <div class="frame-6 black">
-    <div class="heading-3 orange">Questions</div>
-    <div class="content"></div>
+    <div class="center">
+      <div class="content ta-center" style="gap: 20px;">
+        <div class="heading-3 orange">Questions</div>
+        <div class="body-10 gray-3">Amet minim mollit non deserunt ullamco est sit aliqua dolor do
+          amet sint. Velit officia consequat duis enim velit mollit. Ercitation veniam consequat sunt nostrud amet.
+        </div>
+      </div>
+
+      <div class="content ta-center" style="gap: 0px;">
+        <div class="w-100" *ngFor="let question of questions; let i = index">
+          <div class="faq">
+            <div class="content">
+              <div class="w-100 ta-left button-1 white">{{question.title}}</div>
+              <div class="w-100 ta-left body-4 gray-2" *ngIf="displayId === i">{{question.description}}</div>
+            </div>
+            <div class="ss-icon" (click)="displayId = -1" *ngIf="displayId === i">
+              <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M16.69 2H8.31C4.67 2 2.5 4.17 2.5 7.81V16.18C2.5 19.83 4.67 22 8.31 22H16.68C20.32 22 22.49 19.83 22.49 16.19V7.81C22.5 4.17 20.33 2 16.69 2ZM16.5 12.75H8.5C8.09 12.75 7.75 12.41 7.75 12C7.75 11.59 8.09 11.25 8.5 11.25H16.5C16.91 11.25 17.25 11.59 17.25 12C17.25 12.41 16.91 12.75 16.5 12.75Z"
+                  fill="#F58926" />
+              </svg>
+            </div>
+            <div class="ss-icon" (click)="displayId = i" *ngIf="displayId !== i">
+              <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.5 12H16.5" stroke="#F58926" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path d="M12.5 16V8" stroke="#F58926" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path
+                  d="M9.5 22H15.5C20.5 22 22.5 20 22.5 15V9C22.5 4 20.5 2 15.5 2H9.5C4.5 2 2.5 4 2.5 9V15C2.5 20 4.5 22 9.5 22Z"
+                  stroke="#F58926" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
+          <div class="line"></div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="frame-7"></div>
-</div>
-<div class="black">
-  <img width="100%" src="../../assets/New folder/Frame 1261153012.png">
-  <img width="100%" src="../../assets/New folder/Liên hệ.png">
+  <div class="frame-7">
+    <div class="background"></div>
+  </div>
 </div>
 <app-footer></app-footer>

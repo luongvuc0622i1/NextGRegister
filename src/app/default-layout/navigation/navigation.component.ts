@@ -38,4 +38,8 @@ export class NavigationComponent {
   goToSignUp() {
     this.setSecurity.emit('Sign Up');
   }
+
+  onClick(navi: string) {
+    this.router.navigate(['/' + navi]);
+  }
 }
