@@ -28,6 +28,8 @@ export class SettingsComponent {
     confirmPass: new FormControl(),
   });
   tabChoose: string = 'general';
+  showModalSuccessfully = false;
+  showModalFailed = false;
 
   constructor(private userService: UserService,
     private storage: AngularFireStorage,
@@ -58,7 +60,9 @@ export class SettingsComponent {
       'imageUrl': this.user.value.img,
     };
     this.userService.update(user).subscribe(data => {
-      console.log("update done!");
+      this.showModalSuccessfully = true;
+    }, () => {
+      this.showModalFailed = true;
     });
   }
 
@@ -68,7 +72,9 @@ export class SettingsComponent {
       'newPass': this.formChangePassword.value.newPass,
     };
     this.userService.changePass(form).subscribe(data => {
-      console.log("update done!");
+      this.showModalSuccessfully = true;
+    }, () => {
+      this.showModalFailed = true;
     });
   }
 
@@ -116,5 +122,20 @@ export class SettingsComponent {
   logout() {
     localStorage.clear();
     this.router.navigate(['/']);
+  }
+
+  backToHomepage() {
+    this.showModalSuccessfully = false;
+    this.tabChoose = 'general';
+    
+  this.formChangePassword = new FormGroup({
+    oldPass: new FormControl(),
+    newPass: new FormControl(),
+    confirmPass: new FormControl(),
+  });
+  }
+
+  closeModal() {
+    this.showModalFailed = false;
   }
 }

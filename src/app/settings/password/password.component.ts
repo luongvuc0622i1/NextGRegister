@@ -39,7 +39,7 @@ export class PasswordComponent implements AfterViewInit {
     if (!this.formChangePassword.value.oldPass) {
       this.statusOldPass = 'Current Password is require';
     } else if (!passwordRegex.test(this.formChangePassword.value.oldPass)) {
-      this.statusNewPass = 'Minimum is 8 characters with at least 1 upcase';
+      this.statusOldPass = 'Minimum is 8 characters with at least 1 upcase';
     } else this.statusOldPass = '';
   }
 
@@ -57,8 +57,8 @@ export class PasswordComponent implements AfterViewInit {
     if (!this.formChangePassword.value.confirmPass) {
       this.statusConfirmPass = 'Confirm Password is require';
     } else if (!passwordRegex.test(this.formChangePassword.value.confirmPass)) {
-      this.statusNewPass = 'Minimum is 8 characters with at least 1 upcase';
-    } else if (this.formChangePassword.value.confirmPass !== this.formChangePassword.value.newPass) {
+      this.statusConfirmPass = 'Minimum is 8 characters with at least 1 upcase';
+    } else if (this.formChangePassword.value.newPass !== this.formChangePassword.value.confirmPass) {
       this.statusConfirmPass = 'Confirm Password must be the same with Password';
     } else this.statusConfirmPass = '';
   }

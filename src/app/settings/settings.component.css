@@ -365,5 +365,69 @@
 }
 
 .fill-orange {
-    fill: #F58926;
+  fill: #F58926;
+}
+
+.modal {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  width: 400px;
+  height: 324px;
+  padding: 24px;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  border-radius: 8px;
+  background: var(--neutral-white, #FEFEFE);
+
+  /* Shadow/xl */
+  box-shadow: 0px 8px 8px -4px rgba(16, 24, 40, 0.03), 0px 20px 24px -4px rgba(16, 24, 40, 0.08);
+}
+
+.modal-content .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  align-self: stretch;
+}
+
+.lab-success {
+  display: flex;
+  width: 120px;
+  height: 120px;
+  padding: 12.857px 10.143px 13.393px 7px;
+  justify-content: center;
+  align-items: center;
+}
+
+.lab-fail {
+  display: flex;
+  width: 120px;
+  height: 120px;
+  padding: 18.689px 9.357px 17.939px 8.643px;
+  justify-content: center;
+  align-items: center;
+}
+
+.texts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
 }
