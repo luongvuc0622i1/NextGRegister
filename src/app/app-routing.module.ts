@@ -6,8 +6,13 @@ import { RegisterComponent } from './security/register.component';
 import { ResetPasswordComponent } from './security/resetPassword.component';
 import { PaymentComponent } from './payment/payment.component';
 import { DefaultLayoutComponent } from './default-layout/default-layout.component';
+import { AuthenticationComponent } from './authentication/authentication.component';
 
 const routes: Routes = [
+  {
+    path: 'authen',
+    component: AuthenticationComponent
+  },
   {
     path: 'home', canActivate: [AuthGuard],
     component: DefaultLayoutComponent

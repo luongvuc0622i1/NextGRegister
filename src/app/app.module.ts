@@ -33,6 +33,14 @@ import { GeneralComponent } from './settings/general/general.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ErrorService } from './service/error.service';
 import { PasswordComponent } from './settings/password/password.component';
+import { AuthenticationComponent } from './authentication/authentication.component';
+import { FormInputEmailPassComponent } from './authentication/form-input-email-pass/form-input-email-pass.component';
+import { FormInputEmailComponent } from './authentication/form-input-email/form-input-email.component';
+import { FormInputPhoneComponent } from './authentication/form-input-phone/form-input-phone.component';
+import { SignInComponent } from './authentication/sign-in/sign-in.component';
+import { VerifyPhoneComponent } from './authentication/verify/verify-phone/verify-phone.component';
+import { VerifyEmailComponent } from './authentication/verify/verify-email/verify-email.component';
+import { VerifyComponent } from './authentication/verify/verify.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +67,15 @@ import { PasswordComponent } from './settings/password/password.component';
     DefaultLayoutComponent,
     GeneralComponent,
     LandingPageComponent,
-    PasswordComponent
+    PasswordComponent,
+    AuthenticationComponent,
+    FormInputEmailPassComponent,
+    FormInputEmailComponent,
+    FormInputPhoneComponent,
+    SignInComponent,
+    VerifyPhoneComponent,
+    VerifyEmailComponent,
+    VerifyComponent
   ],
   imports: [
     BrowserModule,

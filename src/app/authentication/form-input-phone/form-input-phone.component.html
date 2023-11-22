@@ -1,0 +1,15 @@
+<form class="form-container" [formGroup]="form">
+  <div class="w-100">
+    <div class="relative">
+      <label class="input-label-default color-gray-1" for="phone">Phone Number</label>
+      <input class="input-field body-4 w-100" type="text" id="phone" formControlName="phone"
+        (keyup)="validatePhone()" />
+    </div>
+    <div class="mt-4 body-5 color-red">{{statusPhone}}</div>
+    <div class="mt-4 body-5 color-red">{{errorMessage}}</div>
+    <div class="mt-16 sub-title">
+      <div class="button-3 pointer color-primary" (click)="switchTemplate.emit()">{{title}} With Email</div>
+    </div>
+  </div>
+  <div class="button-pay button-1 color-gray-1 button-pay-hover" (click)="submit()">Continue</div>
+</form>
