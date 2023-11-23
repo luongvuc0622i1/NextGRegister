@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-verify',
@@ -8,12 +8,10 @@ import { Component, Input } from '@angular/core';
       </ng-container>
     </ng-container>
     <ng-template #formVerifyEmail>
-      <!-- <app-form-input-email-pass class="w-100" [title]="title" (switchTemplate)="switchTemplate.emit()" (goToForgotPassword)="goToForgotPassword.emit()" (signIn)="signInEmail.emit($event)"></app-form-input-email-pass> -->
-      <app-verify-email></app-verify-email>
+      <app-verify-email (sendVerificationEmail)="sendVerificationEmail.emit($event)"></app-verify-email>
     </ng-template>
     <ng-template #formVerifyPhone>
-      <!-- <app-form-input-phone class="w-100" [title]="title" (switchTemplate)="switchTemplate.emit()" (sendOtp)="sendOtp.emit($event)"></app-form-input-phone> -->
-      <app-verify-phone [phone]="phone"></app-verify-phone>
+      <app-verify-phone (sendOtp)="sendOtp.emit($event)" (verificationPhone)="verificationPhone.emit($event)"></app-verify-phone>
     </ng-template>
   `,
   styleUrls: ['../../authentication/authentication.component.css']
@@ -21,8 +19,7 @@ import { Component, Input } from '@angular/core';
 export class VerifyComponent {
   // @ts-ignore
   @Input() template: string;
-  // @ts-ignore
-  @Input() phone: string;
-
-  ngOnInit() { console.log(this.phone) }
+  @Output() sendOtp = new EventEmitter<any>();
+  @Output() sendVerificationEmail = new EventEmitter<any>();
+  @Output() verificationPhone = new EventEmitter<string>();
 }

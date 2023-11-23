@@ -11,16 +11,16 @@
           </ng-container>
         </ng-container>
         <ng-template #formSignIn>
-          <app-sign-in [template]="template" (switchTemplate)="switchTemplate()" (goToSignUp)="goToSignUp()" (goToForgotPassword)="goToForgotPassword()" (signInEmail)="signInEmail($event)" (sendOtp)="sendOtp($event)"></app-sign-in>
+          <app-sign-in [template]="template" (switchTemplate)="switchTemplate()" (goToSignUp)="goToSignUp()" (sendOtp)="sendOtp($event)" (signInEmail)="signInEmail($event)" (goToForgotPassword)="goToForgotPassword()"></app-sign-in>
         </ng-template>
         <ng-template #formSignUp>
-          <!-- <app-form-input-phone [title]="title"></app-form-input-phone> -->
+          <app-sign-up [template]="template" (switchTemplate)="switchTemplate()" (goToSignIn)="goToSignIn()" (sendOtp)="sendOtp($event)" (sendVerificationEmail)="sendVerificationEmail($event)"></app-sign-up>
         </ng-template>
         <ng-template #formForgotPassword>
           <!-- <app-form-input-phone [title]="title"></app-form-input-phone> -->
         </ng-template>
         <ng-template #formVerify>
-          <app-verify [template]="template" [phone]="phone"></app-verify>
+          <app-verify [template]="template" (sendOtp)="sendOtp($event)" (verificationPhone)="verificationPhone($event)" (sendVerificationEmail)="sendVerificationEmail($event)"></app-verify>
         </ng-template>
       </div>
     </div>

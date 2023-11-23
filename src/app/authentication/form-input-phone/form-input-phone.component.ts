@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ErrorService } from '../../service/error.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-form-input-phone',
@@ -11,7 +12,7 @@ export class FormInputPhoneComponent implements AfterViewInit {
   // @ts-ignore
   @Input() title: string;
   @Output() switchTemplate = new EventEmitter<void>();
-  @Output() sendOtp = new EventEmitter<string>();
+  @Output() sendOtp = new EventEmitter<any>();
   errorMessage: string = '';
   statusPhone: string = '';
   arr: string[] = ['phone'];
@@ -19,7 +20,8 @@ export class FormInputPhoneComponent implements AfterViewInit {
     phone: new FormControl(),
   });
 
-  constructor(private errorService: ErrorService) { }
+  constructor(private route: ActivatedRoute,
+    private errorService: ErrorService) { }
 
   ngOnInit() {
     this.errorService.errorMessage$.subscribe(message => {
@@ -53,8 +55,16 @@ export class FormInputPhoneComponent implements AfterViewInit {
   }
 
   submit() {
+    let stream;
+    this.route.queryParams.subscribe(params => {
+      stream = params['title'];
+    });
     if (!this.statusPhone) {
-      this.sendOtp.emit(this.form.value.phone);
+      const obj = {
+        "stream": stream,
+        "phone": this.form.value.phone,
+      }
+      this.sendOtp.emit(obj);
     }
   }
 }
