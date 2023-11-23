@@ -17,7 +17,7 @@
           <app-sign-up [template]="template" (switchTemplate)="switchTemplate()" (goToSignIn)="goToSignIn()" (sendOtp)="sendOtp($event)" (sendVerificationEmail)="sendVerificationEmail($event)"></app-sign-up>
         </ng-template>
         <ng-template #formForgotPassword>
-          <!-- <app-form-input-phone [title]="title"></app-form-input-phone> -->
+          <app-forgot-password [template]="template" (switchTemplate)="switchTemplate()" (goToSignIn)="goToSignIn()" (sendOtp)="sendOtp($event)" (sendVerificationEmail)="sendVerificationEmail($event)"></app-forgot-password>
         </ng-template>
         <ng-template #formVerify>
           <app-verify [template]="template" (sendOtp)="sendOtp($event)" (verificationPhone)="verificationPhone($event)" (sendVerificationEmail)="sendVerificationEmail($event)"></app-verify>
