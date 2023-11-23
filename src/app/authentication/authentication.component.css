@@ -66,6 +66,14 @@
     color: var(--neutral-black, #2F2F2F);
 }
 
+.bg-gray-3 {
+    background: var(--neutral-grey-3, #DEDEDE);
+}
+
+.bg-primary {
+    background: var(--Primary, #314DD3);
+}
+
 .heading-3 {
     font-size: 36px;
     font-weight: 600;
@@ -350,3 +358,20 @@
     gap: 8px;
     align-self: stretch;
 }
+
+.sub-container .change {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.sub-container .rectangle {
+    width: 32px;
+    height: 6px;
+    border-radius: 100px;
+}
+
+.divi-2 {
+    display: flex;
+    gap: 16px;
+  }

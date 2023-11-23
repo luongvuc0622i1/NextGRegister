@@ -14,10 +14,12 @@
           <app-sign-in [template]="template" (switchTemplate)="switchTemplate()" (goToSignUp)="goToSignUp()" (sendOtp)="sendOtp($event)" (signInEmail)="signInEmail($event)" (goToForgotPassword)="goToForgotPassword()"></app-sign-in>
         </ng-template>
         <ng-template #formSignUp>
-          <app-sign-up [template]="template" (switchTemplate)="switchTemplate()" (goToSignIn)="goToSignIn()" (sendOtp)="sendOtp($event)" (sendVerificationEmail)="sendVerificationEmail($event)"></app-sign-up>
+          <app-sign-up *ngIf="template" [template]="template" (switchTemplate)="switchTemplate()" (goToSignIn)="goToSignIn()" (sendOtp)="sendOtp($event)" (sendVerificationEmail)="sendVerificationEmail($event)"></app-sign-up>
+          <app-sign-up-validated *ngIf="!template" (goToSignIn)="goToSignIn()"></app-sign-up-validated>
         </ng-template>
         <ng-template #formForgotPassword>
-          <app-forgot-password [template]="template" (switchTemplate)="switchTemplate()" (goToSignIn)="goToSignIn()" (sendOtp)="sendOtp($event)" (sendVerificationEmail)="sendVerificationEmail($event)"></app-forgot-password>
+          <app-forgot-password *ngIf="template" [template]="template" (switchTemplate)="switchTemplate()" (goToSignIn)="goToSignIn()" (sendOtp)="sendOtp($event)" (sendVerificationEmail)="sendVerificationEmail($event)"></app-forgot-password>
+          <app-forgot-password-validated *ngIf="!template" (goToSignIn)="goToSignIn()"></app-forgot-password-validated>
         </ng-template>
         <ng-template #formVerify>
           <app-verify [template]="template" (sendOtp)="sendOtp($event)" (verificationPhone)="verificationPhone($event)" (sendVerificationEmail)="sendVerificationEmail($event)"></app-verify>

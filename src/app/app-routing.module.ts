@@ -10,7 +10,7 @@ import { AuthenticationComponent } from './authentication/authentication.compone
 
 const routes: Routes = [
   {
-    path: 'authen',
+    path: 'users/:path',
     component: AuthenticationComponent
   },
   {

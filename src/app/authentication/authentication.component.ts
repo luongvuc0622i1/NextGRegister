@@ -18,30 +18,30 @@ export class AuthenticationComponent {
     private router: Router) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.title = params['path'];
+    });
     this.route.queryParams.subscribe(params => {
-      const template = params['template'];
-      const title = params['title'];
-      this.template = template;
-      this.title = title;
+      this.template = params['template'];
     });
   }
 
   switchTemplate() {
     if (this.template === 'email') this.template = 'phone';
     else if (this.template === 'phone') this.template = 'email';
-    this.router.navigate(['/authen'], { queryParams: { title: this.title, template: this.template } });
+    this.router.navigate(['/users/' + this.title], { queryParams: { template: this.template } });
   }
 
   goToSignIn() {
-    this.router.navigate(['/authen'], { queryParams: { title: 'sign-in', template: this.template } });
+    this.router.navigate(['/users/sign-in'], { queryParams: { template: this.template } });
   }
 
   goToSignUp() {
-    this.router.navigate(['/authen'], { queryParams: { title: 'sign-up', template: this.template } });
+    this.router.navigate(['/users/sign-up'], { queryParams: { template: this.template } });
   }
 
   goToForgotPassword() {
-    this.router.navigate(['/authen'], { queryParams: { title: 'forgot-password', template: this.template } });
+    this.router.navigate(['/users/forgot-password'], { queryParams: { template: this.template } });
   }
 
   // actions
@@ -68,7 +68,7 @@ export class AuthenticationComponent {
           stream: objC.stream,
         }
         this.dataService.setData(dataToSend);
-        this.router.navigate(['/authen'], { queryParams: { title: 'verify', template: this.template } });
+        this.router.navigate(['/users/verify'], { queryParams: { template: this.template } });
       }, error => { });
     } else if (objC.stream === 'forgot-password') {
       this.authService.sendVerificationEmailChangePass(obj).subscribe(data => {
@@ -77,7 +77,7 @@ export class AuthenticationComponent {
           stream: objC.stream,
         }
         this.dataService.setData(dataToSend);
-        this.router.navigate(['/authen'], { queryParams: { title: 'verify', template: this.template } });
+        this.router.navigate(['/users/verify'], { queryParams: { template: this.template } });
       }, error => { });
     }
   }
@@ -98,7 +98,7 @@ export class AuthenticationComponent {
           stream: objC.stream,
         }
         this.dataService.setData(dataToSend);
-        this.router.navigate(['/authen'], { queryParams: { title: 'verify', template: this.template } });
+        this.router.navigate(['/users/verify'], { queryParams: { template: this.template } });
       }, error => { });
     } else if (objC.stream === 'sign-up') {
       this.authService.sendOtpRegister(obj).subscribe(data => {
@@ -107,7 +107,7 @@ export class AuthenticationComponent {
           stream: objC.stream,
         }
         this.dataService.setData(dataToSend);
-        this.router.navigate(['/authen'], { queryParams: { title: 'verify', template: this.template } });
+        this.router.navigate(['/users/verify'], { queryParams: { template: this.template } });
       }, error => { });
     }
   }
@@ -127,7 +127,7 @@ export class AuthenticationComponent {
             otp: data.otp,
           }
           this.dataService.setData(dataToSend);
-          this.router.navigate(['/register']);
+          this.router.navigate(['/users/sign-up']);
         }
       })
     } else if (objC.stream === 'forgot-password') {
@@ -138,7 +138,7 @@ export class AuthenticationComponent {
             token: data.token,
           };
           this.dataService.setData(dataToSend);
-          this.router.navigate(['/resetPassword']);
+          this.router.navigate(['/users/forgot-password']);
         }
       });
     }

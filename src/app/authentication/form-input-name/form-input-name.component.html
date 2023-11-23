@@ -1,0 +1,29 @@
+<form class="form-container" [formGroup]="form">
+  <div class="w-100 divi-2">
+    <div class="w-100">
+      <div class="relative">
+        <label class="input-label-default gray-1" for="firstName">First Name</label>
+        <input class="input-field body-4 w-100" type="text" id="firstName" formControlName="firstName"
+          (keyup)="validateFName()" />
+      </div>
+      <div class="mt-4 body-5 color-red">{{statusFName}}</div>
+    </div>
+    <div class="w-100">
+      <div class="relative">
+        <label class="input-label-default gray-1" for="lastName">Last Name</label>
+        <input class="input-field body-4 w-100" type="text" id="lastName" formControlName="lastName"
+          (keyup)="validateLName()" />
+      </div>
+      <div class="mt-4 body-5 color-red">{{statusLName}}</div>
+    </div>
+  </div>
+  <div class="w-100">
+    <div class="relative">
+      <label class="input-label-default color-gray-1" for="email">Email</label>
+      <input class="input-field body-4 w-100" type="text" id="email" formControlName="email"
+        (keyup)="validateEmail()" />
+    </div>
+    <div class="mt-4 body-5 color-red">{{statusEmail}}</div>
+  </div>
+  <div class="button-pay button-1 color-gray-1 button-pay-hover" (click)="submit()">Continue</div>
+</form>

@@ -43,6 +43,10 @@ import { VerifyComponent } from './authentication/verify/verify.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 import { VerifyPhoneComponent } from './authentication/verify/verify-phone/verify-phone.component';
 import { VerifyEmailComponent } from './authentication/verify/verify-email/verify-email.component';
+import { FormInputNameComponent } from './authentication/form-input-name/form-input-name.component';
+import { SignUpValidatedComponent } from './authentication/sign-up-validated/sign-up-validated.component';
+import { ForgotPasswordValidatedComponent } from './authentication/forgot-password-validated/forgot-password-validated.component';
+import { FormInputPasswordComponent } from './authentication/form-input-password/form-input-password.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +83,11 @@ import { VerifyEmailComponent } from './authentication/verify/verify-email/verif
     VerifyEmailComponent,
     VerifyComponent,
     SignUpComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    FormInputNameComponent,
+    SignUpValidatedComponent,
+    ForgotPasswordValidatedComponent,
+    FormInputPasswordComponent
   ],
   imports: [
     BrowserModule,
