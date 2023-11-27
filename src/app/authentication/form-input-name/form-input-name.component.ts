@@ -9,6 +9,8 @@ import { FormGroup } from '@angular/forms';
 export class FormInputNameComponent implements AfterViewInit {
   // @ts-ignore
   @Input() form: FormGroup;
+  // @ts-ignore
+  @Input() checkEmail: boolean;
   @Output() continue = new EventEmitter<void>();
   statusEmail: string = '';
   statusFName: string = '';
@@ -48,11 +50,15 @@ export class FormInputNameComponent implements AfterViewInit {
 
   validateEmail() {
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    if (!this.form.value.email) {
-      this.statusEmail = 'Email is require';
-    } else if (!emailRegex.test(this.form.value.email)) {
-      this.statusEmail = 'Email format is not correct';
-    } else this.statusEmail = '';
+    if (this.checkEmail) {
+      this.statusEmail = '';
+    } else {
+      if (!this.form.value.email) {
+        this.statusEmail = 'Email is require';
+      } else if (!emailRegex.test(this.form.value.email)) {
+        this.statusEmail = 'Email format is not correct';
+      } else this.statusEmail = '';
+    }
   }
 
   submit() {

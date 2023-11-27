@@ -20,7 +20,7 @@ export class AuthService {
   signInSuccess(data: any) {
     if (data.token) {
       this.tokenService.setID(data.id);
-      this.tokenService.setUsername(data.username);
+      this.tokenService.setFirstname(data.firstName);
       this.tokenService.setImage(data.imageUrl);
       this.tokenService.setToken(data.token);
       this.tokenService.setRefreshToken(data.refreshToken);
@@ -50,6 +50,7 @@ export class AuthService {
   }
 
   loginPhone(obj: any): Observable<any> {
+    console.log(obj);
     return this.http.post(`${API_URL}/loginByPhone`, obj);
   }
 
@@ -90,6 +91,10 @@ export class AuthService {
   }
 
   sendVerificationPhoneWhenVerify(obj: any): Observable<any> {
-    return this.http.post(`${API_URL}/validate-otp-success`, obj);
+    const dataToSend = {
+      "phoneNumber": obj.phone,
+      "otpNumber": obj.otp
+    }
+    return this.http.post(`${API_URL}/validate-otp-success`, dataToSend);
   }
 }

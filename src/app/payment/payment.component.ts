@@ -34,7 +34,7 @@ export class PaymentComponent {
     private rankService: RankService) { }
 
   ngOnInit() {
-    this.rankService.findMenu().subscribe(data => { this.menu = data });
+    this.rankService.findMenu().subscribe(data => { this.menu = data; console.log(data) });
 
     this.userService.findAllCountry().subscribe(data => {
       this.countries = data.map(item => item.name.common).sort();
@@ -50,7 +50,7 @@ export class PaymentComponent {
   onDivClick(divIndex: number) {
     this.selectedDiv = divIndex;
     this.formTotal.patchValue({
-      subTotal: this.menu[divIndex].price,
+      subTotal: this.menu[divIndex].total,
     });
   }
 

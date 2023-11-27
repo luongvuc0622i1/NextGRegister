@@ -48,13 +48,6 @@
         </div>
       </div>
       <div class="mt-4 body-5 red">{{statusPhone}}</div>
-      
-      <div class="modal" *ngIf="showModalPhone">
-        <div class="modal-content">
-          <app-verification-phone [form]="user" (switchTemplate)="switchTemplate(1)"
-            (verificationPhone)="verificationPhone($event)"></app-verification-phone>
-        </div>
-      </div>
     </div>
     <div class="w-100">
       <div class="relative">
@@ -66,12 +59,6 @@
         </div>
       </div>
       <div class="mt-4 body-5 red">{{statusEmail}}</div>
-      
-      <div class="modal" *ngIf="showModalEmail">
-        <div class="modal-content">
-          <app-verification-email [form]="user" (switchTemplate)="switchTemplate(2)"></app-verification-email>
-        </div>
-      </div>
     </div>
     <div class="w-100">
       <div class="relative">
@@ -80,5 +67,22 @@
       </div>
     </div>
     <div class="button-save button-1 mt-16 white" (click)="submit()">Save Changes</div>
+  </div>
+      
+  <div class="modal" *ngIf="showModalPhone">
+    <div class="modal-content">
+      <!-- <app-verification-phone [form]="user" (switchTemplate)="switchTemplate(1)"
+        (verificationPhone)="verificationPhone($event)"></app-verification-phone> -->
+      <!-- <app-verify-phone (sendOtp)="sendOtp.emit($event)" (verificationPhone)="verificationPhone.emit($event)"></app-verify-phone> -->
+        <app-verify-phone (sendOtp)="sendOtp.emit()" (verificationPhone)="verificationPhoneWhenVerify.emit($event)"></app-verify-phone>
+    </div>
+  </div>
+      
+  <div class="modal" *ngIf="showModalEmail">
+    <div class="modal-content">
+      <!-- <app-verification-email [form]="user" (switchTemplate)="switchTemplate(2)"></app-verification-email> -->
+      <!-- <app-verify-email (sendVerificationEmail)="sendVerificationEmail.emit($event)"></app-verify-email> -->
+      <app-verify-email (sendVerificationEmail)="sendVerifyEmail.emit()"></app-verify-email>
+    </div>
   </div>
 </form>

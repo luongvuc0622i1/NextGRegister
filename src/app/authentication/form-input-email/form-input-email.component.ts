@@ -59,8 +59,8 @@ export class FormInputEmailComponent implements AfterViewInit {
 
   submit() {
     let stream;
-    this.route.queryParams.subscribe(params => {
-      stream = params['title'];
+    this.route.params.subscribe(params => {
+      stream = params['path'];
     });
     if (!this.statusEmail) {
       const obj = {

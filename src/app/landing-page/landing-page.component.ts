@@ -25,9 +25,4 @@ export class LandingPageComponent {
       'description': 'Hỗ trợ đăng ký tạo tài khoản sử dụng từ email. Chỉ cần nhập email và mật khẩu, chúng tôi'
     }
   ];
-  @Output() setSecurity = new EventEmitter<string>();
-
-  setToSecurity(event: any) {
-    this.setSecurity.emit(event);
-  }
 }

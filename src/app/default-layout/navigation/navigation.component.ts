@@ -8,21 +8,16 @@ import { TokenService } from 'src/app/service/token.service';
   styleUrls: ['./../default-layout.component.css']
 })
 export class NavigationComponent {
-  @Output() setSecurity = new EventEmitter<string>();
   token: any;
   username: any;
   img: any;
-  role: any;
   ngOnInit(): void {
     this.token = this.tokenService.getToken();
     if (this.token) {
-      if (this.tokenService.getUsername() !== null) {
-        this.username = this.tokenService.getUsername();
-      } else {
-        this.username = '';
-      }
-      this.img = this.tokenService.getImage();
-      this.role = this.tokenService.getRole().slice(5);
+      if(this.tokenService.getFirstname() !== 'null') this.username = this.tokenService.getFirstname();
+      else this.username = "";
+      if(this.tokenService.getImage() !== 'null') this.img = this.tokenService.getImage();
+      else this.img = "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcThRSug_V2Rrhkaz0SHavzG-uqzh8M8fms_IzQH3rz5gMy9tyXZ";
     }
   }
 
@@ -34,11 +29,11 @@ export class NavigationComponent {
   }
 
   goToSignIn() {
-    this.setSecurity.emit('Sign In');
+    this.router.navigate(['/users/sign-in'], { queryParams: { template: 'email' } });
   }
 
   goToSignUp() {
-    this.setSecurity.emit('Sign Up');
+    this.router.navigate(['/users/sign-up'], { queryParams: { template: 'email' } });
   }
 
   onClick(navi: string) {

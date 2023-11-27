@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './service/auth.guard';
-import { SecurityComponent } from './security/security.component';
-import { RegisterComponent } from './security/register.component';
-import { ResetPasswordComponent } from './security/resetPassword.component';
-import { PaymentComponent } from './payment/payment.component';
 import { DefaultLayoutComponent } from './default-layout/default-layout.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 const routes: Routes = [
   {
@@ -14,24 +11,20 @@ const routes: Routes = [
     component: AuthenticationComponent
   },
   {
-    path: 'home', canActivate: [AuthGuard],
+    path: 'settings', canActivate: [AuthGuard],
     component: DefaultLayoutComponent
   },
   {
     path: 'payment', canActivate: [AuthGuard],
-    component: PaymentComponent
+    component: DefaultLayoutComponent
   },
   {
-    path: 'register',
-    component: RegisterComponent
+    path: 'home', canActivate: [AuthGuard],
+    component: DefaultLayoutComponent
   },
   {
-    path: 'resetPassword',
-    component: ResetPasswordComponent
-  },
-  {
-    path: '**',
-    component: SecurityComponent
+    path: '**', // Catch-all route cho những đường dẫn không hợp lệ
+    component: DefaultLayoutComponent
   } 
 ];
 

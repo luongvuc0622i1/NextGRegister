@@ -339,20 +339,6 @@
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-.modal-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 384px;
-  height: 284px;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 20px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
-  border-radius: 12px;
-  text-align: center;
-}
-
 .button-save {
   display: flex;
   padding: 12px 24px;
@@ -386,7 +372,7 @@
 
   display: flex;
   width: 400px;
-  height: 324px;
+  height: auto;
   padding: 24px;
   flex-direction: column;
   align-items: center;

@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, Input, DoCheck, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-general',
@@ -22,6 +23,8 @@ export class GeneralComponent implements AfterViewInit, DoCheck {
 
   showModalEmail = false;
   showModalPhone = false;
+
+  constructor(private dataService: DataService) {}
 
   ngDoCheck(): void {
     this.arr.forEach(element => {
@@ -82,10 +85,18 @@ export class GeneralComponent implements AfterViewInit, DoCheck {
 
   verify(id: number) {
     if (id === 1) {
+      const dataToSend = {
+        phone: this.user.value.phone,
+      }
+      this.dataService.setData(dataToSend);
       this.sendOtp.emit();
       this.showModalPhone = true;
     }
     if (id === 2) {
+      const dataToSend = {
+        email: this.user.value.email,
+      }
+      this.dataService.setData(dataToSend);
       this.sendVerifyEmail.emit();
       this.showModalEmail = true;
     }

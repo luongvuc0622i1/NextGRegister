@@ -114,8 +114,8 @@ export class AuthenticationComponent {
 
   verificationPhone(objC: any) {
     const obj = {
-      "phone": objC.phoneNumber,
-      "otp": objC.otpNumber,
+      "phoneNumber": objC.phone,
+      "otpNumber": objC.otp,
     }
     if (objC.stream === 'sign-in') {
       this.signInPhone(obj);

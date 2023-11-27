@@ -47,7 +47,7 @@ export class SettingsComponent {
         phone: data.phoneNumber,
         phoneVerifired: data.phoneVerifired,
         bio: data.bio,
-        img: data.imageUrl ? data.imageUrl : 'https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg'
+        img: data.imageUrl ? data.imageUrl : 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcThRSug_V2Rrhkaz0SHavzG-uqzh8M8fms_IzQH3rz5gMy9tyXZ'
       });
     });
   }

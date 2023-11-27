@@ -21,5 +21,5 @@ export class VerifyComponent {
   @Input() template: string;
   @Output() sendOtp = new EventEmitter<any>();
   @Output() sendVerificationEmail = new EventEmitter<any>();
-  @Output() verificationPhone = new EventEmitter<string>();
+  @Output() verificationPhone = new EventEmitter<any>();
 }

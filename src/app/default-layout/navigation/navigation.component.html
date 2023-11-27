@@ -1,20 +1,28 @@
 <div class="header-container black">
   <div class="container" style="gap: 105px">
-    <img class="img-nextG" src="../../../assets/nextG.png" />
-    <div class="list-item">
-      <div class="body-5 white item" (click)="onClick('home')">Settings</div>
+    <img class="img-nextG pointer" (click)="onClick('home')" src="../../../assets/nextG.png" />
+    <div class="list-item" *ngIf="token">
+      <div class="body-5 white item" (click)="onClick('settings')">Settings</div>
       <div class="body-5 white item" (click)="onClick('payment')">Payment</div>
     </div>
   </div>
   <div class="container" style="gap: 16px" *ngIf="token">
     <div class="profile">
       <img class="avatar circle-48" src={{img}} />
-      <div class="button-2 white">{{ this.username ? this.username : this.role }}</div>
+      <div class="button-2 white">{{this.username}}</div>
     </div>
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12.4016 6.30859L8.77934 9.93082C8.35156 10.3586 7.65156 10.3586 7.22379 9.93082L3.60156 6.30859"
-        stroke="#FEFEFE" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-    </svg>
+    <div class="dropdown">
+      <svg class="dropbtn" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12.4016 6.30859L8.77934 9.93082C8.35156 10.3586 7.65156 10.3586 7.22379 9.93082L3.60156 6.30859"
+          stroke="#FEFEFE" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <div class="dropdown-content">
+        <a (click)="onClick('home')">Home</a>
+        <a (click)="onClick('settings')">Settings</a>
+        <a (click)="onClick('payment')">Payment</a>
+        <a (click)="logout()">Logout</a>
+      </div>
+    </div>
     <!-- <button (click)="logout()">LOGOUT</button> -->
   </div>
   <div class="container" style="gap: 16px" *ngIf="!token">

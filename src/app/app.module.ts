@@ -5,16 +5,6 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import {Auth_interceptor} from "./service/auth_interceptor";
-import { FormPhoneComponent } from './security/form-phone/form-phone.component';
-import { SecurityComponent } from './security/security.component';
-import { FormEmailComponent } from './security/form-email/form-email.component';
-import { FormEmailPassComponent } from './security/form-email-pass/form-email-pass.component';
-import { VerificationEmailComponent } from './security/verification-email/verification-email.component';
-import { VerificationPhoneComponent } from './security/verification-phone/verification-phone.component';
-import { RegisterComponent } from './security/register.component';
-import { FormNameComponent } from './security/form-name/form-name.component';
-import { FormPasswordComponent } from './security/form-password/form-password.component';
-import { ResetPasswordComponent } from './security/resetPassword.component';
 import { DataService } from './service/data.service';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
@@ -51,16 +41,6 @@ import { FormInputPasswordComponent } from './authentication/form-input-password
 @NgModule({
   declarations: [
     AppComponent,
-    SecurityComponent,
-    FormEmailPassComponent,
-    FormPhoneComponent,
-    FormEmailComponent,
-    VerificationEmailComponent,
-    VerificationPhoneComponent,
-    ResetPasswordComponent,
-    RegisterComponent,
-    FormNameComponent,
-    FormPasswordComponent,
     NavigationComponent,
     PaymentComponent,
     PaymentCardComponent,
