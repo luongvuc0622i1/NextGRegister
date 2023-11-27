@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './service/auth.guard';
 import { DefaultLayoutComponent } from './default-layout/default-layout.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
-import { LandingPageComponent } from './landing-page/landing-page.component';
 
 const routes: Routes = [
   {

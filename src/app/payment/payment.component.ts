@@ -34,7 +34,7 @@ export class PaymentComponent {
     private rankService: RankService) { }
 
   ngOnInit() {
-    this.rankService.findMenu().subscribe(data => { this.menu = data; console.log(data) });
+    this.rankService.findMenu().subscribe(data => { this.menu = data });
 
     this.userService.findAllCountry().subscribe(data => {
       this.countries = data.map(item => item.name.common).sort();

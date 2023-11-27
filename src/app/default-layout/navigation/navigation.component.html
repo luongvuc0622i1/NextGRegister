@@ -1,12 +1,12 @@
 <div class="header-container black">
   <div class="container" style="gap: 105px">
     <img class="img-nextG pointer" (click)="onClick('home')" src="../../../assets/nextG.png" />
-    <div class="list-item" *ngIf="token">
+    <div class="list-item" *ngIf="isTokenValid">
       <div class="body-5 white item" (click)="onClick('settings')">Settings</div>
       <div class="body-5 white item" (click)="onClick('payment')">Payment</div>
     </div>
   </div>
-  <div class="container" style="gap: 16px" *ngIf="token">
+  <div class="container" style="gap: 16px" *ngIf="isTokenValid">
     <div class="profile">
       <img class="avatar circle-48" src={{img}} />
       <div class="button-2 white">{{this.username}}</div>
@@ -23,9 +23,8 @@
         <a (click)="logout()">Logout</a>
       </div>
     </div>
-    <!-- <button (click)="logout()">LOGOUT</button> -->
   </div>
-  <div class="container" style="gap: 16px" *ngIf="!token">
+  <div class="container" style="gap: 16px" *ngIf="!isTokenValid">
     <div class="button-co button-signUp button-1 white" (click)="goToSignUp()">Sign Up</div>
     <div class="button-co button-signIn button-1 orange" (click)="goToSignIn()">Sign In</div>
   </div>

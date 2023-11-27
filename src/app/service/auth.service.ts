@@ -97,4 +97,9 @@ export class AuthService {
     }
     return this.http.post(`${API_URL}/validate-otp-success`, dataToSend);
   }
+  
+  checkTokenValidity(token: string): Observable<boolean> {
+    // Gọi đến API để kiểm tra tính hợp lệ của token
+    return this.http.post<boolean>(`${API_URL}/checkToken`, { token });
+  }
 }
