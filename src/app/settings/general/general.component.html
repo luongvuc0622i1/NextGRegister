@@ -71,18 +71,13 @@
       
   <div class="modal" *ngIf="showModalPhone">
     <div class="modal-content">
-      <!-- <app-verification-phone [form]="user" (switchTemplate)="switchTemplate(1)"
-        (verificationPhone)="verificationPhone($event)"></app-verification-phone> -->
-      <!-- <app-verify-phone (sendOtp)="sendOtp.emit($event)" (verificationPhone)="verificationPhone.emit($event)"></app-verify-phone> -->
-        <app-verify-phone (sendOtp)="sendOtp.emit()" (verificationPhone)="verificationPhoneWhenVerify.emit($event)"></app-verify-phone>
+        <app-verify-phone (sendOtp)="sendOtp.emit()" (verificationPhone)="verificationPhoneWhenVerify.emit($event)" (return)="return()"></app-verify-phone>
     </div>
   </div>
       
   <div class="modal" *ngIf="showModalEmail">
     <div class="modal-content">
-      <!-- <app-verification-email [form]="user" (switchTemplate)="switchTemplate(2)"></app-verification-email> -->
-      <!-- <app-verify-email (sendVerificationEmail)="sendVerificationEmail.emit($event)"></app-verify-email> -->
-      <app-verify-email (sendVerificationEmail)="sendVerifyEmail.emit()"></app-verify-email>
+      <app-verify-email (sendVerificationEmail)="sendVerifyEmail.emit()" (return)="return()"></app-verify-email>
     </div>
   </div>
 </form>

@@ -83,6 +83,7 @@ import { DataService } from '../../../service/data.service';
 export class VerifyEmailComponent {
   email: string = '';
   @Output() sendVerificationEmail = new EventEmitter<any>();
+  @Output() return = new EventEmitter<void>();
 
   constructor(private dataService: DataService) {
   }
@@ -92,7 +93,7 @@ export class VerifyEmailComponent {
   }
 
   goBack() {
-    window.history.back();
+    this.return.emit();
   }
 
   resend() {

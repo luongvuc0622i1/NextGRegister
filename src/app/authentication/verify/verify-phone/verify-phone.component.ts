@@ -43,6 +43,7 @@ import { ErrorService } from '../../../service/error.service';
 export class VerifyPhoneComponent {
   @Output() sendOtp = new EventEmitter<any>();
   @Output() verificationPhone = new EventEmitter<any>();
+  @Output() return = new EventEmitter<void>();
   // @ts-ignore
   @ViewChild('no2') no2Input: ElementRef;
   // @ts-ignore
@@ -78,7 +79,7 @@ export class VerifyPhoneComponent {
   }
 
   goBack() {
-    window.history.back();
+    this.return.emit();
   }
 
   next(id: number) {

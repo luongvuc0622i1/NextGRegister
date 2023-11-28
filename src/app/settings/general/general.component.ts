@@ -106,10 +106,15 @@ export class GeneralComponent implements AfterViewInit, DoCheck {
     this.verificationPhoneWhenVerify.emit(obj);
   }
 
-  switchTemplate(event: any) {
-    if (event === 1) this.showModalPhone = false;
-    if (event === 2) this.showModalEmail = false;
+  return() {
+    this.showModalPhone = false;
+    this.showModalEmail = false;
   }
+
+  // switchTemplate(event: any) {
+  //   if (event === 1) this.showModalPhone = false;
+  //   if (event === 2) this.showModalEmail = false;
+  // }
 
   uploadImg(event: any) {
     this.onFileSelected.emit(event);
