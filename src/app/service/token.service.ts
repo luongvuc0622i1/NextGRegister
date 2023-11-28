@@ -6,7 +6,6 @@ const FIRSTNAME_KEY = 'Firstname_Key';
 const IMAGE_KEY = 'Image_Key';
 const TOKEN_KEY = 'Token_Key';
 const REFRESH_TOKEN_KEY = 'Refresh_Token_Key';
-const ROLE_KEY = 'Role_Key';
 
 @Injectable({
   providedIn: 'root'
@@ -63,16 +62,6 @@ export class TokenService {
   public getRefreshToken():string {
     // @ts-ignore
     return localStorage.getItem(REFRESH_TOKEN_KEY);
-  }
-
-  public setRole(role: string) {
-    localStorage.removeItem(ROLE_KEY);
-    localStorage.setItem(ROLE_KEY, role);
-  }
-
-  public getRole(): string {
-    // @ts-ignore
-    return localStorage.getItem(ROLE_KEY);
   }
 
   // Kiểm tra tính hợp lệ của JWT

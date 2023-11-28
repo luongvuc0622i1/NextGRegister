@@ -24,7 +24,6 @@ export class AuthService {
       this.tokenService.setImage(data.imageUrl);
       this.tokenService.setToken(data.token);
       this.tokenService.setRefreshToken(data.refreshToken);
-      this.tokenService.setRole(data.roles[0]);
 
       this.router.navigate(['/home']);
       // if (data.roleSet[0].name == 'MANAGER') {
@@ -101,5 +100,9 @@ export class AuthService {
   checkTokenValidity(token: string): Observable<boolean> {
     // Gọi đến API để kiểm tra tính hợp lệ của token
     return this.http.post<boolean>(`${API_URL}/checkToken`, { token });
+  }
+  
+  refreshToken(refreshToken: string): Observable<any> {
+    return this.http.post<any>(`${API_URL}/refreshtoken`, { refreshToken });
   }
 }
