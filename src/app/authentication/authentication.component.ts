@@ -121,15 +121,16 @@ export class AuthenticationComponent {
       this.signInPhone(obj);
     } else if (objC.stream === 'sign-up') {
       this.authService.sendVerificationPhone(obj).subscribe(data => {
-        if (data.otp) {
+        console.log(data)
+        if (data.token) {
           const dataToSend = {
             phone: data.phoneNumber,
-            otp: data.otp,
+            token: data.token,
           }
           this.dataService.setData(dataToSend);
           this.router.navigate(['/users/sign-up']);
         }
-      })
+      }, error => { })
     } else if (objC.stream === 'forgot-password') {
       this.authService.sendVerificationPhoneChangePass(obj).subscribe(data => {
         if (data.token) {
@@ -140,7 +141,7 @@ export class AuthenticationComponent {
           this.dataService.setData(dataToSend);
           this.router.navigate(['/users/forgot-password']);
         }
-      });
+      }, error => { });
     }
   }
 }

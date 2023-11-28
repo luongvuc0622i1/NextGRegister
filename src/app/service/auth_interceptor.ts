@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ErrorService } from './error.service';
@@ -17,10 +17,14 @@ export class Auth_interceptor implements HttpInterceptor {
     }
     return next.handle(request).pipe(
       catchError((res: HttpErrorResponse) => {
-        if (res.error && res.error.errorCode) {
-          const errorCode = res.error.errorCode;
+        if (res.error) {
+          let errorCode;
+          if (res.error.errorCode) errorCode = res.error.errorCode;
+          else if (res.error.status) errorCode = res.error.status;
           const errorDescription = this.errorService.getDescription(errorCode);
           this.errorService.setErrorMessage(errorDescription);
+          console.log(res);
+          console.log(errorCode);
         }
 
         // Pass the error through to the next error handler

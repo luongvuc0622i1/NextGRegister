@@ -11,6 +11,8 @@ export class CardComponent implements AfterViewInit, DoCheck {
   @Input countries: string[];
   // @ts-ignore
   @Input formTotal: FormGroup;
+  // @ts-ignore
+  @Input discountMessage: string;
   @Output() findDiscountPer = new EventEmitter<string>();
   @Output() payByCard = new EventEmitter<any>();
   statusCardNumber: string = '';

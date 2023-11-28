@@ -54,6 +54,7 @@ export class ForgotPasswordValidatedComponent {
   }
 
   submit() {
+    console.log(this.form.value)
     if (this.form.value.email) {
       const formResetPassword = {
         'email': this.form.value.email,

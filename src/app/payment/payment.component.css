@@ -426,3 +426,11 @@
     display: flex;
     gap: 4px;
 }
+
+.mt-4 {
+    margin-top: 4px;
+}
+
+.color-red {
+    color: var(--danger-danger-text, #FF3830);
+}

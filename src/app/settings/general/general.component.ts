@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, Input, DoCheck, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { DataService } from 'src/app/service/data.service';
+import { DataService } from '../../service/data.service';
+import { ErrorService } from '../../service/error.service';
 
 @Component({
   selector: 'app-general',
@@ -16,6 +17,7 @@ export class GeneralComponent implements AfterViewInit, DoCheck {
   @Output() sendVerifyEmail = new EventEmitter<void>();
   @Output() verificationPhoneWhenVerify = new EventEmitter<any>();
   arr: string[] = ['firstName', 'lastName', 'phone', 'email', 'bio'];
+  errorMessage: string = '';
   statusFName: string = '';
   statusLName: string = '';
   statusPhone: string = '';
@@ -24,7 +26,14 @@ export class GeneralComponent implements AfterViewInit, DoCheck {
   showModalEmail = false;
   showModalPhone = false;
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService,
+    private errorService: ErrorService) {}
+
+  ngOnInit() {
+    this.errorService.errorMessage$.subscribe(message => {
+      this.errorMessage = message;
+    });
+  }
 
   ngDoCheck(): void {
     this.arr.forEach(element => {

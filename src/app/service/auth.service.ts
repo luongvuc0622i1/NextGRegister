@@ -26,13 +26,6 @@ export class AuthService {
       this.tokenService.setRefreshToken(data.refreshToken);
 
       this.router.navigate(['/home']);
-      // if (data.roleSet[0].name == 'MANAGER') {
-      //   this.router.navigate(['/manager/profile']);
-      // } else if (data.roleSet[0].name == 'USER') {
-      //   this.router.navigate(['/user/home']);
-      // } else if (data.roleSet[0].name == 'ADMIN') {
-      //   this.router.navigate(['/admin/profile']);
-      // }
     }
   }
 
@@ -49,7 +42,6 @@ export class AuthService {
   }
 
   loginPhone(obj: any): Observable<any> {
-    console.log(obj);
     return this.http.post(`${API_URL}/loginByPhone`, obj);
   }
 

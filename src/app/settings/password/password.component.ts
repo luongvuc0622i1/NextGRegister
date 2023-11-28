@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ErrorService } from '../../service/error.service';
 
 @Component({
   selector: 'app-password',
@@ -10,10 +11,19 @@ export class PasswordComponent implements AfterViewInit {
   @Input() formChangePassword: FormGroup;
   @Output() saveChanges = new EventEmitter<void>();
   arr: string[] = ['oldPass', 'newPass', 'confirmPass'];
+  errorMessage: string = '';
   statusOldPass: string = '';
   statusNewPass: string = '';
   statusConfirmPass: string = '';
   check1: boolean = true;
+
+  constructor(private errorService: ErrorService) { }
+
+  ngOnInit() {
+    this.errorService.errorMessage$.subscribe(message => {
+      this.errorMessage = message;
+    });
+  }
 
   ngAfterViewInit(): void {
     this.arr.forEach(element => {

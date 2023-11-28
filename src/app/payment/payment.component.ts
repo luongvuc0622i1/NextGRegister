@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { TokenService } from '../service/token.service';
 import { Router } from '@angular/router';
 import { RankService } from '../service/rank.service';
+import { ErrorService } from '../service/error.service';
 
 @Component({
   selector: 'app-payment',
@@ -14,6 +15,7 @@ export class PaymentComponent {
   menu: any[] = [];
   countries: string[] = [];
   banks: any[] = [];
+  discountMessage: string = '';
   selectedDiv: number = -1;
   activeButton: string = 'payment-card';
   formTotal: FormGroup = new FormGroup({
@@ -21,7 +23,6 @@ export class PaymentComponent {
     discountCode: new FormControl(),
     discountPer: new FormControl(),
     discount: new FormControl(),
-    statusApplyDiscountCode: new FormControl(),
     taxes: new FormControl(),
     totalPay: new FormControl(),
   });
@@ -31,7 +32,8 @@ export class PaymentComponent {
   constructor(private userService: UserService,
     private tokenService: TokenService,
     private router: Router,
-    private rankService: RankService) { }
+    private rankService: RankService,
+    private errorService: ErrorService) { }
 
   ngOnInit() {
     this.rankService.findMenu().subscribe(data => { this.menu = data });
@@ -44,6 +46,10 @@ export class PaymentComponent {
       let list = data.data;
       // @ts-ignore
       this.banks = list.sort((a, b) => (a.shortName > b.shortName) ? 1 : -1);
+    });
+
+    this.errorService.errorMessage$.subscribe(message => {
+      this.discountMessage = message;
     });
   }
 
@@ -67,12 +73,10 @@ export class PaymentComponent {
     this.userService.findDiscount(obj).subscribe(data => {
       this.formTotal.patchValue({
         discountPer: data,
-        statusApplyDiscountCode: '',
       });
     }, () => {
       this.formTotal.patchValue({
         discountPer: 0,
-        statusApplyDiscountCode: 'Invalid discount code',
       });
     });
   }

@@ -43,7 +43,6 @@ export class SignUpValidatedComponent {
     email: new FormControl(),
     token: new FormControl(),
     phone: new FormControl(),
-    otp: new FormControl(),
     firstName: new FormControl(),
     lastName: new FormControl(),
     newPass: new FormControl(),
@@ -57,7 +56,7 @@ export class SignUpValidatedComponent {
     if (dataService.getData()) {
       this.form.patchValue({
         phone: this.dataService.getData().phone,
-        otp: this.dataService.getData().otp,
+        token: this.dataService.getData().token,
       });
     }
   }
@@ -75,7 +74,7 @@ export class SignUpValidatedComponent {
   }
 
   submit() {
-    if (this.form.value.token) {
+    if (this.checkEmail) {
       const formRegister = {
         'username': this.form.value.username,
         'password': this.form.value.newPass,
@@ -90,7 +89,7 @@ export class SignUpValidatedComponent {
           this.authService.signInSuccess(data);
         })
       })
-    } else if (this.form.value.otp) {
+    } else if (!this.checkEmail) {
       const formRegister = {
         'username': this.form.value.username,
         'password': this.form.value.newPass,
@@ -98,7 +97,7 @@ export class SignUpValidatedComponent {
         'phone': this.form.value.phone,
         'firstName': this.form.value.firstName,
         'lastName': this.form.value.lastName,
-        'otp': this.form.value.otp,
+        'token': this.form.value.token,
         'status': 1,
       }
       this.authService.registerPhone(formRegister).subscribe(data => {

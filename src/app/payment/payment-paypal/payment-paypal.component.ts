@@ -11,6 +11,8 @@ export class PaymentPaypalComponent {
   @Input formTotal: FormGroup;
   // @ts-ignore
   @Input countries: string[];
+  // @ts-ignore
+  @Input discountMessage: string;
   @Output() findDiscount = new EventEmitter<string>();
   @Output() payWithPaypal = new EventEmitter<any>();
   formPayByPaypal: FormGroup = new FormGroup({

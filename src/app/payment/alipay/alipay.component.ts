@@ -11,6 +11,8 @@ export class AlipayComponent {
   @Input formTotal: FormGroup;
   // @ts-ignore
   @Input countries: string[];
+  // @ts-ignore
+  @Input discountMessage: string;
   @Output() findDiscountPer = new EventEmitter<string>();
   @Output() payByAlipay = new EventEmitter<any>();
   formPayByAlipay: FormGroup = new FormGroup({

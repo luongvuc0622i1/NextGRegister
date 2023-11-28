@@ -43,13 +43,13 @@ import { FormGroup } from '@angular/forms';
       </ng-container>
     </ng-container>
     <ng-template #cardTemplate>
-      <app-card [countries]="countries" (findDiscountPer)="findDiscountPer($event)" [formTotal]="formTotal" (payByCard)="payByCard($event)"></app-card>
+      <app-card [countries]="countries" (findDiscountPer)="findDiscountPer($event)" [discountMessage]="discountMessage" [formTotal]="formTotal" (payByCard)="payByCard($event)"></app-card>
     </ng-template>
     <ng-template #debitTemplate>
-      <app-bank [banks]="banks" [countries]="countries" (findDiscountPer)="findDiscountPer($event)" [formTotal]="formTotal" (payByBank)="payByBank($event)"></app-bank>
+      <app-bank [banks]="banks" [countries]="countries" (findDiscountPer)="findDiscountPer($event)" [discountMessage]="discountMessage" [formTotal]="formTotal" (payByBank)="payByBank($event)"></app-bank>
     </ng-template>
     <ng-template #aliTemplate>
-      <app-alipay [countries]="countries" (findDiscountPer)="findDiscountPer($event)" [formTotal]="formTotal" (payByAlipay)="payByAlipay($event)"></app-alipay>
+      <app-alipay [countries]="countries" (findDiscountPer)="findDiscountPer($event)" [discountMessage]="discountMessage" [formTotal]="formTotal" (payByAlipay)="payByAlipay($event)"></app-alipay>
     </ng-template>
   `,
   styleUrls: ['../payment.component.css']
@@ -61,6 +61,8 @@ export class PaymentCardComponent {
   @Input countries: string[];
   // @ts-ignore
   @Input banks: any[];
+  // @ts-ignore
+  @Input discountMessage: string;
   itemChoose: string = 'card';
   @Output() findDiscount = new EventEmitter<string>();
   @Output() payWithCard = new EventEmitter<any>();

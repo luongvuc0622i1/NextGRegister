@@ -48,6 +48,7 @@
         </div>
       </div>
       <div class="mt-4 body-5 red">{{statusPhone}}</div>
+      <div class="mt-4 body-5 red" *ngIf="!this.user.value.phoneVerifired">{{errorMessage}}</div>
     </div>
     <div class="w-100">
       <div class="relative">
@@ -59,6 +60,7 @@
         </div>
       </div>
       <div class="mt-4 body-5 red">{{statusEmail}}</div>
+      <div class="mt-4 body-5 red" *ngIf="!this.user.value.emailVerifired">{{errorMessage}}</div>
     </div>
     <div class="w-100">
       <div class="relative">

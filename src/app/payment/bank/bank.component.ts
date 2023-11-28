@@ -13,6 +13,8 @@ export class BankComponent {
   @Input banks: any[];
   // @ts-ignore
   @Input countries: string[];
+  // @ts-ignore
+  @Input discountMessage: string;
   @Output() findDiscountPer = new EventEmitter<string>();
   @Output() payByBank = new EventEmitter<any>();
   banksFilter: any[] = [];
