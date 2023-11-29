@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-payment-card',
   template: `
-    <div class="items-pay-by-card mb-32">
+    <!-- <div class="items-pay-by-card mb-32">
       <div class="item-pay-by-card body-5 gray-2" (click)="itemChoose = 'card'" [ngClass]="{ 'item-selected selected': itemChoose === 'card' }">
         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="14" viewBox="0 0 21 14" fill="none">
           <path d="M20.668 3.36719V2.3125C20.668 1.10438 19.6886 0.125 18.4805 0.125H2.85547C1.64734 0.125 0.667969 1.10438 0.667969 2.3125V3.36719C0.667969 3.47504 0.75543 3.5625 0.863281 3.5625H20.4727C20.5805 3.5625 20.668 3.47504 20.668 3.36719Z" fill="#999999" [ngClass]="{ 'fill-orange': itemChoose === 'card' }"/>
@@ -35,7 +35,7 @@ import { FormGroup } from '@angular/forms';
         </svg>
         Alipay
       </div>
-    </div>
+    </div> -->
     <ng-container *ngIf="itemChoose != 'card'; else cardTemplate">
       <ng-container *ngIf="itemChoose != 'debit'; else debitTemplate">
         <ng-container *ngIf="itemChoose != 'ali'; else aliTemplate">
