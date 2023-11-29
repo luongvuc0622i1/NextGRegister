@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from '../service/user.service';
 import { FormControl, FormGroup } from '@angular/forms';
-import { TokenService } from '../service/token.service';
 import { Router } from '@angular/router';
 import { RankService } from '../service/rank.service';
 import { ErrorService } from '../service/error.service';
@@ -18,6 +17,7 @@ export class PaymentComponent {
   discountMessage: string = '';
   selectedDiv: number = -1;
   activeButton: string = 'payment-card';
+  idAccount: number = 0;
   formTotal: FormGroup = new FormGroup({
     subTotal: new FormControl(),
     discountCode: new FormControl(),
@@ -30,7 +30,6 @@ export class PaymentComponent {
   showModalFailed = false;
 
   constructor(private userService: UserService,
-    private tokenService: TokenService,
     private router: Router,
     private rankService: RankService,
     private errorService: ErrorService) { }
@@ -51,6 +50,10 @@ export class PaymentComponent {
     this.errorService.errorMessage$.subscribe(message => {
       this.discountMessage = message;
     });
+
+    this.userService.findById().subscribe(data => {
+      this.idAccount = data.id;
+    });
   }
 
   onDivClick(divIndex: number) {
@@ -65,10 +68,9 @@ export class PaymentComponent {
   }
 
   findDiscount(discountCode: string) {
-    const userId = parseInt(this.tokenService.getID());
     const obj = {
       "discountCode": discountCode,
-      "userId": userId
+      "userId": this.idAccount
     };
     this.userService.findDiscount(obj).subscribe(data => {
       this.formTotal.patchValue({
@@ -82,7 +84,6 @@ export class PaymentComponent {
   }
 
   payWithPaypal(objj: any) {
-    const userId = parseInt(this.tokenService.getID());
     const obj = {
       "billingAddress": objj.formPayByPaypal.value.billingAddress,
       "postalCode": objj.formPayByPaypal.value.postalCode,
@@ -94,7 +95,7 @@ export class PaymentComponent {
       "tax": objj.formTotal.value.taxes,
       "discountCode": objj.formTotal.value.discountCode,
       "discount": objj.formTotal.value.discount,
-      "userId": userId,
+      "userId": this.idAccount,
       "rankId": this.selectedDiv + 2
     };
     this.userService.payWithPaypal(obj).subscribe(data => {
@@ -106,7 +107,6 @@ export class PaymentComponent {
 
   payWithCard(objj: any) {
     objj.formPayByCard.value.cardNumber = objj.formPayByCard.value.cardNumber.replace(/\s/g, '');
-    const userId = parseInt(this.tokenService.getID());
     const obj = {
       "paymentType": "card",
 
@@ -125,7 +125,7 @@ export class PaymentComponent {
       "tax": objj.formTotal.value.taxes,
       "discountCode": objj.formTotal.value.discountCode,
       "discount": objj.formTotal.value.discount,
-      "userId": userId,
+      "userId": this.idAccount,
       "rankId": this.selectedDiv + 2
     };
     this.userService.payWithCard(obj).subscribe(data => {

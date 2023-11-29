@@ -19,9 +19,6 @@ export class AuthService {
 
   signInSuccess(data: any) {
     if (data.token) {
-      this.tokenService.setID(data.id);
-      this.tokenService.setFirstname(data.firstName);
-      this.tokenService.setImage(data.imageUrl);
       this.tokenService.setToken(data.token);
       this.tokenService.setRefreshToken(data.refreshToken);
 

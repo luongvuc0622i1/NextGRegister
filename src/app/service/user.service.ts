@@ -21,8 +21,8 @@ export class UserService {
 //     return this.http.post<Employee>(API_URL + '/employees', employee);
 //   }
 
-  findById(): Observable<User> {
-    return this.http.get<User>(`${API_URL}/info`);
+  findById(): Observable<any> {
+    return this.http.get<any>(`${API_URL}/info`);
   }
 
   update(user : any): Observable<User> {
