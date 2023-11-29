@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { TokenService } from '../../service/token.service';
 import { UserService } from '../../service/user.service';
 
 @Component({
@@ -13,8 +12,7 @@ export class NavigationComponent {
   img: any;
   isTokenValid: boolean = false;
 
-  constructor(private tokenService: TokenService,
-    private userService: UserService,
+  constructor(private userService: UserService,
     private router: Router) {}
 
   ngOnInit(): void {

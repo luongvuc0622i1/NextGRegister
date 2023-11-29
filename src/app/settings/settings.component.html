@@ -38,6 +38,23 @@
           </div>
           <div class="{{ tabChoose === 'password' ? 'button-2 orange' : 'body-4 gray-2'}}">Password</div>
         </div>
+        <div class="button" (click)="chooseTab('billing')" [ngClass]="{ 'button-orange': tabChoose === 'billing' }">
+          <div class="icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12.0241 9.03072C11.7441 9.30405 11.5841 9.69739 11.6241 10.1174C11.6841 10.8374 12.3441 11.3641 13.0641 11.3641H14.3307V12.1574C14.3307 13.5374 13.2041 14.6641 11.8241 14.6641H4.17073C2.79073 14.6641 1.66406 13.5374 1.66406 12.1574V7.67074C1.66406 6.29074 2.79073 5.16406 4.17073 5.16406H11.8241C13.2041 5.16406 14.3307 6.29074 14.3307 7.67074V8.63074H12.9841C12.6107 8.63074 12.2707 8.77739 12.0241 9.03072Z"
+                stroke="#999999" [ngClass]="{ 'fill-orange-stroke': tabChoose === 'billing' }" stroke-linecap="round" stroke-linejoin="round" />
+              <path
+                d="M1.66406 8.26897V5.22234C1.66406 4.42901 2.15073 3.72231 2.89073 3.44231L8.18406 1.44231C9.01073 1.12898 9.8974 1.74233 9.8974 2.629V5.16232"
+                stroke="#999999" [ngClass]="{ 'fill-orange-stroke': tabChoose === 'billing' }" stroke-linecap="round" stroke-linejoin="round" />
+              <path
+                d="M15.0405 9.31278V10.6862C15.0405 11.0528 14.7472 11.3528 14.3738 11.3661H13.0672C12.3472 11.3661 11.6872 10.8395 11.6272 10.1195C11.5872 9.69947 11.7472 9.30613 12.0272 9.0328C12.2738 8.77946 12.6138 8.63281 12.9872 8.63281H14.3738C14.7472 8.64615 15.0405 8.94612 15.0405 9.31278Z"
+                stroke="#999999" [ngClass]="{ 'fill-orange-stroke': tabChoose === 'billing' }" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M4.66797 8H9.33464" stroke="#999999" [ngClass]="{ 'fill-orange-stroke': tabChoose === 'billing' }" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div class="{{ tabChoose === 'billing' ? 'button-2 orange' : 'body-4 gray-2'}}">Billing</div>
+        </div>
       </div>
       <div class="line gray-3"></div>
       <div class="button">
@@ -58,6 +75,8 @@
 
     <ng-container *ngIf="tabChoose != 'general'; else generalTemplate">
       <ng-container *ngIf="tabChoose != 'password'; else passwordTemplate">
+        <ng-container *ngIf="tabChoose != 'billing'; else billingTemplate">
+        </ng-container>
       </ng-container>
     </ng-container>
     <ng-template #generalTemplate>
@@ -68,6 +87,9 @@
     <ng-template #passwordTemplate>
       <app-password class="w-100" [formChangePassword]="formChangePassword"
         (saveChanges)="saveChangesPass()"></app-password>
+    </ng-template>
+    <ng-template #billingTemplate>
+      <app-billing style="flex-grow: 1;" (goPro)="goToCard()"></app-billing>
     </ng-template>
   </div>
   <div class="modal" *ngIf="showModalSuccessfully">
@@ -188,8 +210,8 @@
           </svg>
         </div>
         <div class="texts">
-          <div class="heading-7 black">Change Password Successfully</div>
-          <div class="body-6 black">You have changed your account password</div>
+          <div class="heading-7 black">Change Successfully</div>
+          <div class="body-6 black">You have changed your account</div>
         </div>
       </div>
       <div class="button-save button-1 mt-16 white" (click)="backToHomepage()">Back to Homepage</div>
@@ -345,8 +367,8 @@
           </svg>
         </div>
         <div class="texts">
-          <div class="heading-7 black">Change Password Failed</div>
-          <div class="body-6 black">You have not changed your account password</div>
+          <div class="heading-7 black">Change Failed</div>
+          <div class="body-6 black">You have not changed your account</div>
         </div>
       </div>
       <div class="button-save button-1 mt-16 white" (click)="closeModal()">Try again</div>

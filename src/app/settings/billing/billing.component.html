@@ -1,0 +1,22 @@
+<div class="info-rank-container ml-24">
+  <div class="content">
+    <div class="sub-content">
+      <div class="crown">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M25.5 33H10.5C9.885 33 9.375 32.49 9.375 31.875C9.375 31.26 9.885 30.75 10.5 30.75H25.5C26.115 30.75 26.625 31.26 26.625 31.875C26.625 32.49 26.115 33 25.5 33Z"
+            fill="#F9CA0D" />
+          <path
+            d="M30.5244 8.2825L24.5244 12.5725C23.7294 13.1425 22.5894 12.7975 22.2444 11.8825L19.4094 4.3225C18.9294 3.0175 17.0844 3.0175 16.6044 4.3225L13.7544 11.8675C13.4094 12.7975 12.2844 13.1425 11.4894 12.5575L5.48935 8.2675C4.28935 7.4275 2.69935 8.6125 3.19435 10.0075L9.43435 27.4825C9.64435 28.0825 10.2144 28.4725 10.8444 28.4725H25.1394C25.7694 28.4725 26.3394 28.0675 26.5494 27.4825L32.7894 10.0075C33.2994 8.6125 31.7094 7.4275 30.5244 8.2825ZM21.7494 22.1275H14.2494C13.6344 22.1275 13.1244 21.6175 13.1244 21.0025C13.1244 20.3875 13.6344 19.8775 14.2494 19.8775H21.7494C22.3644 19.8775 22.8744 20.3875 22.8744 21.0025C22.8744 21.6175 22.3644 22.1275 21.7494 22.1275Z"
+            fill="#F9CA0D" />
+        </svg>
+      </div>
+      <div class="heading-6 black">{{rankName.charAt(0).toUpperCase() + rankName.slice(1)}}</div>
+    </div>
+    <div class="body-4 gray-1">Next Bill on {{expiredDateMonth}} {{expiredDateDay}}, {{expiredDateYear}}</div>
+  </div>
+  <div class="buttons">
+    <div class="button bg-orange pointer button-1 white" (click)="goPro.emit()">Change Plan</div>
+    <div class="button border-orange pointer button-1 orange">Cancel Subcription</div>
+  </div>
+</div>

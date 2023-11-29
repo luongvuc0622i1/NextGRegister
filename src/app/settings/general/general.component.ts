@@ -29,7 +29,7 @@ export class GeneralComponent implements AfterViewInit, DoCheck {
   constructor(private dataService: DataService,
     private errorService: ErrorService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.errorService.errorMessage$.subscribe(message => {
       this.errorMessage = message;
     });

@@ -25,6 +25,10 @@ export class UserService {
     return this.http.get<any>(`${API_URL}/info`);
   }
 
+  findRankById(): Observable<any> {
+    return this.http.get<any>(`${API_URL}/account-rank`);
+  }
+
   update(user : any): Observable<User> {
     return this.http.put<User>(`${API_URL}/update-info`, user);
   }

@@ -37,6 +37,7 @@ import { FormInputNameComponent } from './authentication/form-input-name/form-in
 import { SignUpValidatedComponent } from './authentication/sign-up-validated/sign-up-validated.component';
 import { ForgotPasswordValidatedComponent } from './authentication/forgot-password-validated/forgot-password-validated.component';
 import { FormInputPasswordComponent } from './authentication/form-input-password/form-input-password.component';
+import { BillingComponent } from './settings/billing/billing.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { FormInputPasswordComponent } from './authentication/form-input-password
     FormInputNameComponent,
     SignUpValidatedComponent,
     ForgotPasswordValidatedComponent,
-    FormInputPasswordComponent
+    FormInputPasswordComponent,
+    BillingComponent
   ],
   imports: [
     BrowserModule,

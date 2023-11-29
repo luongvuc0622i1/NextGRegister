@@ -19,7 +19,7 @@ export class PasswordComponent implements AfterViewInit {
 
   constructor(private errorService: ErrorService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.errorService.errorMessage$.subscribe(message => {
       this.errorMessage = message;
     });
