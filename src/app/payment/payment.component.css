@@ -27,7 +27,7 @@
 .content {
     width: 482px;
     height: 100%;
-    margin-top: 80px;
+    margin: 80px 0px;
 }
 
 .mb-40 {
@@ -121,8 +121,16 @@
     border: 1px solid var(--neutral-grey-3, #DEDEDE);
 }
 
+.item-current {
+    border: 2px solid var(--Secondary, #314DD3) !important;
+}
+
 .item-selected {
     border: 2px solid var(--Secondary, #F58926) !important;
+}
+
+.pointer {
+    cursor: pointer;
 }
 
 .title-rank {
@@ -409,7 +417,7 @@
     top: 50%;
     left: 50%;
     width: 384px;
-    height: 284px;
+    height: auto;
     transform: translate(-50%, -50%);
     background-color: white;
     padding: 20px;
@@ -433,4 +441,10 @@
 
 .color-red {
     color: var(--danger-danger-text, #FF3830);
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }

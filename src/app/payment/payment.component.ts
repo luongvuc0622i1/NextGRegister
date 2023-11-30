@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from '../service/user.service';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RankService } from '../service/rank.service';
 import { ErrorService } from '../service/error.service';
 
@@ -15,9 +15,17 @@ export class PaymentComponent {
   countries: string[] = [];
   banks: any[] = [];
   discountMessage: string = '';
-  selectedDiv: number = -1;
   activeButton: string = 'payment-card';
   idAccount: number = 0;
+
+  rankName: string = '';
+  rankIdOld: number = 0;
+  rankIdNew: number = 0;
+  expiredDate: string = '';
+  expiredDateYear: string = '';
+  expiredDateMonth: string = '';
+  expiredDateDay: string = '';
+
   formTotal: FormGroup = new FormGroup({
     subTotal: new FormControl(),
     discountCode: new FormControl(),
@@ -28,13 +36,38 @@ export class PaymentComponent {
   });
   showModalSuccessfully = false;
   showModalFailed = false;
+  showModalPackageRenewal = false;
+  showModalDowngrade = false;
 
   constructor(private userService: UserService,
     private router: Router,
+    private route: ActivatedRoute,
     private rankService: RankService,
     private errorService: ErrorService) { }
 
   ngOnInit() {
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    this.userService.findRankById().subscribe(data => {
+      this.rankName = data.rankName;
+      this.rankIdOld = data.rankId;
+      this.rankIdNew = this.rankIdOld;
+      const dateString = data.expiredDate;
+
+      // Tách ngày và giờ
+      const [datePart, timePart] = dateString.split(' ');
+
+      // Tách năm, tháng và ngày từ phần ngày
+      const [year, month, day] = datePart.split('-');
+
+      this.expiredDate = datePart;
+      this.expiredDateYear = year;
+      this.expiredDateMonth = monthNames[parseInt(month, 10) - 1];
+      this.expiredDateDay = day;
+    });
+
     this.rankService.findMenu().subscribe(data => { this.menu = data });
 
     this.userService.findAllCountry().subscribe(data => {
@@ -52,14 +85,36 @@ export class PaymentComponent {
     });
 
     this.userService.findById().subscribe(data => {
-      this.idAccount = data.id;
+      this.idAccount = data.userId;
+    });
+
+    this.route.queryParams.subscribe(params => {
+      const status = params['status'];
+      if (params['status']) {
+        if (status === 'true') this.showModalSuccessfully = true;
+        else this.showModalFailed = true;
+      }
     });
   }
 
-  onDivClick(divIndex: number) {
-    this.selectedDiv = divIndex;
+  calculate(item: any): number {
+    if (item.id > this.rankIdOld) {
+      const ngayCuThe = new Date(this.expiredDate);
+      const ngayHienTai = new Date();
+      const soMiligiay = ngayCuThe.getTime() - ngayHienTai.getTime();
+      const soNgay = Math.ceil(Math.abs(soMiligiay) / (1000 * 60 * 60 * 24));
+      return (parseInt(item.total) - parseInt(this.menu[this.rankIdOld - 1].total)) / 30 * soNgay;
+    }
+    return 0;
+  }
+
+  onDivClick(item: any) {
+    this.rankIdNew = item.id;
+    if (this.rankIdNew < this.rankIdOld) { this.showModalDowngrade = true; }
+    else if (this.rankIdNew === this.rankIdOld) { this.showModalPackageRenewal = true; }
+    console.log(this.rankIdNew + ', ' + this.rankIdOld)
     this.formTotal.patchValue({
-      subTotal: this.menu[divIndex].total,
+      subTotal: this.calculate(item),
     });
   }
 
@@ -85,23 +140,19 @@ export class PaymentComponent {
 
   payWithPaypal(objj: any) {
     const obj = {
-      "billingAddress": objj.formPayByPaypal.value.billingAddress,
-      "postalCode": objj.formPayByPaypal.value.postalCode,
-      "taxIDNumber": objj.formPayByPaypal.value.taxIDNumber,
-
-      "total": objj.formTotal.value.totalPay,
+      // "billingAddress": objj.formPayByPaypal.value.billingAddress,
+      // "postalCode": objj.formPayByPaypal.value.postalCode,
+      // "taxIDNumber": objj.formPayByPaypal.value.taxIDNumber,
       "currency": "USD",
-      "description": "payment",
-      "tax": objj.formTotal.value.taxes,
+      "description": "Buy MemberShip",
       "discountCode": objj.formTotal.value.discountCode,
-      "discount": objj.formTotal.value.discount,
       "userId": this.idAccount,
-      "rankId": this.selectedDiv + 2
+      "rankId": this.rankIdNew
     };
     this.userService.payWithPaypal(obj).subscribe(data => {
-      this.showModalSuccessfully = true;
+      window.open(data.link, '_blank');
     }, () => {
-      this.showModalFailed = true;
+      // this.showModalFailed = true;
     });
   }
 
@@ -109,25 +160,21 @@ export class PaymentComponent {
     objj.formPayByCard.value.cardNumber = objj.formPayByCard.value.cardNumber.replace(/\s/g, '');
     const obj = {
       "paymentType": "card",
-
       "cardNumber": objj.formPayByCard.value.cardNumber,
       "cardType": objj.formPayByCard.value.cardType,
       "cardholderName": objj.formPayByCard.value.cardholderName,
       "dayExpired": objj.formPayByCard.value.expriration,
       "cvc": objj.formPayByCard.value.cvc,
-      "billingAddress": objj.formPayByCard.value.billingAddress,
-      "postalCode": objj.formPayByCard.value.postalCode,
-      "taxIDNumber": objj.formPayByCard.value.taxIDNumber,
-
-      "amount": objj.formTotal.value.totalPay,
+      // "billingAddress": objj.formPayByCard.value.billingAddress,
+      // "postalCode": objj.formPayByCard.value.postalCode,
+      // "taxIDNumber": objj.formPayByCard.value.taxIDNumber,
       "currency": "USD",
       "description": "Buy MemberShip",
-      "tax": objj.formTotal.value.taxes,
       "discountCode": objj.formTotal.value.discountCode,
-      "discount": objj.formTotal.value.discount,
       "userId": this.idAccount,
-      "rankId": this.selectedDiv + 2
+      "rankId": this.rankIdNew
     };
+    console.log(obj)
     this.userService.payWithCard(obj).subscribe(data => {
       this.showModalSuccessfully = true;
     }, () => {
@@ -150,7 +197,7 @@ export class PaymentComponent {
     //   "discountCode": objj.formTotal.value.discountCode,
     //   "discount": objj.formTotal.value.discount,
     //   "userId": userId,
-    //   "rankId": this.selectedDiv + 2
+    //   "rankId": this.rankIdNew
     // };
     // this.userService.payWithCard(obj).subscribe(data => {
     //   this.showModalSuccessfully = true;
@@ -174,7 +221,7 @@ export class PaymentComponent {
     //   "discountCode": objj.formTotal.value.discountCode,
     //   "discount": objj.formTotal.value.discount,
     //   "userId": userId,
-    //   "rankId": this.selectedDiv + 2
+    //   "rankId": this.rankIdNew
     // };
     // this.userService.payWithCard(obj).subscribe(data => {
     //   this.showModalSuccessfully = true;
@@ -187,7 +234,15 @@ export class PaymentComponent {
     this.router.navigate(['/home']);
   }
 
-  closeModal() {
+  closeModalshowModalFailed() {
     this.showModalFailed = false;
+  }
+
+  closeModalshowModalPackageRenewal() {
+    this.showModalPackageRenewal = false;
+  }
+
+  closeModalshowModalDowngrade() {
+    this.showModalDowngrade = false;
   }
 }

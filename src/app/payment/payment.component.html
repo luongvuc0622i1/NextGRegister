@@ -3,68 +3,112 @@
     <div class="content">
       <img class="img-NextG mb-32" src="../../assets/nextG.png" />
       <div class="heading mb-32 black">NextG Solutions - And some content this long</div>
-      <div class="body-1 mb-8 black">#Title 1 For this section</div>
-      <div class="body-5 mb-32 black">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo con</div>
-      <div *ngFor="let item of menu; let i = index">
-      <div class="item-rank mb-32" *ngIf="item.id > 1" (click)="onDivClick(i)" [ngClass]="{ 'item-selected': selectedDiv === i }">
-        <div class="title-rank">
-          <div class="title-detail">
-            <input type="radio" [checked]="selectedDiv === i">
-            <div class="body-1">{{item.name.charAt(0).toUpperCase() + item.name.slice(1)}}</div>
+      <div class="body-1 mb-8 black">Your account is {{rankName.charAt(0).toUpperCase() + rankName.slice(1)}} to
+        {{expiredDateMonth}} {{expiredDateDay}}, {{expiredDateYear}}</div>
+      <div class="body-5 mb-32 black">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+        incididunt ut labore Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo con</div>
+      <div *ngFor="let item of menu">
+        <div class="item-rank mb-32 pointer" *ngIf="item.id > 1" (click)="onDivClick(item)"
+          [ngClass]="{ 'item-current': rankIdOld === item.id, 'item-selected': (rankIdOld !== item.id && rankIdNew === item.id) }">
+          <div class="title-rank">
+            <div class="title-detail">
+              <input type="radio" [checked]="rankIdNew === item.id">
+              <div class="body-1">{{item.name.charAt(0).toUpperCase() + item.name.slice(1)}}</div>
+            </div>
+            <div class="body-2">{{calculate(item) ? ('$' + calculate(item).toFixed(2)) : ''}}</div>
           </div>
-          <div class="body-2">${{item.total}}</div>
-        </div>
-        <div class="line"></div>
-        <div class="column item-detail" *ngFor="let content of item.description">
-          <div class="item-detail">
-            <svg *ngIf="content.status" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M13.7432 3.7646C14.0231 4.00954 14.0485 4.43627 13.7995 4.71262L6.79025 12.4925C6.53996 12.7703 6.11021 12.7879 5.83796 12.5317L1.78194 8.71328C1.529 8.47515 1.50478 8.07835 1.7218 7.80708C1.96127 7.50775 2.40721 7.46655 2.6922 7.72288L5.83913 10.5535C6.11261 10.7995 6.53366 10.7775 6.78005 10.5043L12.8091 3.81974C13.053 3.54924 13.4691 3.52472 13.7432 3.7646Z" fill="#34C85A"/>
-            </svg>
-            <svg *ngIf="!content.status" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M8.00073 11.5659C8.60088 11.5659 9.0874 11.0794 9.0874 10.4792C9.0874 9.8791 8.60088 9.39258 8.00073 9.39258C7.40058 9.39258 6.91406 9.8791 6.91406 10.4792C6.91406 11.0794 7.40058 11.5659 8.00073 11.5659Z" fill="#999999"/>
-              <path d="M12.1854 6.35398V5.52065C12.1854 3.72065 11.752 1.33398 7.9987 1.33398C4.24536 1.33398 3.81203 3.72065 3.81203 5.52065V6.35398C1.94536 6.58732 1.33203 7.53398 1.33203 9.86065V11.1007C1.33203 13.834 2.16536 14.6673 4.8987 14.6673H11.0987C13.832 14.6673 14.6654 13.834 14.6654 11.1007V9.86065C14.6654 7.53398 14.052 6.58732 12.1854 6.35398ZM7.9987 12.494C6.88537 12.494 5.98536 11.5873 5.98536 10.4807C5.98536 9.36732 6.89203 8.46732 7.9987 8.46732C9.10536 8.46732 10.012 9.37399 10.012 10.4807C10.012 11.594 9.11203 12.494 7.9987 12.494ZM4.8987 6.29398C4.84536 6.29398 4.7987 6.29398 4.74536 6.29398V5.52065C4.74536 3.56732 5.2987 2.26732 7.9987 2.26732C10.6987 2.26732 11.252 3.56732 11.252 5.52065V6.30065C11.1987 6.30065 11.152 6.30065 11.0987 6.30065H4.8987V6.29398Z" fill="#999999"/>
-            </svg>
-            <div class="detail-info">
-              <div class="button-3 gray-1">{{content.title}}</div>
-              <div class="body-5 gray-1">{{content.description}}</div>
+          <div class="line"></div>
+          <div class="column item-detail" *ngFor="let content of item.description">
+            <div class="item-detail">
+              <svg *ngIf="content.status" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M13.7432 3.7646C14.0231 4.00954 14.0485 4.43627 13.7995 4.71262L6.79025 12.4925C6.53996 12.7703 6.11021 12.7879 5.83796 12.5317L1.78194 8.71328C1.529 8.47515 1.50478 8.07835 1.7218 7.80708C1.96127 7.50775 2.40721 7.46655 2.6922 7.72288L5.83913 10.5535C6.11261 10.7995 6.53366 10.7775 6.78005 10.5043L12.8091 3.81974C13.053 3.54924 13.4691 3.52472 13.7432 3.7646Z"
+                  fill="#34C85A" />
+              </svg>
+              <svg *ngIf="!content.status" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                fill="none">
+                <path
+                  d="M8.00073 11.5659C8.60088 11.5659 9.0874 11.0794 9.0874 10.4792C9.0874 9.8791 8.60088 9.39258 8.00073 9.39258C7.40058 9.39258 6.91406 9.8791 6.91406 10.4792C6.91406 11.0794 7.40058 11.5659 8.00073 11.5659Z"
+                  fill="#999999" />
+                <path
+                  d="M12.1854 6.35398V5.52065C12.1854 3.72065 11.752 1.33398 7.9987 1.33398C4.24536 1.33398 3.81203 3.72065 3.81203 5.52065V6.35398C1.94536 6.58732 1.33203 7.53398 1.33203 9.86065V11.1007C1.33203 13.834 2.16536 14.6673 4.8987 14.6673H11.0987C13.832 14.6673 14.6654 13.834 14.6654 11.1007V9.86065C14.6654 7.53398 14.052 6.58732 12.1854 6.35398ZM7.9987 12.494C6.88537 12.494 5.98536 11.5873 5.98536 10.4807C5.98536 9.36732 6.89203 8.46732 7.9987 8.46732C9.10536 8.46732 10.012 9.37399 10.012 10.4807C10.012 11.594 9.11203 12.494 7.9987 12.494ZM4.8987 6.29398C4.84536 6.29398 4.7987 6.29398 4.74536 6.29398V5.52065C4.74536 3.56732 5.2987 2.26732 7.9987 2.26732C10.6987 2.26732 11.252 3.56732 11.252 5.52065V6.30065C11.1987 6.30065 11.152 6.30065 11.0987 6.30065H4.8987V6.29398Z"
+                  fill="#999999" />
+              </svg>
+              <div class="detail-info">
+                <div class="button-3 gray-1">{{content.title}}</div>
+                <div class="body-5 gray-1">{{content.description}}</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    </div>
   </div>
   <div class="divide right">
     <div class="content content-right">
       <div class="buttons-pay-by mb-40">
-        <div class="button-pay-by button-3 gray-1" (click)="activeButton = 'payment-card'" [ngClass]="{ 'button-pay-by-selected black': activeButton === 'payment-card' }">Pay By Card</div>
-        <div class="button-pay-by button-3 gray-1" (click)="activeButton = 'payment-paypal'" [ngClass]="{ 'button-pay-by-selected black': activeButton === 'payment-paypal' }">Pay By Paypal</div>
+        <div class="button-pay-by button-3 gray-1" (click)="activeButton = 'payment-card'"
+          [ngClass]="{ 'button-pay-by-selected black': activeButton === 'payment-card' }">Pay By Card</div>
+        <div class="button-pay-by button-3 gray-1" (click)="activeButton = 'payment-paypal'"
+          [ngClass]="{ 'button-pay-by-selected black': activeButton === 'payment-paypal' }">Pay By Paypal</div>
       </div>
       <ng-container *ngIf="activeButton != 'payment-card'; else paymentCardTemplate">
         <ng-container *ngIf="activeButton != 'payment-paypal'; else paymentPaypalTemplate">
         </ng-container>
       </ng-container>
       <ng-template #paymentCardTemplate>
-        <app-payment-card [countries]="countries" [banks]="banks" (findDiscount)="findDiscount($event)" [discountMessage]="discountMessage" [formTotal]="formTotal" (payWithCard)="payWithCard($event)" (payWithAlipay)="payWithAlipay($event)" (payWithBank)="payWithBank($event)"></app-payment-card>
+        <app-payment-card [countries]="countries" [banks]="banks" (findDiscount)="findDiscount($event)"
+          [discountMessage]="discountMessage" [formTotal]="formTotal" (payWithCard)="payWithCard($event)"
+          (payWithAlipay)="payWithAlipay($event)" (payWithBank)="payWithBank($event)"></app-payment-card>
       </ng-template>
       <ng-template #paymentPaypalTemplate>
-        <app-payment-paypal [countries]="countries" (findDiscount)="findDiscount($event)" [discountMessage]="discountMessage" [formTotal]="formTotal" (payWithPaypal)="payWithPaypal($event)"></app-payment-paypal>
+        <app-payment-paypal [countries]="countries" (findDiscount)="findDiscount($event)"
+          [discountMessage]="discountMessage" [formTotal]="formTotal"
+          (payWithPaypal)="payWithPaypal($event)"></app-payment-paypal>
       </ng-template>
     </div>
     <div class="modal" *ngIf="showModalSuccessfully">
       <div class="modal-content">
-        <img width="150px" src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSX1sjgKxrVbCa0m7uQRbT691YACAvzJsiDmQGPHD2ClGTt-sBc"><br>
-        <label class="tit">Purchase Successfully</label>
-        <p>You have purchased for the NextG Solution {{menu[selectedDiv].title}}</p>
+        <img width="150px"
+          src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSX1sjgKxrVbCa0m7uQRbT691YACAvzJsiDmQGPHD2ClGTt-sBc"><br>
+        <div class="heading">Purchase Successfully</div>
+        <p>You have purchased for the NextG Solution {{menu[rankIdNew - 1].title}}</p>
         <div class="input-card button-pay button-pay-hover mt-30" (click)="backToHomepage()">Back to Homepage</div>
       </div>
     </div>
     <div class="modal" *ngIf="showModalFailed">
       <div class="modal-content">
-        <img width="150px" class="mb-10" src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQd3JmvxQqlA2T_SYzaN_aujCGWF2VA45J0Y8WVk9I1R2Ka0qW9"><br>
-        <label class="tit">Purchase Failed</label>
+        <img width="150px" class="mb-10"
+          src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQd3JmvxQqlA2T_SYzaN_aujCGWF2VA45J0Y8WVk9I1R2Ka0qW9"><br>
+        <div class="heading">Purchase Failed</div>
         <p>Make sure your payment menthod is up to date then try again</p>
-        <div class="input-card button-pay button-pay-hover mt-30" (click)="closeModal()">Back</div>
+        <div class="input-card button-pay button-pay-hover mt-30" (click)="closeModalshowModalFailed()">Back</div>
+      </div>
+    </div>
+    <div class="modal" *ngIf="showModalPackageRenewal">
+      <div class="modal-content">
+        <!-- <img width="150px" class="mb-10"
+          src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQd3JmvxQqlA2T_SYzaN_aujCGWF2VA45J0Y8WVk9I1R2Ka0qW9"><br> -->
+        <div class="heading">Package Renewal</div>
+        <p>Make sure your payment menthod is up to date then try again</p>
+        <div class="buttons mt-30">
+          <div class="input-card button-pay button-pay-hover w-100" (click)="payWithPaypal({ 'formTotal': { 'value': {}}})" (click)="closeModalshowModalPackageRenewal()">Continue</div>
+          <div class="input-card button-pay button-pay-hover w-100" (click)="closeModalshowModalPackageRenewal()">Back</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" *ngIf="showModalDowngrade">
+      <div class="modal-content">
+        <!-- <img width="150px" class="mb-10"
+          src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQd3JmvxQqlA2T_SYzaN_aujCGWF2VA45J0Y8WVk9I1R2Ka0qW9"><br> -->
+        <div class="heading">Downgrade</div>
+        <p>Make sure your payment menthod is up to date then try again</p>
+        <div class="buttons mt-30">
+          <div class="input-card button-pay button-pay-hover w-100" (click)="payWithPaypal({ 'formTotal': { 'value': {}}})" (click)="closeModalshowModalDowngrade()">Continue</div>
+          <div class="input-card button-pay button-pay-hover w-100" (click)="closeModalshowModalDowngrade()">Back</div>
+        </div>
       </div>
     </div>
   </div>
