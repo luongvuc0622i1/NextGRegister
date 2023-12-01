@@ -25,6 +25,7 @@ export class PaymentComponent {
   expiredDateYear: string = '';
   expiredDateMonth: string = '';
   expiredDateDay: string = '';
+  soThang: number = 0;
 
   formTotal: FormGroup = new FormGroup({
     subTotal: new FormControl(),
@@ -36,7 +37,6 @@ export class PaymentComponent {
   });
   showModalSuccessfully = false;
   showModalFailed = false;
-  showModalPackageRenewal = false;
   showModalDowngrade = false;
 
   constructor(private userService: UserService,
@@ -56,16 +56,23 @@ export class PaymentComponent {
       this.rankIdNew = this.rankIdOld;
       const dateString = data.expiredDate;
 
-      // Tách ngày và giờ
-      const [datePart, timePart] = dateString.split(' ');
+      if (dateString) {
+        // Tách ngày và giờ
+        const [datePart, timePart] = dateString.split(' ');
 
-      // Tách năm, tháng và ngày từ phần ngày
-      const [year, month, day] = datePart.split('-');
+        // Tách năm, tháng và ngày từ phần ngày
+        const [year, month, day] = datePart.split('-');
 
-      this.expiredDate = datePart;
-      this.expiredDateYear = year;
-      this.expiredDateMonth = monthNames[parseInt(month, 10) - 1];
-      this.expiredDateDay = day;
+        this.expiredDate = datePart;
+        this.expiredDateYear = year;
+        this.expiredDateMonth = monthNames[parseInt(month, 10) - 1];
+        this.expiredDateDay = day;
+      } else {
+        this.expiredDate = '';
+        this.expiredDateYear = '';
+        this.expiredDateMonth = '';
+        this.expiredDateDay = '';
+      }
     });
 
     this.rankService.findMenu().subscribe(data => { this.menu = data });
@@ -97,24 +104,32 @@ export class PaymentComponent {
     });
   }
 
-  calculate(item: any): number {
-    if (item.id > this.rankIdOld) {
+  calculateUpgrade(item: any, month: number): number {
+    if (this.expiredDate) {
       const ngayCuThe = new Date(this.expiredDate);
       const ngayHienTai = new Date();
       const soMiligiay = ngayCuThe.getTime() - ngayHienTai.getTime();
       const soNgay = Math.ceil(Math.abs(soMiligiay) / (1000 * 60 * 60 * 24));
-      return (parseInt(item.total) - parseInt(this.menu[this.rankIdOld - 1].total)) / 30 * soNgay;
+      return ((parseInt(item.total) - parseInt(this.menu[this.rankIdOld - 1].total)) / 30 * soNgay) + parseInt(item.total) * month;
+    } else {
+      return parseInt(item.total) * month;
     }
-    return 0;
   }
 
   onDivClick(item: any) {
     this.rankIdNew = item.id;
-    if (this.rankIdNew < this.rankIdOld) { this.showModalDowngrade = true; }
-    else if (this.rankIdNew === this.rankIdOld) { this.showModalPackageRenewal = true; }
-    console.log(this.rankIdNew + ', ' + this.rankIdOld)
+    if (this.rankIdNew < this.rankIdOld) this.showModalDowngrade = true;
+    else if (this.rankIdNew === this.rankIdOld) this.setSubTotal(item, 1);
+    else {
+      if (!this.expiredDate) this.setSubTotal(item, 1);
+      else this.setSubTotal(item, 0);
+    }
+  }
+
+  setSubTotal(item: any, month: number) {
+    this.soThang = month;
     this.formTotal.patchValue({
-      subTotal: this.calculate(item),
+      subTotal: this.calculateUpgrade(item, month),
     });
   }
 
@@ -147,7 +162,8 @@ export class PaymentComponent {
       "description": "Buy MemberShip",
       "discountCode": objj.formTotal.value.discountCode,
       "userId": this.idAccount,
-      "rankId": this.rankIdNew
+      "rankId": this.rankIdNew,
+      "soThang": this.soThang
     };
     this.userService.payWithPaypal(obj).subscribe(data => {
       window.open(data.link, '_blank');
@@ -172,7 +188,8 @@ export class PaymentComponent {
       "description": "Buy MemberShip",
       "discountCode": objj.formTotal.value.discountCode,
       "userId": this.idAccount,
-      "rankId": this.rankIdNew
+      "rankId": this.rankIdNew,
+      "soThang": this.soThang
     };
     console.log(obj)
     this.userService.payWithCard(obj).subscribe(data => {
@@ -236,10 +253,6 @@ export class PaymentComponent {
 
   closeModalshowModalFailed() {
     this.showModalFailed = false;
-  }
-
-  closeModalshowModalPackageRenewal() {
-    this.showModalPackageRenewal = false;
   }
 
   closeModalshowModalDowngrade() {
