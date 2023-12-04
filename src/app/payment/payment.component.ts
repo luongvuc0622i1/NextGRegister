@@ -53,7 +53,6 @@ export class PaymentComponent {
     this.userService.findRankById().subscribe(data => {
       this.rankName = data.rankName;
       this.rankIdOld = data.rankId;
-      this.rankIdNew = this.rankIdOld;
       const dateString = data.expiredDate;
 
       if (dateString) {
@@ -126,11 +125,16 @@ export class PaymentComponent {
     }
   }
 
-  setSubTotal(item: any, month: number) {
+  setSubTotal(item: any, month: number) {    
     this.soThang = month;
     this.formTotal.patchValue({
       subTotal: this.calculateUpgrade(item, month),
     });
+  }
+
+  handleSetSubTotal(event: Event, item: any, month: number) {    
+    event.stopPropagation();
+    this.setSubTotal(item, month);
   }
 
   selectButton(buttonType: string) {
@@ -143,6 +147,7 @@ export class PaymentComponent {
       "userId": this.idAccount
     };
     this.userService.findDiscount(obj).subscribe(data => {
+      this.discountMessage = '';
       this.formTotal.patchValue({
         discountPer: data,
       });
